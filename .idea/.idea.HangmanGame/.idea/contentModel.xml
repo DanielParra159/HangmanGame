@@ -25,6 +25,10 @@
                 <e p="Word.cs" t="Include" />
               </e>
             </e>
+            <e p="Repositories" t="Include">
+              <e p="Domain.Repositories.asmdef" t="Include" />
+              <e p="GameRepository.cs" t="Include" />
+            </e>
             <e p="Services" t="Include">
               <e p="Domain.Services.asmdef" t="Include" />
               <e p="GameService.cs" t="Include" />
@@ -39,6 +43,7 @@
         </e>
       </e>
       <e p="Domain.Model.csproj" t="IncludeRecursive" />
+      <e p="Domain.Repositories.csproj" t="IncludeRecursive" />
       <e p="Domain.Services.csproj" t="IncludeRecursive" />
       <e p="HangmanGame.sln" t="IncludeFlat" />
       <e p="Infrastructure.Web.csproj" t="IncludeRecursive" />
