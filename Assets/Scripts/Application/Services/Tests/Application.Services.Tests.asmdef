@@ -5,7 +5,8 @@
         "UnityEditor.TestRunner",
         "Application.Services",
         "Infrastructure.Web",
-        "Domain.Model"
+        "Domain.Model",
+        "Domain.Repositories"
     ],
     "includePlatforms": [
         "Editor"
