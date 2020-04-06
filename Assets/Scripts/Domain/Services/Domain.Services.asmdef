@@ -1,0 +1,15 @@
+{
+    "name": "Domain.Services",
+    "references": [
+        "GUID:b56827496d5d5b74c82d35cdcbda79b7"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

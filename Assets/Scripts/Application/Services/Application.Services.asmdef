@@ -1,0 +1,17 @@
+{
+    "name": "Application.Services",
+    "references": [
+        "GUID:1687a0131b3f1514cb9bcdca2cbe9b34",
+        "GUID:b56827496d5d5b74c82d35cdcbda79b7",
+        "GUID:7dbaf04b7056b3a48968d00cad642ba9"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
