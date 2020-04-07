@@ -1,2 +1,5 @@
-Contains configuration: ProjectSettings/*
-Contains configuration: Packages/*
+Contains configuration:
+  - Packages/*
+  - Packages/**/*
+  - ProjectSettings/*
+  - ProjectSettings/**/*
