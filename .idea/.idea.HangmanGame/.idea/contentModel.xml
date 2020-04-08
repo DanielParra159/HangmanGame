@@ -12,9 +12,20 @@
             <e p="Services" t="Include">
               <e p="Application.Services.asmdef" t="Include" />
               <e p="GameServerService.cs" t="Include" />
+              <e p="Parsers" t="Include">
+                <e p="JsonUtilityAdapter.cs" t="Include" />
+              </e>
               <e p="Tests" t="Include">
                 <e p="Application.Services.Tests.asmdef" t="Include" />
                 <e p="GameServerServiceTest.cs" t="Include" />
+              </e>
+              <e p="Web" t="Include">
+                <e p="ClientRestAdapter.cs" t="Include" />
+                <e p="Tests" t="Include">
+                  <e p="Infrastructure.Web.Tests.asmdef" t="Include" />
+                  <e p="UriExtensionTest.cs" t="Include" />
+                </e>
+                <e p="UriExtension.cs" t="Include" />
               </e>
             </e>
           </e>
@@ -32,12 +43,12 @@
             <e p="Services" t="Include">
               <e p="Domain.Services.asmdef" t="Include" />
               <e p="GameService.cs" t="Include" />
-            </e>
-          </e>
-          <e p="Infrastructure" t="Include">
-            <e p="Web" t="Include">
-              <e p="APIRest.cs" t="Include" />
-              <e p="Infrastructure.Web.asmdef" t="Include" />
+              <e p="Parsers" t="Include">
+                <e p="JsonParser.cs" t="Include" />
+              </e>
+              <e p="Web" t="Include">
+                <e p="APIRest.cs" t="Include" />
+              </e>
             </e>
           </e>
         </e>
@@ -46,7 +57,7 @@
       <e p="Domain.Repositories.csproj" t="IncludeRecursive" />
       <e p="Domain.Services.csproj" t="IncludeRecursive" />
       <e p="HangmanGame.sln" t="IncludeFlat" />
-      <e p="Infrastructure.Web.csproj" t="IncludeRecursive" />
+      <e p="Infrastructure.Web.Tests.csproj" t="IncludeRecursive" />
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
       <e p="Temp\bin" t="ExcludeRecursive" />

@@ -1,5 +1,5 @@
-﻿using Domain.Repositories;
-using Infrastructure.Web;
+﻿using Application.Services.Web;
+using Domain.Repositories;
 using NSubstitute;
 using NUnit.Framework;
 

@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
+using Application.Services.Web;
 using Domain.Model.Game;
 using Domain.Repositories;
 using Domain.Services;
-using Infrastructure.Web;
 
 namespace Application.Services
 {
