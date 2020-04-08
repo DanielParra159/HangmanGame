@@ -1,5 +1,5 @@
 {
-    "name": "Infrastructure.Web.Tests",
+    "name": "Application.Services.Web.Tests",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
