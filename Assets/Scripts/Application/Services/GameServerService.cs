@@ -1,26 +1,27 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
+using Application.Services.Web;
 using Domain.Model.Game;
 using Domain.Repositories;
 using Domain.Services;
-using Infrastructure.Web;
+using Domain.Services.Web;
 
 namespace Application.Services
 {
     public class GameServerService : GameService
     {
-        private readonly APIRest _apiRest;
+        private readonly RestClient _restClient;
         private readonly GameRepository _gameRepository;
 
-        public GameServerService(APIRest apiRest, GameRepository gameRepository)
+        public GameServerService(RestClient restClient, GameRepository gameRepository)
         {
-            _apiRest = apiRest;
+            _restClient = restClient;
             _gameRepository = gameRepository;
         }
         
         public async Task<Word> StartNewGame()
         {
-            var response = await _apiRest.Post<Request, NewGameResponse>("TODO: URL", new Request());
+            var response = await _restClient.Post<Request, NewGameResponse>("TODO: URL", new Request());
             _gameRepository.Word = response.hangman;
             _gameRepository.GameToken = response.token;
             return new Word(response.hangman);
