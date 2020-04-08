@@ -4,7 +4,7 @@
     <e p="C:\Users\Dani\.Rider2019.2\system\extResources" t="IncludeRecursive" />
     <e p="C:\Users\Dani\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_HangmanGame.219894795.00" t="ExcludeRecursive" />
     <e p="D:\Proyectos\Empresa\HangmanGame" t="IncludeRecursive">
-      <e p="Application.Services.csproj" t="IncludeRecursive" />
+      <e p="Application.csproj" t="IncludeRecursive" />
       <e p="Application.Services.EventDispatcher.Tests.csproj" t="IncludeRecursive" />
       <e p="Application.Services.ServiceLocator.Tests.csproj" t="IncludeRecursive" />
       <e p="Application.Services.Tests.csproj" t="IncludeRecursive" />
@@ -13,7 +13,7 @@
         <e p="Scripts" t="Include">
           <e p="Application" t="Include">
             <e p="Services" t="Include">
-              <e p="Application.Services.asmdef" t="Include" />
+              <e p="Application.asmdef" t="Include" />
               <e p="EventDispatcher" t="Include">
                 <e p="EventDispatcherServiceImpl.cs" t="Include" />
                 <e p="Tests" t="Include">
@@ -47,18 +47,16 @@
             </e>
           </e>
           <e p="Domain" t="Include">
+            <e p="Domain.asmdef" t="Include" />
             <e p="Model" t="Include">
-              <e p="Domain.Model.asmdef" t="Include" />
               <e p="Game" t="Include">
                 <e p="Word.cs" t="Include" />
               </e>
             </e>
             <e p="Repositories" t="Include">
-              <e p="Domain.Repositories.asmdef" t="Include" />
               <e p="GameRepository.cs" t="Include" />
             </e>
             <e p="Services" t="Include">
-              <e p="Domain.Services.asmdef" t="Include" />
               <e p="EventDispatcher" t="Include">
                 <e p="EventDispatcherService.cs" t="Include" />
                 <e p="Signal.cs" t="Include" />
@@ -75,8 +73,8 @@
               </e>
             </e>
             <e p="UseCases" t="Include">
-              <e p="Domain.UseCases.asmdef" t="Include" />
               <e p="StartGame" t="Include">
+                <e p="NewWordSignal.cs" t="Include" />
                 <e p="StartGame.cs" t="Include" />
                 <e p="StartGameUseCase.cs" t="Include" />
                 <e p="Tests" t="Include">
@@ -88,10 +86,7 @@
           </e>
         </e>
       </e>
-      <e p="Domain.Interactors.csproj" t="IncludeRecursive" />
-      <e p="Domain.Model.csproj" t="IncludeRecursive" />
-      <e p="Domain.Repositories.csproj" t="IncludeRecursive" />
-      <e p="Domain.Services.csproj" t="IncludeRecursive" />
+      <e p="Domain.csproj" t="IncludeRecursive" />
       <e p="HangmanGame.sln" t="IncludeFlat" />
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />

@@ -3,10 +3,8 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "Application.Services",
-        "Domain.Model",
-        "Domain.Repositories",
-        "Domain.Services"
+        "Application",
+        "Domain"
     ],
     "includePlatforms": [
         "Editor"

@@ -3,9 +3,7 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "Domain.Interactors",
-        "Domain.Services",
-        "Domain.Model"
+        "Domain"
     ],
     "includePlatforms": [
         "Editor"
