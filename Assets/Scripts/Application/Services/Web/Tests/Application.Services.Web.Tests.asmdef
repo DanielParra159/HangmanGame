@@ -1,5 +1,5 @@
 {
-    "name": "Application.Services.Tests",
+    "name": "Application.Services.Web.Tests",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
@@ -13,8 +13,7 @@
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "nunit.framework.dll",
-        "NSubstitute.dll"
+        "nunit.framework.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [

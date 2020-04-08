@@ -1,7 +1,7 @@
 {
-    "name": "Domain.Services",
+    "name": "InterfaceAdapters",
     "references": [
-        "GUID:b56827496d5d5b74c82d35cdcbda79b7"
+        "GUID:57dc8c5917f6cde4ebc835e7783f2e08"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
