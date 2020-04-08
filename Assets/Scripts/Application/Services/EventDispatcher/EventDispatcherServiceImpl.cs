@@ -33,7 +33,7 @@ namespace Application.Services.EventDispatcher
             }
         }
 
-        public void Call<T>(T signal) where T : Signal
+        public void Notify<T>(T signal) where T : Signal
         {
             var type = typeof(T);
             if (_events.ContainsKey(type))
