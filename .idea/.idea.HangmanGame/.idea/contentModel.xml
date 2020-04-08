@@ -47,7 +47,7 @@
                 <e p="JsonParser.cs" t="Include" />
               </e>
               <e p="Web" t="Include">
-                <e p="APIRest.cs" t="Include" />
+                <e p="ClientApiRest.cs" t="Include" />
               </e>
             </e>
           </e>
