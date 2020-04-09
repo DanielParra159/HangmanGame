@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Application.Services.Web;
+using Domain.Configuration;
 using Domain.Model.Game;
 using Domain.Repositories;
 using Domain.Services;
@@ -21,7 +22,7 @@ namespace Application.Services
         
         public async Task<Word> StartNewGame()
         {
-            var response = await _restClient.Post<Request, NewGameResponse>("TODO: URL", new Request());
+            var response = await _restClient.Post<Request, NewGameResponse>(EndPoints.NewGame, new Request());
             _gameRepository.Word = response.hangman;
             _gameRepository.GameToken = response.token;
             return new Word(response.hangman);
