@@ -26,12 +26,14 @@ namespace InterfaceAdapters.Controllers
         public readonly ReactiveProperty<string> CurrentWord;
         public readonly ReactiveCommand<string> OnKeyPressedPressed;
         public readonly Dictionary<string, KeyButtonViewModel> KeyButtonsViewModel;
+        public readonly ReactiveProperty<bool> IsVisible;
 
         public InGameViewModel()
         {
             CurrentWord = new StringReactiveProperty();
             OnKeyPressedPressed = new ReactiveCommand<string>();
             KeyButtonsViewModel = new Dictionary<string, KeyButtonViewModel>();
+            IsVisible = new BoolReactiveProperty(false);
         }
 
         public KeyButtonViewModel SubscribeKeyButton(string key)
