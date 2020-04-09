@@ -44,8 +44,7 @@ namespace Application.Services.Game.Tests
                 .Returns(newGameResponse);
 
             await _gameServerService.StartNewGame();
-
-            _gameRepository.Received().Word = expectedWord;
+            _gameRepository.Received().Word = Arg.Is<Word>(word => word.CurrentWord == expectedWord);
         }
 
         [Test]
@@ -76,7 +75,7 @@ namespace Application.Services.Game.Tests
 
             var word = await _gameServerService.GuessLetter('a');
 
-            Assert.AreEqual("____a", word.CurrentWord);
+            Assert.AreEqual("____a", word.CurrentWord.CurrentWord);
             Assert.AreEqual(true, word.IsCorrect);
         }
         
@@ -94,7 +93,7 @@ namespace Application.Services.Game.Tests
 
             await _gameServerService.GuessLetter('a');
 
-            _gameRepository.Received().Word = "____a";
+            _gameRepository.Received().Word = Arg.Is<Word>(word => word.CurrentWord == "____a");
         }
         
         [Test]
