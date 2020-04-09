@@ -12,6 +12,7 @@ namespace Views.Tests
         private GameObject _inGame;
         private InGameView _inGameView;
         private InGameViewModel _inGameViewModel;
+        private GameObject _image;
 
         [SetUp]
         public void SetUp()
@@ -19,6 +20,9 @@ namespace Views.Tests
             _inGame = new GameObject();
             _inGameView = _inGame.AddComponent<InGameView>();
             _inGameView.CurrentWordText = _inGame.AddComponent<Text>();
+            _image = new GameObject();
+            _image.transform.SetParent(_inGame.transform);
+            _inGameView.VictoryImage = _image.AddComponent<Image>();;
             _inGameViewModel = new InGameViewModel();
             _inGameView.SetModel(_inGameViewModel);
         }
@@ -41,6 +45,17 @@ namespace Views.Tests
             _inGameViewModel.IsVisible.SetValueAndForceNotify(expectedValue);
 
             Assert.AreEqual(expectedValue, _inGame.activeSelf);
+        }
+        
+        [TestCase(true)]
+        [TestCase(false)]
+        public void WhenUpdateVictoryVisibilityOnTheViewModel_ShowOrHideTheGameObject(bool expectedValue)
+        {
+            _image.SetActive(!expectedValue);
+            Assert.AreEqual(!expectedValue, _image.activeSelf);
+            _inGameViewModel.VictoryIsVisible.SetValueAndForceNotify(expectedValue);
+
+            Assert.AreEqual(expectedValue, _image.activeSelf);
         }
     }
 }
