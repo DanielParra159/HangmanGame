@@ -1,11 +1,10 @@
-﻿using Application.Services.Web;
-using Domain.Configuration;
+﻿using Domain.Configuration;
 using Domain.Repositories;
 using Domain.Services.Web;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace Application.Services.Tests
+namespace Application.Services.Game.Tests
 {
     public class GameServerServiceTest
     {

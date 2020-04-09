@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Domain.Model.Game;
 
-namespace Domain.Services
+namespace Domain.Services.Game
 {
     public interface GameService
     {

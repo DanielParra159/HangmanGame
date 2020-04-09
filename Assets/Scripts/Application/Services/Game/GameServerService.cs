@@ -1,13 +1,13 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
-using Application.Services.Web;
 using Domain.Configuration;
 using Domain.Model.Game;
 using Domain.Repositories;
 using Domain.Services;
+using Domain.Services.Game;
 using Domain.Services.Web;
 
-namespace Application.Services
+namespace Application.Services.Game
 {
     public class GameServerService : GameService
     {

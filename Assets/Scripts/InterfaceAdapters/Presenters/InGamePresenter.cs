@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Domain.Services.EventDispatcher;
+﻿using Domain.Services.EventDispatcher;
 using Domain.UseCases.StartGame;
 using InterfaceAdapters.Controllers;
 
@@ -20,8 +19,13 @@ namespace InterfaceAdapters.Presenters
         private void WordUpdated(Signal signal)
         {
             // TODO: find a better way, without casting
-            var currentWordValue = ((NewWordSignal) signal).NewWord;
-            _viewModel.CurrentWord.Value = string.Join(" ", currentWordValue.ToCharArray());
+            var newWord = ((NewWordSignal) signal).NewWord;
+            _viewModel.CurrentWord.Value = AddSpacesBetweenLetters(newWord);
+        }
+
+        private string AddSpacesBetweenLetters(string word)
+        {
+            return string.Join(" ", word.ToCharArray());
         }
     }
 }

@@ -1,7 +1,6 @@
-﻿using System.Threading.Tasks;
-using Domain.Model.Game;
-using Domain.Services;
+﻿using Domain.Model.Game;
 using Domain.Services.EventDispatcher;
+using Domain.Services.Game;
 using NSubstitute;
 using NUnit.Framework;
 

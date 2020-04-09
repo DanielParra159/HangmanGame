@@ -1,7 +1,7 @@
 {
-    "name": "InterfaceAdapters",
+    "name": "Hangman.Views",
     "references": [
-        "GUID:57dc8c5917f6cde4ebc835e7783f2e08",
+        "GUID:376b7e1985d84fb439fa19b6b4b7912a",
         "GUID:560b04d1a97f54a4e82edc0cbbb69285"
     ],
     "includePlatforms": [],

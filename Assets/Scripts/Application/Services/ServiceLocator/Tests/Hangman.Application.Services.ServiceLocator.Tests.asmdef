@@ -1,11 +1,10 @@
 {
-    "name": "InterfaceAdapters.Presenters.Tests",
+    "name": "Hangman.Application.Services.ServiceLocator.Tests",
     "references": [
-        "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner",
-        "InterfaceAdapters",
-        "UniRx",
-        "Domain"
+        "GUID:27619889b8ba8c24980f49ee34dbb44a",
+        "GUID:0acc523941302664db1f4e527237feb3",
+        "GUID:57dc8c5917f6cde4ebc835e7783f2e08",
+        "GUID:d99d73336b21ac940a129efe8ddc32db"
     ],
     "includePlatforms": [
         "Editor"
@@ -14,8 +13,7 @@
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "nunit.framework.dll",
-        "NSubstitute.dll"
+        "nunit.framework.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [

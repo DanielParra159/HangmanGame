@@ -1,10 +1,10 @@
 {
-    "name": "Application.Services.ServiceLocator.Tests",
+    "name": "Hangman.Application.Services.EventDispatcher.Tests",
     "references": [
-        "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner",
-        "Application",
-        "Domain"
+        "GUID:27619889b8ba8c24980f49ee34dbb44a",
+        "GUID:0acc523941302664db1f4e527237feb3",
+        "GUID:d99d73336b21ac940a129efe8ddc32db",
+        "GUID:57dc8c5917f6cde4ebc835e7783f2e08"
     ],
     "includePlatforms": [
         "Editor"
@@ -13,7 +13,8 @@
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "nunit.framework.dll"
+        "nunit.framework.dll",
+        "NSubstitute.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [
