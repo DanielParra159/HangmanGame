@@ -35,6 +35,8 @@ namespace Views.Tests
             _loadingViewModel.IsVisible.SetValueAndForceNotify(isVisible);
 
             Assert.AreEqual(expectedValue, _loadingView.CanvasGroup.alpha);
+            Assert.AreEqual(isVisible, _loadingView.CanvasGroup.interactable);
+            Assert.AreEqual(isVisible, _loadingView.CanvasGroup.blocksRaycasts);
         }
     }
 }

@@ -12,7 +12,12 @@ namespace Views
         public void SetModel(LoadingViewModel loadingViewModel)
         {
             _loadingViewModel = loadingViewModel;
-            _loadingViewModel.IsVisible.Subscribe(isVisible => CanvasGroup.alpha = isVisible ? 1 : 0);
+            _loadingViewModel.IsVisible.Subscribe(isVisible =>
+            {
+                CanvasGroup.alpha = isVisible ? 1 : 0;
+                CanvasGroup.interactable = isVisible;
+                CanvasGroup.blocksRaycasts = isVisible;
+            });
         }
     }
 }
