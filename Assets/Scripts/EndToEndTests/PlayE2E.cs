@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Linq;
+using System.Collections;
 using NUnit.Framework;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
@@ -9,10 +8,10 @@ namespace EndToEndTests
 {
     [TestFixture]
     [Category("E2E")]
-    public class StartGameE2E
+    public class PlayE2E
     {
         [UnityTest]
-        public IEnumerator IShouldBeAbleToStartTheGame()
+        public IEnumerator IShouldBeAbleToGuessALetter()
         {
             yield return Utils.GivenIAmInTheScene("Game");
 
@@ -34,8 +33,9 @@ namespace EndToEndTests
             
             yield return Utils.GivenGameObjectIsInScene("Keyboard");
             
-            // TODO: we need to use a mock server
-            // yield return Utils.IShouldSeeTheText("_ _ _ _");
+            yield return Utils.IPressTheButton("A");
+            
+            yield return Utils.GivenButtonIsNotInteractable("A");
             
             yield return SceneManager.UnloadSceneAsync("Game");
         }

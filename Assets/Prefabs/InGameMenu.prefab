@@ -2531,6 +2531,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3344791419953266336}
   - component: {fileID: 5834533521817052478}
+  - component: {fileID: 8869508010296982355}
   m_Layer: 5
   m_Name: Keyboard
   m_TagString: Untagged
@@ -2585,6 +2586,46 @@ MonoBehaviour:
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+--- !u!114 &8869508010296982355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4515575316727145053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c033cf7db8ee4ce3a94ccc7d1d2bd7f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Buttons:
+  - {fileID: 5307163942060700169}
+  - {fileID: 8472178458241913680}
+  - {fileID: 4546992620503614114}
+  - {fileID: 7366300631060862692}
+  - {fileID: 2802708367426079332}
+  - {fileID: 6923413312477599983}
+  - {fileID: 2447400378991364112}
+  - {fileID: 8802403406172940299}
+  - {fileID: 5553650112333117772}
+  - {fileID: 6490957722323321394}
+  - {fileID: 9117714873036890931}
+  - {fileID: 1885673574982795426}
+  - {fileID: 4318971468009726668}
+  - {fileID: 8422641120583477860}
+  - {fileID: 4554061986300133349}
+  - {fileID: 1796563596817337999}
+  - {fileID: 1132646388725131326}
+  - {fileID: 6776085988781625786}
+  - {fileID: 6512437579853101945}
+  - {fileID: 3418379698092639127}
+  - {fileID: 3753792816601227479}
+  - {fileID: 5260329599967293030}
+  - {fileID: 1857694670090780151}
+  - {fileID: 4588583056813477308}
+  - {fileID: 3341422143404908899}
+  - {fileID: 8565359349227800727}
+  - {fileID: 2098003844583018339}
 --- !u!1 &4872428346736179617
 GameObject:
   m_ObjectHideFlags: 0
