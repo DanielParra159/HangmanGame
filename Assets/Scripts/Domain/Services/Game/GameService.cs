@@ -6,6 +6,6 @@ namespace Domain.Services.Game
     public interface GameService
     {
         Task<Word> StartNewGame();
-        void GuessLetter(char letter);
+        Task<Guess> GuessLetter(char letter);
     }
 }

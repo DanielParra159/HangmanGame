@@ -42,7 +42,7 @@ namespace Application.Services.Web
         }
 
         // This is not full REST but the API we are using need to send the parameters on the url
-        public async Task<Response> PutWithParametersOnUrl<TRequest, TResponse>(string url, TRequest request)
+        public async Task<TResponse> PutWithParametersOnUrl<TRequest, TResponse>(string url, TRequest request)
             where TRequest : Request where TResponse : Response
         {
             var uri = new Uri(url);

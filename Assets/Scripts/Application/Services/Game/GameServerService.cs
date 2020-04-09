@@ -1,15 +1,13 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Domain.Configuration;
 using Domain.Model.Game;
 using Domain.Repositories;
-using Domain.Services;
 using Domain.Services.Game;
 using Domain.Services.Web;
 
 namespace Application.Services.Game
 {
-    public class GameServerService : GameService
+    public partial class GameServerService : GameService
     {
         private readonly RestClient _restClient;
         private readonly GameRepository _gameRepository;
@@ -19,7 +17,7 @@ namespace Application.Services.Game
             _restClient = restClient;
             _gameRepository = gameRepository;
         }
-        
+
         public async Task<Word> StartNewGame()
         {
             var response = await _restClient.Post<Request, NewGameResponse>(EndPoints.NewGame, new Request());
@@ -28,18 +26,18 @@ namespace Application.Services.Game
             return new Word(response.hangman);
         }
 
-        public void GuessLetter(char letter)
+        public async Task<Guess> GuessLetter(char letter)
         {
-            throw new System.NotImplementedException();
-        }
-
-        [SuppressMessage("ReSharper", "InconsistentNaming")]
-        public class NewGameResponse: Response
-        {
-#pragma warning disable 649
-            public string hangman;
-            public string token;
-#pragma warning restore 649
+            var response =
+                await _restClient
+                    .PutWithParametersOnUrl<GuessLetterRequest, GuessLetterResponse>
+                    (
+                        EndPoints.NewGame,
+                        new GuessLetterRequest {letter = letter.ToString(), token = _gameRepository.GameToken}
+                    );
+            _gameRepository.Word = response.hangman;
+            _gameRepository.GameToken = response.token;
+            return new Guess(response.hangman, response.correct);
         }
     }
 }
