@@ -14,7 +14,8 @@ namespace Views
         {
             _viewModel = viewModel;
 
-            _viewModel.StartGamePressed.BindTo(StartGameButton);
+            _viewModel.OnStartGamePressed.BindTo(StartGameButton);
+            _viewModel.IsVisible.Subscribe(isVisible => gameObject.SetActive(isVisible));
         }
     }
 }

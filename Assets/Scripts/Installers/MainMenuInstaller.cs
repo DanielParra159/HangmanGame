@@ -7,6 +7,7 @@ using Application.Services.Web;
 using Domain.Repositories;
 using Domain.UseCases.StartGame;
 using InterfaceAdapters.Controllers;
+using InterfaceAdapters.Presenters;
 using UnityEngine;
 using Views;
 
@@ -15,6 +16,7 @@ namespace Installers
     public class MainMenuInstaller : MonoBehaviour
     {
         public MainMenuView MainMenuViewPrefab;
+        public InGameView InGameViewPrefab;
 
         private void Start()
         {
@@ -22,15 +24,25 @@ namespace Installers
             var mainMenuViewModel = new MainMenuViewModel();
             mainMenuViewInstance.SetModel(mainMenuViewModel);
 
+            var inGameViewInstance = Instantiate(InGameViewPrefab); // TODO: extract to a service
+            var inGameViewModel = new InGameViewModel();
+            inGameViewInstance.SetModel(inGameViewModel);
+            
+
             // TODO: these services should be unique, instantiate it in a previous step
             var gameServerService = new GameServerService
             (
                 new RestRestClientAdapter(new JsonUtilityAdapter()),
                 new GameRepositoryImpl()
             );
+            var eventDispatcherServiceImpl = new EventDispatcherServiceImpl();
             var startGameController = new StartGameController(mainMenuViewModel,
-                new StartGameUseCase(gameServerService, new EventDispatcherServiceImpl())
+                new StartGameUseCase(gameServerService, eventDispatcherServiceImpl)
             );
+
+            var updateWordPresenter = new InGamePresenter(inGameViewModel, eventDispatcherServiceImpl);
+            var mainMenuPresenter = new MainMenuPresenter(mainMenuViewModel, eventDispatcherServiceImpl);
+
         }
     }
 }

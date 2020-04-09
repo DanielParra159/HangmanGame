@@ -4,6 +4,6 @@ namespace Domain.Services.EventDispatcher
 
     public interface Signal
     {
-    
+        
     }
 }

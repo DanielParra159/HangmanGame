@@ -4,11 +4,13 @@ namespace InterfaceAdapters.Controllers
 {
     public class MainMenuViewModel
     {
-        public readonly ReactiveCommand StartGamePressed;
+        public readonly ReactiveCommand OnStartGamePressed;
+        public readonly ReactiveProperty<bool> IsVisible;
 
         public MainMenuViewModel()
         {
-            StartGamePressed = new ReactiveCommand();
+            OnStartGamePressed = new ReactiveCommand();
+            IsVisible = new BoolReactiveProperty(true);
         }
     }
 }

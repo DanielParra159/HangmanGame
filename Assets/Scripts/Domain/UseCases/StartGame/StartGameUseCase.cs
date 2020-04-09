@@ -17,7 +17,7 @@ namespace Domain.UseCases.StartGame
         public async void Start()
         {
             var newWord = await _gameService.StartNewGame();
-            _eventDispatcherService.Notify(new NewWordSignal(newWord.CurrentWord));
+            _eventDispatcherService.Dispatch(new NewWordSignal(newWord.CurrentWord));
         }
     }
 }
