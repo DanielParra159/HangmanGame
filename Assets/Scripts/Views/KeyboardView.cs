@@ -1,4 +1,5 @@
 using InterfaceAdapters.Controllers;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,8 +15,19 @@ namespace Views
             _viewModel = keyboardViewModel;
             foreach (var button in Buttons)
             {
+                var letter = button.GetComponentInChildren<Text>().text;
+
                 button.onClick.AddListener(() =>
-                    _viewModel.OnKeyPressedPressed.Execute(button.GetComponentInChildren<Text>().text));
+                {
+                    _viewModel.OnKeyPressedPressed.Execute(letter);
+                });
+                var keyButtonViewModel = keyboardViewModel.SubscribeKeyButton(letter);
+                keyButtonViewModel.IsEnabled.Subscribe(isEnabled => button.interactable = isEnabled);
+                keyButtonViewModel.Color.Subscribe(htmlColor =>
+                {
+                    ColorUtility.TryParseHtmlString(htmlColor, out var color);
+                    button.image.color = color;
+                });
             }
         }
     }
