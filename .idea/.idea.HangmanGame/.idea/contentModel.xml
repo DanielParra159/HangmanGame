@@ -365,6 +365,7 @@
           </e>
           <e p="InterfaceAdapters" t="Include">
             <e p="Controllers" t="Include">
+              <e p="InGameViewModel.cs" t="Include" />
               <e p="MainMenuViewModel.cs" t="Include" />
               <e p="StartGameController.cs" t="Include" />
               <e p="Tests" t="Include">
@@ -375,8 +376,10 @@
             <e p="InterfaceAdapters.asmdef" t="Include" />
           </e>
           <e p="Views" t="Include">
+            <e p="InGameView.cs" t="Include" />
             <e p="MainMenuView.cs" t="Include" />
             <e p="Tests" t="Include">
+              <e p="InGameViewTest.cs" t="Include" />
               <e p="MainMenuViewTest.cs" t="Include" />
               <e p="ViewsTests.asmdef" t="Include" />
             </e>

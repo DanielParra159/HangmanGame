@@ -15,12 +15,17 @@ namespace Installers
     public class MainMenuInstaller : MonoBehaviour
     {
         public MainMenuView MainMenuViewPrefab;
+        public InGameView InGameViewPrefab;
 
         private void Start()
         {
             var mainMenuViewInstance = Instantiate(MainMenuViewPrefab); // TODO: extract to a service
             var mainMenuViewModel = new MainMenuViewModel();
             mainMenuViewInstance.SetModel(mainMenuViewModel);
+
+            var inGameViewInstance = Instantiate(InGameViewPrefab); // TODO: extract to a service
+            var inGameViewModel = new InGameViewModel();
+            inGameViewInstance.SetModel(inGameViewModel);
 
             // TODO: these services should be unique, instantiate it in a previous step
             var gameServerService = new GameServerService

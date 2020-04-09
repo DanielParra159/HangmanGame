@@ -11,7 +11,7 @@ namespace Views.Tests
     public class MainMenuViewTest
     {
         [Test]
-        public void MainMenuViewTestSimplePasses()
+        public void WhenClickOnStartGameButton_ExecuteStartGameButtonCommand()
         {
             var mainMenu = new GameObject();
             var mainMenuView = mainMenu.AddComponent<MainMenuView>();
