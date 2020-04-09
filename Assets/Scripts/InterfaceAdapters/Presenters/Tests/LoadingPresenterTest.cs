@@ -1,6 +1,7 @@
 using System;
 using Domain;
 using Domain.Services.EventDispatcher;
+using Domain.UseCases.CommonSignals;
 using InterfaceAdapters.Controllers;
 using NSubstitute;
 using NUnit.Framework;

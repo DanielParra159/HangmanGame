@@ -1,48 +1,37 @@
-﻿using Domain.Model.Game;
-using Domain.Services.EventDispatcher;
+﻿using Domain.Services.EventDispatcher;
 using Domain.Services.Game;
+using Domain.UseCases.CommonSignals;
+using Domain.UseCases.GuessLetter;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace Domain.UseCases.StartGame.Tests
+namespace Domain.UseCases.Tests
 {
-    public class StartGameUseCaseTest
+    public class GuessLetterUseCaseTest
     {
-        private GameService _gameService;
+        private GuessLetterUseCase _guessLetterUseCase;
         private EventDispatcherService _eventDispatcherService;
-        private StartGameUseCase _startGameUseCase;
+        private GameService _gameService;
 
         [SetUp]
         public void SetUp()
         {
             _gameService = Substitute.For<GameService>();
-            _gameService.StartNewGame().Returns(info => new Word("word"));
             _eventDispatcherService = Substitute.For<EventDispatcherService>();
-            _startGameUseCase = new StartGameUseCase(_gameService, _eventDispatcherService);
+            _guessLetterUseCase = new GuessLetterUseCase(_gameService, _eventDispatcherService);
         }
-
         [Test]
-        public void WhenCallToStart_CallToGameServiceStartNewGame()
+        public void WhenCallToGuess_CallToGameServiceGuessLetter()
         {
-            _startGameUseCase.Start();
+            _guessLetterUseCase.Guess("A");
 
-            _gameService.Received().StartNewGame();
-        }
-
-        [Test]
-        public void WhenCallToStart_DispatchSignalWithTheNewWord()
-        {
-            _startGameUseCase.Start();
-
-            _eventDispatcherService
-                .Received()
-                .Dispatch(Arg.Is<NewWordSignal>(signal => signal.NewWord == "word"));
+            _gameService.Received().GuessLetter("A");
         }
         
         [Test]
         public void WhenCallToStart_DispatchSignalToUpdateTheLoadingScreen()
         {
-            _startGameUseCase.Start();
+            _guessLetterUseCase.Guess("A");
 
             Received.InOrder(() =>
             {
@@ -50,6 +39,8 @@ namespace Domain.UseCases.StartGame.Tests
                     .Received()
                     .Dispatch(Arg.Is<UpdateLoadingScreenSignal>(signal => signal.IsVisible));
 
+                _gameService.Received().GuessLetter(Arg.Any<string>());
+                
                 _eventDispatcherService
                     .Received()
                     .Dispatch(Arg.Is<UpdateLoadingScreenSignal>(signal => !signal.IsVisible));

@@ -1,25 +1,24 @@
-﻿using Domain.Services.EventDispatcher;
+using Domain.Services.EventDispatcher;
 using Domain.Services.Game;
 using Domain.UseCases.CommonSignals;
 
-namespace Domain.UseCases.StartGame
+namespace Domain.UseCases.GuessLetter
 {
-    public class StartGameUseCase : StartGame
+    public class GuessLetterUseCase : GuessLetter
     {
-        private readonly GameService _gameService;
         private readonly EventDispatcherService _eventDispatcherService;
+        private readonly GameService _gameService;
 
-        public StartGameUseCase(GameService gameService, EventDispatcherService eventDispatcherService)
+        public GuessLetterUseCase(GameService gameService, EventDispatcherService eventDispatcherService)
         {
             _gameService = gameService;
             _eventDispatcherService = eventDispatcherService;
         }
 
-        public async void Start()
+        public void Guess(string letter)
         {
             _eventDispatcherService.Dispatch(new UpdateLoadingScreenSignal(true));
-            var newWord = await _gameService.StartNewGame();
-            _eventDispatcherService.Dispatch(new NewWordSignal(newWord.CurrentWord));
+            _gameService.GuessLetter(letter);
             _eventDispatcherService.Dispatch(new UpdateLoadingScreenSignal(false));
         }
     }

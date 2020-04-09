@@ -28,6 +28,11 @@ namespace Application.Services.Game
             return new Word(response.hangman);
         }
 
+        public void GuessLetter(string letter)
+        {
+            throw new System.NotImplementedException();
+        }
+
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         public class NewGameResponse: Response
         {

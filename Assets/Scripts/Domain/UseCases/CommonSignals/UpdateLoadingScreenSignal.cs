@@ -1,6 +1,6 @@
 using Domain.Services.EventDispatcher;
 
-namespace Domain
+namespace Domain.UseCases.CommonSignals
 {
     public class UpdateLoadingScreenSignal : Signal
     {
