@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
@@ -5,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace EndToEndTests
 {
@@ -112,10 +114,37 @@ namespace EndToEndTests
             Assert.IsFalse(found, $"Text {text} found");
         }
 
-        public static async Task GivenGameObjectIsInvisible<T>() where T : Object
+        public static async Task GivenGameObjectIsNotActive<T>() where T : Object
         {
             var gameObject = await GivenGameObjectIsInScene<T>();
             Assert.IsFalse(((GameObject)gameObject).activeSelf, $"The object with type {typeof(T)} is active");
+        }
+        
+        private static async Task<TComponent> GetComponent<TGameObject, TComponent>() where TGameObject : Object where TComponent : class
+        {
+            var gameObject = (GameObject) await GivenGameObjectIsInScene<TGameObject>();
+            var component = gameObject.GetComponent<TComponent>();
+            if (component == null)
+            {
+                component = gameObject.GetComponentInParent<TComponent>();
+            }
+            
+            Assert.IsNotNull(component, $"Component {typeof(TComponent)} not found");
+            return component;
+        }
+
+        public static async Task GivenGameObjectIsInvisible<T>() where T : Object
+        {
+            var canvasGroup = await GetComponent<T, CanvasGroup>();
+            
+            Assert.IsTrue(Math.Abs(canvasGroup.alpha) < 0.01f);
+        }
+        
+        public static async Task GivenGameObjectIsVisible<T>() where T : Object
+        {
+            var canvasGroup = await GetComponent<T, CanvasGroup>();
+            
+            Assert.IsTrue(Math.Abs(canvasGroup.alpha) >= 1f);
         }
     }
 }

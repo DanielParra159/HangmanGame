@@ -1,5 +1,4 @@
-﻿using Domain.Services;
-using Domain.Services.EventDispatcher;
+﻿using Domain.Services.EventDispatcher;
 using Domain.Services.Game;
 
 namespace Domain.UseCases.StartGame
@@ -17,8 +16,10 @@ namespace Domain.UseCases.StartGame
 
         public async void Start()
         {
+            _eventDispatcherService.Dispatch(new UpdateLoadingScreenSignal(true));
             var newWord = await _gameService.StartNewGame();
             _eventDispatcherService.Dispatch(new NewWordSignal(newWord.CurrentWord));
+            _eventDispatcherService.Dispatch(new UpdateLoadingScreenSignal(false));
         }
     }
 }

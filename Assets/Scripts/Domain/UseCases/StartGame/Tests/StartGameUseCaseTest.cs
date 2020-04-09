@@ -30,13 +30,30 @@ namespace Domain.UseCases.StartGame.Tests
         }
 
         [Test]
-        public void WhenCallToStart_NotifySignalWithTheNewWord()
+        public void WhenCallToStart_DispatchSignalWithTheNewWord()
         {
             _startGameUseCase.Start();
 
             _eventDispatcherService
                 .Received()
                 .Dispatch(Arg.Is<NewWordSignal>(signal => signal.NewWord == "word"));
+        }
+        
+        [Test]
+        public void WhenCallToStart_DispatchSignalToUpdateTheLoadingScreen()
+        {
+            _startGameUseCase.Start();
+
+            Received.InOrder(() =>
+            {
+                _eventDispatcherService
+                    .Received()
+                    .Dispatch(Arg.Is<UpdateLoadingScreenSignal>(signal => signal.IsVisible));
+
+                _eventDispatcherService
+                    .Received()
+                    .Dispatch(Arg.Is<UpdateLoadingScreenSignal>(signal => !signal.IsVisible));
+            });
         }
     }
 }

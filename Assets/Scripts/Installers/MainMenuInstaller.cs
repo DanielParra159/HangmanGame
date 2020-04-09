@@ -18,6 +18,7 @@ namespace Installers
     {
         public MainMenuView MainMenuViewPrefab;
         public InGameView InGameViewPrefab;
+        public LoadingView LoadingViewPrefab;
 
         private void Start()
         {
@@ -29,6 +30,9 @@ namespace Installers
             var inGameViewModel = new InGameViewModel();
             inGameViewInstance.SetModel(inGameViewModel);
             
+            var loadingViewInstance = Instantiate(LoadingViewPrefab); // TODO: extract to a service
+            var loadingViewModel = new LoadingViewModel();
+            loadingViewInstance.SetModel(loadingViewModel);
 
             // TODO: these services should be unique, instantiate it in a previous step
             var gameServerService = new GameServerService
@@ -43,6 +47,7 @@ namespace Installers
 
             var updateWordPresenter = new InGamePresenter(inGameViewModel, eventDispatcherServiceImpl);
             var mainMenuPresenter = new MainMenuPresenter(mainMenuViewModel, eventDispatcherServiceImpl);
+            var loadingPresenter = new LoadingPresenter(loadingViewModel, eventDispatcherServiceImpl);
 
         }
     }

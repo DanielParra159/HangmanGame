@@ -341,6 +341,7 @@
                 <e p="RestClient.cs" t="Include" />
               </e>
             </e>
+            <e p="UpdateLoadingScreenSignal.cs" t="Include" />
             <e p="UseCases" t="Include">
               <e p="StartGame" t="Include">
                 <e p="NewWordSignal.cs" t="Include" />
@@ -365,6 +366,7 @@
           <e p="InterfaceAdapters" t="Include">
             <e p="Controllers" t="Include">
               <e p="InGameViewModel.cs" t="Include" />
+              <e p="LoadingViewModel.cs" t="Include" />
               <e p="MainMenuViewModel.cs" t="Include" />
               <e p="StartGameController.cs" t="Include" />
               <e p="Tests" t="Include">
@@ -375,10 +377,12 @@
             <e p="Hangman.InterfaceAdapters.asmdef" t="Include" />
             <e p="Presenters" t="Include">
               <e p="InGamePresenter.cs" t="Include" />
+              <e p="LoadingPresenter.cs" t="Include" />
               <e p="MainMenuPresenter.cs" t="Include" />
               <e p="Tests" t="Include">
                 <e p="Hangman.InterfaceAdapters.Presenters.Tests.asmdef" t="Include" />
                 <e p="InGamePresenterTest.cs" t="Include" />
+                <e p="LoadingPresenterTest.cs" t="Include" />
                 <e p="MainMenuPresenterTest.cs" t="Include" />
               </e>
             </e>
@@ -386,10 +390,12 @@
           <e p="Views" t="Include">
             <e p="Hangman.Views.asmdef" t="Include" />
             <e p="InGameView.cs" t="Include" />
+            <e p="LoadingView.cs" t="Include" />
             <e p="MainMenuView.cs" t="Include" />
             <e p="Tests" t="Include">
               <e p="Hangman.ViewsTests.asmdef" t="Include" />
               <e p="InGameViewTest.cs" t="Include" />
+              <e p="LoadingViewTest.cs" t="Include" />
               <e p="MainMenuViewTest.cs" t="Include" />
             </e>
           </e>
