@@ -5,25 +5,45 @@ using NUnit.Framework;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
+using Assert = UnityEngine.Assertions.Assert;
 
 namespace Views.Tests
 {
     public class MainMenuViewTest
     {
+        private GameObject _mainMenu;
+        private MainMenuView _mainMenuView;
+        private MainMenuViewModel _mainMenuViewModel;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _mainMenu = new GameObject();
+            _mainMenuView = _mainMenu.AddComponent<MainMenuView>();
+            _mainMenuView.StartGameButton = _mainMenu.AddComponent<Button>();
+            _mainMenuViewModel = new MainMenuViewModel();
+            _mainMenuView.SetModel(_mainMenuViewModel);
+
+        }
         [Test]
         public void WhenClickOnStartGameButton_ExecuteStartGameButtonCommand()
         {
-            var mainMenu = new GameObject();
-            var mainMenuView = mainMenu.AddComponent<MainMenuView>();
-            mainMenuView.StartGameButton = mainMenu.AddComponent<Button>();
-            var mainMenuViewModel = new MainMenuViewModel();
-            mainMenuView.SetModel(mainMenuViewModel);
             var observer = Substitute.For<IObserver<Unit>>();
-            mainMenuViewModel.StartGamePressed.Subscribe(observer);
+            _mainMenuViewModel.OnStartGamePressed.Subscribe(observer);
             
-            mainMenuView.StartGameButton.onClick.Invoke();
+            _mainMenuView.StartGameButton.onClick.Invoke();
             
             observer.Received().OnNext(Unit.Default);
         }
+        
+        [Test]
+        public void WhenUpdateVisibilityOnTheViewModel_ShowOrHideTheGameObject()
+        {
+            Assert.IsTrue(_mainMenu.activeSelf);
+            _mainMenuViewModel.IsVisible.Value = false;
+            
+            Assert.IsFalse(_mainMenu.activeSelf);
+        }
+        
     }
 }

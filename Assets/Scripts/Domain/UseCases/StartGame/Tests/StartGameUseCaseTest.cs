@@ -37,7 +37,7 @@ namespace Domain.UseCases.StartGame.Tests
 
             _eventDispatcherService
                 .Received()
-                .Notify(Arg.Is<NewWordSignal>(signal => signal.NewWord == "word"));
+                .Dispatch(Arg.Is<NewWordSignal>(signal => signal.NewWord == "word"));
         }
     }
 }

@@ -34,7 +34,7 @@ namespace Application.Services.EventDispatcher.Tests
             eventDispatcher.Subscribe<TestSignal>(callback1);
 
             var testSignal = new TestSignal("SomeData");
-            eventDispatcher.Notify(testSignal);
+            eventDispatcher.Dispatch(testSignal);
 
             callback1.Received().Invoke(testSignal);
         }
@@ -49,7 +49,7 @@ namespace Application.Services.EventDispatcher.Tests
             eventDispatcher.Subscribe<TestSignal>(callback2);
 
             var testSignal = new TestSignal("SomeData");
-            eventDispatcher.Notify(testSignal);
+            eventDispatcher.Dispatch(testSignal);
 
             callback1.Received().Invoke(testSignal);
             callback2.Received().Invoke(testSignal);
@@ -66,7 +66,7 @@ namespace Application.Services.EventDispatcher.Tests
             eventDispatcher.Unsubscribe<TestSignal>(callback1);
 
             var testSignal = new TestSignal("SomeData");
-            eventDispatcher.Notify(testSignal);
+            eventDispatcher.Dispatch(testSignal);
 
             callback1.DidNotReceive();
             callback2.Received().Invoke(testSignal);
@@ -82,7 +82,7 @@ namespace Application.Services.EventDispatcher.Tests
             eventDispatcher.Subscribe<TestSignal2>(callback2);
 
             var testSignal2 = new TestSignal2(123);
-            eventDispatcher.Notify(testSignal2);
+            eventDispatcher.Dispatch(testSignal2);
 
             callback1.DidNotReceive();
             callback2.Received().Invoke(testSignal2);

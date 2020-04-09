@@ -21,7 +21,7 @@ namespace InterfaceAdapters.Controllers.Tests
         [Test]
         public void StartGameControllerTestSimplePasses()
         {
-            _mainMenuViewModel.StartGamePressed.Execute();
+            _mainMenuViewModel.OnStartGamePressed.Execute();
             
             _startGame.Received().Start();
         }

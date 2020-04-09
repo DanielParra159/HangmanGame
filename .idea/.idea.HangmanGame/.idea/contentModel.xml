@@ -374,6 +374,15 @@
               </e>
             </e>
             <e p="InterfaceAdapters.asmdef" t="Include" />
+            <e p="Presenters" t="Include">
+              <e p="InGamePresenter.cs" t="Include" />
+              <e p="MainMenuPresenter.cs" t="Include" />
+              <e p="Tests" t="Include">
+                <e p="InGamePresenterTest.cs" t="Include" />
+                <e p="InterfaceAdapters.Presenters.Tests.asmdef" t="Include" />
+                <e p="MainMenuPresenterTest.cs" t="Include" />
+              </e>
+            </e>
           </e>
           <e p="Views" t="Include">
             <e p="InGameView.cs" t="Include" />
@@ -393,13 +402,14 @@
       <e p="Installers.csproj" t="IncludeRecursive" />
       <e p="InterfaceAdapters.Controllers.Tests.csproj" t="IncludeRecursive" />
       <e p="InterfaceAdapters.csproj" t="IncludeRecursive" />
+      <e p="InterfaceAdapters.Presenters.Tests.csproj" t="IncludeRecursive" />
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
       <e p="Temp\bin" t="ExcludeRecursive" />
-      <e p="Tests.csproj" t="IncludeRecursive" />
       <e p="UniRx.csproj" t="IncludeRecursive" />
       <e p="UseCases.StartGame.Tests.csproj" t="IncludeRecursive" />
       <e p="Views.csproj" t="IncludeRecursive" />
+      <e p="ViewsTests.csproj" t="IncludeRecursive" />
     </e>
   </component>
 </project>

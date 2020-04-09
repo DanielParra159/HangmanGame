@@ -14,7 +14,7 @@ namespace InterfaceAdapters.Controllers
             _startGame = startGame;
 
             _mainMenuViewModel
-                .StartGamePressed
+                .OnStartGamePressed
                 .Subscribe(_ => _startGame.Start());
         }
 
