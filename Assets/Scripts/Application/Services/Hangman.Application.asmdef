@@ -1,5 +1,5 @@
 {
-    "name": "Application",
+    "name": "Hangman.Application",
     "references": [
         "GUID:57dc8c5917f6cde4ebc835e7783f2e08"
     ],

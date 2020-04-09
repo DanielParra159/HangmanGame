@@ -7,6 +7,8 @@ using Views;
 
 namespace EndToEndTests
 {
+    [TestFixture]
+    [Category("E2E")]
     public class StartGameE2E
     {
         [UnityTest]

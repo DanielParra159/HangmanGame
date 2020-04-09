@@ -4,11 +4,6 @@
     <e p="C:\Users\Dani\.Rider2019.2\system\extResources" t="IncludeRecursive" />
     <e p="C:\Users\Dani\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_HangmanGame.219894795.00" t="ExcludeRecursive" />
     <e p="D:\Proyectos\Empresa\HangmanGame" t="IncludeRecursive">
-      <e p="Application.csproj" t="IncludeRecursive" />
-      <e p="Application.Services.EventDispatcher.Tests.csproj" t="IncludeRecursive" />
-      <e p="Application.Services.ServiceLocator.Tests.csproj" t="IncludeRecursive" />
-      <e p="Application.Services.Tests.csproj" t="IncludeRecursive" />
-      <e p="Application.Services.Web.Tests.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Plugins" t="Include">
           <e p="UniRx" t="Include">
@@ -277,15 +272,21 @@
         <e p="Scripts" t="Include">
           <e p="Application" t="Include">
             <e p="Services" t="Include">
-              <e p="Application.asmdef" t="Include" />
               <e p="EventDispatcher" t="Include">
                 <e p="EventDispatcherServiceImpl.cs" t="Include" />
                 <e p="Tests" t="Include">
-                  <e p="Application.Services.EventDispatcher.Tests.asmdef" t="Include" />
                   <e p="EventDispatcherTest.cs" t="Include" />
+                  <e p="Hangman.Application.Services.EventDispatcher.Tests.asmdef" t="Include" />
                 </e>
               </e>
-              <e p="GameServerService.cs" t="Include" />
+              <e p="Game" t="Include">
+                <e p="GameServerService.cs" t="Include" />
+                <e p="Tests" t="Include">
+                  <e p="GameServerServiceTest.cs" t="Include" />
+                  <e p="Hangman.Application.Services.Game.Tests.asmdef" t="Include" />
+                </e>
+              </e>
+              <e p="Hangman.Application.asmdef" t="Include" />
               <e p="Parsers" t="Include">
                 <e p="JsonUtilityAdapter.cs" t="Include" />
               </e>
@@ -295,18 +296,14 @@
               <e p="ServiceLocator" t="Include">
                 <e p="ServiceLocatorImpl.cs" t="Include" />
                 <e p="Tests" t="Include">
-                  <e p="Application.Services.ServiceLocator.Tests.asmdef" t="Include" />
+                  <e p="Hangman.Application.Services.ServiceLocator.Tests.asmdef" t="Include" />
                   <e p="ServiceLocatorImplTest.cs" t="Include" />
                 </e>
-              </e>
-              <e p="Tests" t="Include">
-                <e p="Application.Services.Tests.asmdef" t="Include" />
-                <e p="GameServerServiceTest.cs" t="Include" />
               </e>
               <e p="Web" t="Include">
                 <e p="RestRestClientAdapter.cs" t="Include" />
                 <e p="Tests" t="Include">
-                  <e p="Application.Services.Web.Tests.asmdef" t="Include" />
+                  <e p="Hangman.Application.Services.Web.Tests.asmdef" t="Include" />
                   <e p="UriExtensionTest.cs" t="Include" />
                 </e>
                 <e p="UriExtension.cs" t="Include" />
@@ -317,7 +314,7 @@
             <e p="Configuration" t="Include">
               <e p="Endpoints.cs" t="Include" />
             </e>
-            <e p="Domain.asmdef" t="Include" />
+            <e p="Hangman.Domain.asmdef" t="Include" />
             <e p="Model" t="Include">
               <e p="Game" t="Include">
                 <e p="Word.cs" t="Include" />
@@ -331,7 +328,9 @@
                 <e p="EventDispatcherService.cs" t="Include" />
                 <e p="Signal.cs" t="Include" />
               </e>
-              <e p="GameService.cs" t="Include" />
+              <e p="Game" t="Include">
+                <e p="GameService.cs" t="Include" />
+              </e>
               <e p="Parsers" t="Include">
                 <e p="JsonParser.cs" t="Include" />
               </e>
@@ -348,19 +347,19 @@
                 <e p="StartGame.cs" t="Include" />
                 <e p="StartGameUseCase.cs" t="Include" />
                 <e p="Tests" t="Include">
+                  <e p="Hangman.UseCases.StartGame.Tests.asmdef" t="Include" />
                   <e p="StartGameUseCaseTest.cs" t="Include" />
-                  <e p="UseCases.StartGame.Tests.asmdef" t="Include" />
                 </e>
               </e>
             </e>
           </e>
           <e p="EndToEndTests" t="Include">
-            <e p="EndToEndTests.asmdef" t="Include" />
+            <e p="Hangman.EndToEndTests.asmdef" t="Include" />
             <e p="StartGameE2E.cs" t="Include" />
             <e p="Utils.cs" t="Include" />
           </e>
           <e p="Installers" t="Include">
-            <e p="Installers.asmdef" t="Include" />
+            <e p="Hangman.Installers.asmdef" t="Include" />
             <e p="MainMenuInstaller.cs" t="Include" />
           </e>
           <e p="InterfaceAdapters" t="Include">
@@ -369,47 +368,52 @@
               <e p="MainMenuViewModel.cs" t="Include" />
               <e p="StartGameController.cs" t="Include" />
               <e p="Tests" t="Include">
-                <e p="InterfaceAdapters.Controllers.Tests.asmdef" t="Include" />
+                <e p="Hangman.InterfaceAdapters.Controllers.Tests.asmdef" t="Include" />
                 <e p="StartGameControllerTest.cs" t="Include" />
               </e>
             </e>
-            <e p="InterfaceAdapters.asmdef" t="Include" />
+            <e p="Hangman.InterfaceAdapters.asmdef" t="Include" />
             <e p="Presenters" t="Include">
               <e p="InGamePresenter.cs" t="Include" />
               <e p="MainMenuPresenter.cs" t="Include" />
               <e p="Tests" t="Include">
+                <e p="Hangman.InterfaceAdapters.Presenters.Tests.asmdef" t="Include" />
                 <e p="InGamePresenterTest.cs" t="Include" />
-                <e p="InterfaceAdapters.Presenters.Tests.asmdef" t="Include" />
                 <e p="MainMenuPresenterTest.cs" t="Include" />
               </e>
             </e>
           </e>
           <e p="Views" t="Include">
+            <e p="Hangman.Views.asmdef" t="Include" />
             <e p="InGameView.cs" t="Include" />
             <e p="MainMenuView.cs" t="Include" />
             <e p="Tests" t="Include">
+              <e p="Hangman.ViewsTests.asmdef" t="Include" />
               <e p="InGameViewTest.cs" t="Include" />
               <e p="MainMenuViewTest.cs" t="Include" />
-              <e p="ViewsTests.asmdef" t="Include" />
             </e>
-            <e p="Views.asmdef" t="Include" />
           </e>
         </e>
       </e>
-      <e p="Domain.csproj" t="IncludeRecursive" />
-      <e p="EndToEndTests.csproj" t="IncludeRecursive" />
+      <e p="Hangman.Application.csproj" t="IncludeRecursive" />
+      <e p="Hangman.Application.Services.EventDispatcher.Tests.csproj" t="IncludeRecursive" />
+      <e p="Hangman.Application.Services.Game.Tests.csproj" t="IncludeRecursive" />
+      <e p="Hangman.Application.Services.ServiceLocator.Tests.csproj" t="IncludeRecursive" />
+      <e p="Hangman.Application.Services.Web.Tests.csproj" t="IncludeRecursive" />
+      <e p="Hangman.Domain.csproj" t="IncludeRecursive" />
+      <e p="Hangman.EndToEndTests.csproj" t="IncludeRecursive" />
+      <e p="Hangman.Installers.csproj" t="IncludeRecursive" />
+      <e p="Hangman.InterfaceAdapters.Controllers.Tests.csproj" t="IncludeRecursive" />
+      <e p="Hangman.InterfaceAdapters.csproj" t="IncludeRecursive" />
+      <e p="Hangman.InterfaceAdapters.Presenters.Tests.csproj" t="IncludeRecursive" />
+      <e p="Hangman.UseCases.StartGame.Tests.csproj" t="IncludeRecursive" />
+      <e p="Hangman.Views.csproj" t="IncludeRecursive" />
+      <e p="Hangman.ViewsTests.csproj" t="IncludeRecursive" />
       <e p="HangmanGame.sln" t="IncludeFlat" />
-      <e p="Installers.csproj" t="IncludeRecursive" />
-      <e p="InterfaceAdapters.Controllers.Tests.csproj" t="IncludeRecursive" />
-      <e p="InterfaceAdapters.csproj" t="IncludeRecursive" />
-      <e p="InterfaceAdapters.Presenters.Tests.csproj" t="IncludeRecursive" />
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
       <e p="Temp\bin" t="ExcludeRecursive" />
       <e p="UniRx.csproj" t="IncludeRecursive" />
-      <e p="UseCases.StartGame.Tests.csproj" t="IncludeRecursive" />
-      <e p="Views.csproj" t="IncludeRecursive" />
-      <e p="ViewsTests.csproj" t="IncludeRecursive" />
     </e>
   </component>
 </project>
