@@ -23,15 +23,15 @@ namespace Domain.UseCases.Tests
         [Test]
         public void WhenCallToGuess_CallToGameServiceGuessLetter()
         {
-            _guessLetterUseCase.Guess("A");
+            _guessLetterUseCase.Guess('A');
 
-            _gameService.Received().GuessLetter("A");
+            _gameService.Received().GuessLetter('A');
         }
         
         [Test]
         public void WhenCallToStart_DispatchSignalToUpdateTheLoadingScreen()
         {
-            _guessLetterUseCase.Guess("A");
+            _guessLetterUseCase.Guess('A');
 
             Received.InOrder(() =>
             {
@@ -39,7 +39,7 @@ namespace Domain.UseCases.Tests
                     .Received()
                     .Dispatch(Arg.Is<UpdateLoadingScreenSignal>(signal => signal.IsVisible));
 
-                _gameService.Received().GuessLetter(Arg.Any<string>());
+                _gameService.Received().GuessLetter(Arg.Any<char>());
                 
                 _eventDispatcherService
                     .Received()

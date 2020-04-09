@@ -16,7 +16,7 @@ namespace InterfaceAdapters.Controllers.Tests
             
             keyboardViewModel.OnKeyPressedPressed.Execute("A");
 
-            guessLetter.Received().Guess("A");
+            guessLetter.Received().Guess('A');
         }
     }
 }

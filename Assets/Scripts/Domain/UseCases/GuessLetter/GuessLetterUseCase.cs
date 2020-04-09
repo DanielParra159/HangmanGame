@@ -15,7 +15,7 @@ namespace Domain.UseCases.GuessLetter
             _eventDispatcherService = eventDispatcherService;
         }
 
-        public void Guess(string letter)
+        public void Guess(char letter)
         {
             _eventDispatcherService.Dispatch(new UpdateLoadingScreenSignal(true));
             _gameService.GuessLetter(letter);

@@ -28,7 +28,7 @@ namespace Application.Services.Game
             return new Word(response.hangman);
         }
 
-        public void GuessLetter(string letter)
+        public void GuessLetter(char letter)
         {
             throw new System.NotImplementedException();
         }

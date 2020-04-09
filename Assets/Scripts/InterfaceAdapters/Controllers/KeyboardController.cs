@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Domain.UseCases.GuessLetter;
 using UniRx;
 
@@ -15,7 +16,12 @@ namespace InterfaceAdapters.Controllers
 
             _keyboardViewModel
                 .OnKeyPressedPressed
-                .Subscribe(letter => _guessLetter.Guess(letter));
+                .Subscribe(letter =>
+                {
+                    Debug.Assert(letter.Length == 1,
+                        $"Something is wrong configured on KeyboardView, received {letter} and expected a letter of length 1");
+                    _guessLetter.Guess(letter[0]);
+                });
         }
     }
 }
