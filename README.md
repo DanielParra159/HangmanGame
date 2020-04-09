@@ -28,4 +28,4 @@ For the server we use this (hangman api)[https://hangman-api.herokuapp.com/api].
 [Check critical files](https://github.com/CodelyTV/check-critical-files): used to check critical files/folders and add a commentary in the pull request.
 
 ## Unity
-Version 2019.3.8f1
+Version 2019.3.9f1
