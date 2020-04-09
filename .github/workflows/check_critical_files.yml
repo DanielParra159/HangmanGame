@@ -11,12 +11,12 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           critical_message: Remember to update the README with the current version
-          critical_files: |
+          critical_files:
             ProjectVersion.txt
       - uses: codelytv/check-critical-files@v1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           critical_message: Remember to update the README with the new workflow, if needed
-          critical_files: |
+          critical_files:
             workflows
              
