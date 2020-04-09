@@ -7,15 +7,15 @@ namespace Views
     public class KeyboardView : MonoBehaviour
     {
         public Button[] Buttons;
-        private KeyboardViewModel _keyboardViewModel;
+        private InGameViewModel _viewModel;
 
-        public void SetModel(KeyboardViewModel keyboardViewModel)
+        public void SetModel(InGameViewModel keyboardViewModel)
         {
-            _keyboardViewModel = keyboardViewModel;
+            _viewModel = keyboardViewModel;
             foreach (var button in Buttons)
             {
                 button.onClick.AddListener(() =>
-                    _keyboardViewModel.OnKeyPressedPressed.Execute(button.GetComponentInChildren<Text>().text));
+                    _viewModel.OnKeyPressedPressed.Execute(button.GetComponentInChildren<Text>().text));
             }
         }
     }

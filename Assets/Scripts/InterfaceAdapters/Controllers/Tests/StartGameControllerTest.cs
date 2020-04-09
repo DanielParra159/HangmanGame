@@ -1,4 +1,5 @@
-﻿using Domain.UseCases.StartGame;
+﻿using Domain.UseCases.GuessLetter;
+using Domain.UseCases.StartGame;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -25,6 +26,18 @@ namespace InterfaceAdapters.Controllers.Tests
             _mainMenuViewModel.OnStartGamePressed.Execute();
             
             _startGame.Received().Start();
+        }
+        
+        [Test]
+        public void WhenReceiveCommandOnKeyPressedPressed_CallToGuessLetter()
+        {
+            var keyboardViewModel = new InGameViewModel();
+            var guessLetter = Substitute.For<GuessLetter>();
+            var keyboardController = new KeyboardController(keyboardViewModel, guessLetter);
+            
+            keyboardViewModel.OnKeyPressedPressed.Execute("A");
+
+            guessLetter.Received().Guess('A');
         }
     }
 }

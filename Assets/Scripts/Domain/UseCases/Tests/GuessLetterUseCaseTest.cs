@@ -18,6 +18,7 @@ namespace Domain.UseCases.Tests
         public void SetUp()
         {
             _gameService = Substitute.For<GameService>();
+            _gameService.GuessLetter(Arg.Any<char>()).Returns(info => new Guess("", false));
             _eventDispatcherService = Substitute.For<EventDispatcherService>();
             _guessLetterUseCase = new GuessLetterUseCase(_gameService, _eventDispatcherService);
         }

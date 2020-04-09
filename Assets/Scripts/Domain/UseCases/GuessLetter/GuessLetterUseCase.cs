@@ -19,7 +19,7 @@ namespace Domain.UseCases.GuessLetter
         {
             _eventDispatcherService.Dispatch(new UpdateLoadingScreenSignal(true));
             var guess = await _gameService.GuessLetter(letter);
-            _eventDispatcherService.Dispatch(new GuessResultSignal(guess.CurrentWord, guess.IsCorrect));
+            _eventDispatcherService.Dispatch(new GuessResultSignal(letter.ToString(), guess.CurrentWord, guess.IsCorrect));
             _eventDispatcherService.Dispatch(new UpdateLoadingScreenSignal(false));
         }
     }

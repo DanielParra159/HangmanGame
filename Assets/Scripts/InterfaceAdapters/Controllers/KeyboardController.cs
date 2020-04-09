@@ -6,15 +6,15 @@ namespace InterfaceAdapters.Controllers
 {
     public class KeyboardController
     {
-        private readonly KeyboardViewModel _keyboardViewModel;
+        private readonly InGameViewModel _viewModel;
         private readonly GuessLetter _guessLetter;
 
-        public KeyboardController(KeyboardViewModel keyboardViewModel, GuessLetter guessLetter)
+        public KeyboardController(InGameViewModel viewModel, GuessLetter guessLetter)
         {
-            _keyboardViewModel = keyboardViewModel;
+            _viewModel = viewModel;
             _guessLetter = guessLetter;
 
-            _keyboardViewModel
+            _viewModel
                 .OnKeyPressedPressed
                 .Subscribe(letter =>
                 {

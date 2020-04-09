@@ -18,12 +18,12 @@ namespace InterfaceAdapters.Presenters.Tests
             eventDispatcherService
                 .When(service => service.Subscribe<NewWordSignal>(Arg.Any<SignalDelegate>()))
                 .Do(info => callback = info.Arg<SignalDelegate>());
-            var mainMenuPresenter =  new MainMenuPresenter(mainMenuViewModel, eventDispatcherService);
+            var mainMenuPresenter = new MainMenuPresenter(mainMenuViewModel, eventDispatcherService);
             var observer = Substitute.For<IObserver<bool>>();
             mainMenuViewModel.IsVisible.Subscribe(observer);
 
             callback(new NewWordSignal("word"));
-            
+
             observer.Received().OnNext(false);
         }
     }
