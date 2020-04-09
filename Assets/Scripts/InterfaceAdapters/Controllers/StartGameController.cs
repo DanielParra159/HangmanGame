@@ -17,6 +17,5 @@ namespace InterfaceAdapters.Controllers
                 .OnStartGamePressed
                 .Subscribe(_ => _startGame.Start());
         }
-
     }
 }

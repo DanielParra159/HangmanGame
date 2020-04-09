@@ -1,10 +1,12 @@
 ﻿using Domain.Model.Game;
 using Domain.Services.EventDispatcher;
 using Domain.Services.Game;
+using Domain.UseCases.CommonSignals;
+using Domain.UseCases.StartGame;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace Domain.UseCases.StartGame.Tests
+namespace Domain.UseCases.Tests
 {
     public class StartGameUseCaseTest
     {
@@ -50,6 +52,8 @@ namespace Domain.UseCases.StartGame.Tests
                     .Received()
                     .Dispatch(Arg.Is<UpdateLoadingScreenSignal>(signal => signal.IsVisible));
 
+                _gameService.Received().StartNewGame();
+                
                 _eventDispatcherService
                     .Received()
                     .Dispatch(Arg.Is<UpdateLoadingScreenSignal>(signal => !signal.IsVisible));

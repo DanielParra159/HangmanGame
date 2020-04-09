@@ -6,6 +6,7 @@ using Assert = UnityEngine.Assertions.Assert;
 
 namespace Views.Tests
 {
+    [TestFixture]
     public class InGameViewTest
     {
         [Test]
@@ -16,10 +17,10 @@ namespace Views.Tests
             inGameView.CurrentWordText = inGame.AddComponent<Text>();
             var inGameViewModel = new InGameViewModel();
             inGameView.SetModel(inGameViewModel);
-            
+
             Assert.AreNotEqual("Word", inGameView.CurrentWordText.text);
             inGameViewModel.CurrentWord.Value = "Word";
-            
+
             Assert.AreEqual("Word", inGameView.CurrentWordText.text);
         }
     }

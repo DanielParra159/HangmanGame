@@ -1,9 +1,11 @@
-﻿using Domain.UseCases.StartGame;
+﻿using Domain.UseCases.GuessLetter;
+using Domain.UseCases.StartGame;
 using NSubstitute;
 using NUnit.Framework;
 
 namespace InterfaceAdapters.Controllers.Tests
 {
+    [TestFixture]
     public class StartGameControllerTest
     {
         private StartGame _startGame;
@@ -19,11 +21,23 @@ namespace InterfaceAdapters.Controllers.Tests
         }
         
         [Test]
-        public void StartGameControllerTestSimplePasses()
+        public void WhenReceiveCommandOnStartGamePressed_CallToStart()
         {
             _mainMenuViewModel.OnStartGamePressed.Execute();
             
             _startGame.Received().Start();
+        }
+        
+        [Test]
+        public void WhenReceiveCommandOnKeyPressedPressed_CallToGuessLetter()
+        {
+            var keyboardViewModel = new InGameViewModel();
+            var guessLetter = Substitute.For<GuessLetter>();
+            var keyboardController = new KeyboardController(keyboardViewModel, guessLetter);
+            
+            keyboardViewModel.OnKeyPressedPressed.Execute("A");
+
+            guessLetter.Received().Guess('A');
         }
     }
 }

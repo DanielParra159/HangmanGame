@@ -6,6 +6,7 @@ using Application.Services.Parsers;
 using Application.Services.Repositories;
 using Application.Services.Web;
 using Domain.Repositories;
+using Domain.UseCases.GuessLetter;
 using Domain.UseCases.StartGame;
 using InterfaceAdapters.Controllers;
 using InterfaceAdapters.Presenters;
@@ -29,7 +30,10 @@ namespace Installers
             var inGameViewInstance = Instantiate(InGameViewPrefab); // TODO: extract to a service
             var inGameViewModel = new InGameViewModel();
             inGameViewInstance.SetModel(inGameViewModel);
-            
+            inGameViewInstance
+                .GetComponentInChildren<KeyboardView>()
+                .SetModel(inGameViewModel); // TODO: consider move this responsability to the parent view
+
             var loadingViewInstance = Instantiate(LoadingViewPrefab); // TODO: extract to a service
             var loadingViewModel = new LoadingViewModel();
             loadingViewInstance.SetModel(loadingViewModel);
@@ -44,11 +48,12 @@ namespace Installers
             var startGameController = new StartGameController(mainMenuViewModel,
                 new StartGameUseCase(gameServerService, eventDispatcherServiceImpl)
             );
+            var keyboardController = new KeyboardController(inGameViewModel,
+                new GuessLetterUseCase(gameServerService, eventDispatcherServiceImpl));
 
             var updateWordPresenter = new InGamePresenter(inGameViewModel, eventDispatcherServiceImpl);
             var mainMenuPresenter = new MainMenuPresenter(mainMenuViewModel, eventDispatcherServiceImpl);
             var loadingPresenter = new LoadingPresenter(loadingViewModel, eventDispatcherServiceImpl);
-
         }
     }
 }

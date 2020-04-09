@@ -146,5 +146,28 @@ namespace EndToEndTests
             
             Assert.IsTrue(Math.Abs(canvasGroup.alpha) >= 1f);
         }
+        
+        public static async Task GivenButtonIsNotInteractable(string text)
+        {
+            var textObject = await IShouldSeeTheText(text);
+            var button = textObject.GetComponent<Button>();
+            if (button == null)
+            {
+                button = textObject.GetComponentInParent<Button>();
+            }
+
+            Assert.IsNotNull(button, "Button with name " + text + " not found");
+
+            var interactable = true;
+            var retries = 0;
+            while (interactable && retries < MaxOfRetries)
+            {
+                interactable = button.interactable;
+                retries += 1;
+                await Task.Delay(1000);
+            }
+
+            Assert.IsFalse(interactable);
+        }
     }
 }

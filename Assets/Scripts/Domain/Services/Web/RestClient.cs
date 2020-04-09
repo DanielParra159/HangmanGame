@@ -18,7 +18,7 @@ namespace Domain.Services.Web
         Task<TResponse> Get<TRequest, TResponse>(string url, TRequest request)
             where TRequest : Request where TResponse : Response;
 
-        Task<Response> PutWithParametersOnUrl<TRequest, TResponse>(string url, TRequest request)
+        Task<TResponse> PutWithParametersOnUrl<TRequest, TResponse>(string url, TRequest request)
             where TRequest : Request where TResponse : Response;
     }
 }
