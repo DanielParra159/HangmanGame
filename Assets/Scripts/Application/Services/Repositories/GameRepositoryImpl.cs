@@ -1,3 +1,4 @@
+using Domain.Model.Game;
 using Domain.Repositories;
 
 namespace Application.Services.Repositories
@@ -5,6 +6,6 @@ namespace Application.Services.Repositories
     public class GameRepositoryImpl : GameRepository
     {
         public string GameToken { get; set; }
-        public string Word { get; set; }
+        public Word Word { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using Application.Services.Parsers;
 using Application.Services.Repositories;
 using Application.Services.Web;
 using Domain.Repositories;
+using Domain.UseCases.CheckLastWordIsCompleted;
 using Domain.UseCases.GuessLetter;
 using Domain.UseCases.StartGame;
 using InterfaceAdapters.Controllers;
@@ -39,17 +40,27 @@ namespace Installers
             loadingViewInstance.SetModel(loadingViewModel);
 
             // TODO: these services should be unique, instantiate it in a previous step
+            var gameRepositoryImpl = new GameRepositoryImpl();
             var gameServerService = new GameServerService
             (
                 new RestRestClientAdapter(new JsonUtilityAdapter()),
-                new GameRepositoryImpl()
+                gameRepositoryImpl
             );
             var eventDispatcherServiceImpl = new EventDispatcherServiceImpl();
             var startGameController = new StartGameController(mainMenuViewModel,
                 new StartGameUseCase(gameServerService, eventDispatcherServiceImpl)
             );
             var keyboardController = new KeyboardController(inGameViewModel,
-                new GuessLetterUseCase(gameServerService, eventDispatcherServiceImpl));
+                new GuessLetterUseCase(
+                    new CheckSolutionUseCase(
+                        gameServerService,
+                        gameRepositoryImpl,
+                        eventDispatcherServiceImpl
+                    ),
+                    gameServerService,
+                    eventDispatcherServiceImpl
+                )
+            );
 
             var updateWordPresenter = new InGamePresenter(inGameViewModel, eventDispatcherServiceImpl);
             var mainMenuPresenter = new MainMenuPresenter(mainMenuViewModel, eventDispatcherServiceImpl);

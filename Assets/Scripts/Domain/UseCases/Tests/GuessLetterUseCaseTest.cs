@@ -1,6 +1,7 @@
 ﻿using Domain.Model.Game;
 using Domain.Services.EventDispatcher;
 using Domain.Services.Game;
+using Domain.UseCases.CheckLastWordIsCompleted;
 using Domain.UseCases.CommonSignals;
 using Domain.UseCases.GuessLetter;
 using NSubstitute;
@@ -8,19 +9,22 @@ using NUnit.Framework;
 
 namespace Domain.UseCases.Tests
 {
+    [TestFixture]
     public class GuessLetterUseCaseTest
     {
         private GuessLetterUseCase _guessLetterUseCase;
         private EventDispatcherService _eventDispatcherService;
         private GameService _gameService;
+        private CheckSolution _checkSolution;
 
         [SetUp]
         public void SetUp()
         {
             _gameService = Substitute.For<GameService>();
-            _gameService.GuessLetter(Arg.Any<char>()).Returns(info => new Guess("", false));
+            _checkSolution = Substitute.For<CheckSolution>();
+            _gameService.GuessLetter(Arg.Any<char>()).Returns(info => new Guess(new Word(""), false));
             _eventDispatcherService = Substitute.For<EventDispatcherService>();
-            _guessLetterUseCase = new GuessLetterUseCase(_gameService, _eventDispatcherService);
+            _guessLetterUseCase = new GuessLetterUseCase(_checkSolution, _gameService, _eventDispatcherService);
         }
 
         [Test]
@@ -53,7 +57,7 @@ namespace Domain.UseCases.Tests
         [Test]
         public void WhenCallToGuess_DispatchTheResult()
         {
-            _gameService.GuessLetter('A').Returns(info => new Guess("___a", true));
+            _gameService.GuessLetter('A').Returns(info => new Guess(new Word("___a"), true));
             _guessLetterUseCase.Guess('A');
 
             _eventDispatcherService
@@ -63,6 +67,14 @@ namespace Domain.UseCases.Tests
                         signal => signal.CurrentWord == "___a" && signal.IsCorrect
                     )
                 );
+        }
+        
+        [Test]
+        public void WhenCallToGuess_CallToCheckIfTheLastWordIsCompleted()
+        {
+            _guessLetterUseCase.Guess('A');
+
+            _checkSolution.Received().Check();
         }
     }
 }

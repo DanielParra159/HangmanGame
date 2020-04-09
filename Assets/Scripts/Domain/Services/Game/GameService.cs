@@ -7,5 +7,6 @@ namespace Domain.Services.Game
     {
         Task<Word> StartNewGame();
         Task<Guess> GuessLetter(char letter);
+        Task<Word> GetSolution();
     }
 }

@@ -27,6 +27,7 @@ namespace InterfaceAdapters.Controllers
         public readonly ReactiveCommand<string> OnKeyPressedPressed;
         public readonly Dictionary<string, KeyButtonViewModel> KeyButtonsViewModel;
         public readonly ReactiveProperty<bool> IsVisible;
+        public readonly ReactiveProperty<bool> VictoryIsVisible;
 
         public InGameViewModel()
         {
@@ -34,7 +35,9 @@ namespace InterfaceAdapters.Controllers
             OnKeyPressedPressed = new ReactiveCommand<string>();
             KeyButtonsViewModel = new Dictionary<string, KeyButtonViewModel>();
             IsVisible = new BoolReactiveProperty(false);
+            VictoryIsVisible = new BoolReactiveProperty(false);
         }
+
 
         public KeyButtonViewModel SubscribeKeyButton(string key)
         {

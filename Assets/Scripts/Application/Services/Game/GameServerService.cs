@@ -21,9 +21,9 @@ namespace Application.Services.Game
         public async Task<Word> StartNewGame()
         {
             var response = await _restClient.Post<Request, NewGameResponse>(EndPoints.NewGame, new Request());
-            _gameRepository.Word = response.hangman;
+            _gameRepository.Word = new Word(response.hangman);
             _gameRepository.GameToken = response.token;
-            return new Word(response.hangman);
+            return _gameRepository.Word;
         }
 
         public async Task<Guess> GuessLetter(char letter)
@@ -35,9 +35,19 @@ namespace Application.Services.Game
                         EndPoints.NewGame,
                         new GuessLetterRequest {letter = letter.ToString(), token = _gameRepository.GameToken}
                     );
-            _gameRepository.Word = response.hangman;
+            _gameRepository.Word = new Word(response.hangman);
             _gameRepository.GameToken = response.token;
-            return new Guess(response.hangman, response.correct);
+            return new Guess(_gameRepository.Word, response.correct);
+        }
+
+        public async Task<Word> GetSolution()
+        {
+            var response =
+                await _restClient.Get<GetSolutionRequest, GetSolutionResponse>(EndPoints.GetSolution,
+                    new GetSolutionRequest {token = _gameRepository.GameToken});
+            _gameRepository.Word = new Word(response.solution);
+            _gameRepository.GameToken = response.token;
+            return _gameRepository.Word;
         }
     }
 }

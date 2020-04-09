@@ -1,8 +1,10 @@
-﻿namespace Domain.Repositories
+﻿using Domain.Model.Game;
+
+namespace Domain.Repositories
 {
     public interface GameRepository
     {
         string GameToken { get; set; }
-        string Word { get; set; }
+        Word Word { get; set; }
     }
 }
