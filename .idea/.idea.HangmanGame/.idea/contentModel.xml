@@ -289,6 +289,9 @@
               <e p="Parsers" t="Include">
                 <e p="JsonUtilityAdapter.cs" t="Include" />
               </e>
+              <e p="Repositories" t="Include">
+                <e p="GameRepositoryImpl.cs" t="Include" />
+              </e>
               <e p="ServiceLocator" t="Include">
                 <e p="ServiceLocatorImpl.cs" t="Include" />
                 <e p="Tests" t="Include">
@@ -311,6 +314,9 @@
             </e>
           </e>
           <e p="Domain" t="Include">
+            <e p="Configuration" t="Include">
+              <e p="Endpoints.cs" t="Include" />
+            </e>
             <e p="Domain.asmdef" t="Include" />
             <e p="Model" t="Include">
               <e p="Game" t="Include">
@@ -348,6 +354,15 @@
               </e>
             </e>
           </e>
+          <e p="EndToEndTests" t="Include">
+            <e p="EndToEndTests.asmdef" t="Include" />
+            <e p="StartGameE2E.cs" t="Include" />
+            <e p="Utils.cs" t="Include" />
+          </e>
+          <e p="Installers" t="Include">
+            <e p="Installers.asmdef" t="Include" />
+            <e p="MainMenuInstaller.cs" t="Include" />
+          </e>
           <e p="InterfaceAdapters" t="Include">
             <e p="Controllers" t="Include">
               <e p="MainMenuViewModel.cs" t="Include" />
@@ -370,7 +385,9 @@
         </e>
       </e>
       <e p="Domain.csproj" t="IncludeRecursive" />
+      <e p="EndToEndTests.csproj" t="IncludeRecursive" />
       <e p="HangmanGame.sln" t="IncludeFlat" />
+      <e p="Installers.csproj" t="IncludeRecursive" />
       <e p="InterfaceAdapters.Controllers.Tests.csproj" t="IncludeRecursive" />
       <e p="InterfaceAdapters.csproj" t="IncludeRecursive" />
       <e p="obj" t="ExcludeRecursive" />
