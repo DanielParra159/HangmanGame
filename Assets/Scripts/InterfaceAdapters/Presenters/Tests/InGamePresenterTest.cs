@@ -1,5 +1,6 @@
 ﻿using System;
 using Domain.Services.EventDispatcher;
+using Domain.UseCases.CheckLastWordIsCompleted;
 using Domain.UseCases.GuessLetter;
 using Domain.UseCases.StartGame;
 using InterfaceAdapters.Controllers;
@@ -85,11 +86,26 @@ namespace InterfaceAdapters.Presenters.Tests
             keyButtonViewModel.IsEnabled.Subscribe(isEnabledObserver);
             var inGamePresenter = new InGamePresenter(_inGameViewModel, _eventDispatcherService);
 
-
             callback(new GuessResultSignal("d", "word", isCorrect));
 
             colorObserver.Received().OnNext(isCorrect ? InGameViewModel.CorrectColor : InGameViewModel.IncorrectColor);
             isEnabledObserver.Received().OnNext(false);
+        }
+        
+        [Test]
+        public void WhenDispatchWordCompletedSignal_UpdateVictoryVisibilityInViewModel()
+        {
+            SignalDelegate callback = null;
+            _eventDispatcherService
+                .When(service => service.Subscribe<WordCompletedSignal>(Arg.Any<SignalDelegate>()))
+                .Do(info => callback = info.Arg<SignalDelegate>());
+            var isVisibleObserver = Substitute.For<IObserver<bool>>();
+            _inGameViewModel.VictoryIsVisible.Subscribe(isVisibleObserver);
+            var inGamePresenter = new InGamePresenter(_inGameViewModel, _eventDispatcherService);
+
+            callback(new WordCompletedSignal());
+
+            isVisibleObserver.Received().OnNext(true);
         }
     }
 }

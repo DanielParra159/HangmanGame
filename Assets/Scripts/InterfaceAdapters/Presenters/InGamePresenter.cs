@@ -1,4 +1,5 @@
 ﻿using Domain.Services.EventDispatcher;
+using Domain.UseCases.CheckLastWordIsCompleted;
 using Domain.UseCases.GuessLetter;
 using Domain.UseCases.StartGame;
 using InterfaceAdapters.Controllers;
@@ -16,6 +17,12 @@ namespace InterfaceAdapters.Presenters
             _eventDispatcherService = eventDispatcherService;
             _eventDispatcherService.Subscribe<NewWordSignal>(NewWord);
             _eventDispatcherService.Subscribe<GuessResultSignal>(GuessReceived);
+            _eventDispatcherService.Subscribe<WordCompletedSignal>(WordCompleted);
+        }
+
+        private void WordCompleted(Signal signal)
+        {
+            _viewModel.VictoryIsVisible.Value = true;
         }
 
         private void NewWord(Signal signal)
