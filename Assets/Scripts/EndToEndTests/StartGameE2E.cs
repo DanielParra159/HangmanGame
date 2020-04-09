@@ -24,9 +24,13 @@ namespace EndToEndTests
 
             yield return Utils.IPressTheButton("Start game");
             
+            yield return Utils.GivenGameObjectIsVisible<LoadingView>();
+            
             yield return Utils.IShouldNotSeeTheText("Start game");
             
-            yield return Utils.GivenGameObjectIsInvisible<MainMenuView>();
+            yield return Utils.GivenGameObjectIsInvisible<LoadingView>();
+            
+            yield return Utils.GivenGameObjectIsNotActive<MainMenuView>();
             
             // TODO: we need to use a mock server
             // yield return Utils.IShouldSeeTheText("_ _ _ _");

@@ -237,6 +237,8 @@ MonoBehaviour:
     type: 3}
   InGameViewPrefab: {fileID: 6855530190908319207, guid: f2e9c135f99b6194b8bda843496df485,
     type: 3}
+  LoadingViewPrefab: {fileID: -1839141702487942370, guid: 27272902c14a89940ac91df89b9224d5,
+    type: 3}
 --- !u!4 &1604400637
 Transform:
   m_ObjectHideFlags: 0

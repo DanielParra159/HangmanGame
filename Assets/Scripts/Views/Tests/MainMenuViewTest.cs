@@ -23,27 +23,28 @@ namespace Views.Tests
             _mainMenuView.StartGameButton = _mainMenu.AddComponent<Button>();
             _mainMenuViewModel = new MainMenuViewModel();
             _mainMenuView.SetModel(_mainMenuViewModel);
-
         }
+
         [Test]
         public void WhenClickOnStartGameButton_ExecuteStartGameButtonCommand()
         {
             var observer = Substitute.For<IObserver<Unit>>();
             _mainMenuViewModel.OnStartGamePressed.Subscribe(observer);
-            
+
             _mainMenuView.StartGameButton.onClick.Invoke();
-            
+
             observer.Received().OnNext(Unit.Default);
         }
-        
-        [Test]
-        public void WhenUpdateVisibilityOnTheViewModel_ShowOrHideTheGameObject()
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void WhenUpdateVisibilityOnTheViewModel_ShowOrHideTheGameObject(bool expectedValue)
         {
-            Assert.IsTrue(_mainMenu.activeSelf);
-            _mainMenuViewModel.IsVisible.Value = false;
-            
-            Assert.IsFalse(_mainMenu.activeSelf);
+            _mainMenu.SetActive(!expectedValue);
+            Assert.AreEqual(!expectedValue, _mainMenu.activeSelf);
+            _mainMenuViewModel.IsVisible.SetValueAndForceNotify(expectedValue);
+
+            Assert.AreEqual(expectedValue, _mainMenu.activeSelf);
         }
-        
     }
 }
