@@ -32,6 +32,8 @@ namespace EndToEndTests
             
             yield return Utils.GivenGameObjectIsNotActive<MainMenuView>();
             
+            yield return Utils.GivenGameObjectIsInScene("Keyboard");
+            
             // TODO: we need to use a mock server
             // yield return Utils.IShouldSeeTheText("_ _ _ _");
             
