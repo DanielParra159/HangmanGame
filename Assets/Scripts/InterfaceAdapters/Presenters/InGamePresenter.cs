@@ -14,15 +14,16 @@ namespace InterfaceAdapters.Presenters
         {
             _viewModel = viewModel;
             _eventDispatcherService = eventDispatcherService;
-            _eventDispatcherService.Subscribe<NewWordSignal>(WordUpdated);
+            _eventDispatcherService.Subscribe<NewWordSignal>(NewWord);
             _eventDispatcherService.Subscribe<GuessResultSignal>(GuessReceived);
         }
 
-        private void WordUpdated(Signal signal)
+        private void NewWord(Signal signal)
         {
             // TODO: find a better way, without casting
             var newWord = ((NewWordSignal) signal).NewWord;
             SetWord(newWord);
+            _viewModel.IsVisible.Value = true;
         }
 
         private void GuessReceived(Signal signal)

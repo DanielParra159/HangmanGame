@@ -31,10 +31,25 @@ namespace InterfaceAdapters.Presenters.Tests
             _inGameViewModel.CurrentWord.Subscribe(wordObserver);
             var inGamePresenter = new InGamePresenter(_inGameViewModel, _eventDispatcherService);
 
-
             callback(new NewWordSignal("word"));
 
             wordObserver.Received().OnNext("w o r d");
+        }
+
+        [Test]
+        public void WhenDispatchNewWordSignal_UpdateTheVisibilityInViewModel()
+        {
+            SignalDelegate callback = null;
+            _eventDispatcherService
+                .When(service => service.Subscribe<NewWordSignal>(Arg.Any<SignalDelegate>()))
+                .Do(info => callback = info.Arg<SignalDelegate>());
+            var observer = Substitute.For<IObserver<bool>>();
+            _inGameViewModel.IsVisible.Subscribe(observer);
+            var inGamePresenter = new InGamePresenter(_inGameViewModel, _eventDispatcherService);
+
+            callback(new NewWordSignal("word"));
+
+            observer.Received().OnNext(true);
         }
 
         [Test]
@@ -54,7 +69,7 @@ namespace InterfaceAdapters.Presenters.Tests
 
             wordObserver.Received().OnNext("w o r d");
         }
-        
+
         [TestCase(true)]
         [TestCase(false)]
         public void WhenDispatchGuessResultSignal_UpdateKeyButtonViewModel(bool isCorrect)

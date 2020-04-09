@@ -14,6 +14,7 @@ namespace Views
         {
             _inGameViewModel = inGameViewModel;
             _inGameViewModel.CurrentWord.Subscribe(word => CurrentWordText.text = word);
+            _inGameViewModel.IsVisible.Subscribe(isVisible => gameObject.SetActive(isVisible));
         }
     }
 }

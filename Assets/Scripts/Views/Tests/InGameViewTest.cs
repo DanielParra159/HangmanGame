@@ -9,19 +9,38 @@ namespace Views.Tests
     [TestFixture]
     public class InGameViewTest
     {
+        private GameObject _inGame;
+        private InGameView _inGameView;
+        private InGameViewModel _inGameViewModel;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _inGame = new GameObject();
+            _inGameView = _inGame.AddComponent<InGameView>();
+            _inGameView.CurrentWordText = _inGame.AddComponent<Text>();
+            _inGameViewModel = new InGameViewModel();
+            _inGameView.SetModel(_inGameViewModel);
+        }
+
         [Test]
         public void WhenTheTextChanges_UpdateTheShowedText()
         {
-            var inGame = new GameObject();
-            var inGameView = inGame.AddComponent<InGameView>();
-            inGameView.CurrentWordText = inGame.AddComponent<Text>();
-            var inGameViewModel = new InGameViewModel();
-            inGameView.SetModel(inGameViewModel);
+            Assert.AreNotEqual("Word", _inGameView.CurrentWordText.text);
+            _inGameViewModel.CurrentWord.Value = "Word";
 
-            Assert.AreNotEqual("Word", inGameView.CurrentWordText.text);
-            inGameViewModel.CurrentWord.Value = "Word";
+            Assert.AreEqual("Word", _inGameView.CurrentWordText.text);
+        }
 
-            Assert.AreEqual("Word", inGameView.CurrentWordText.text);
+        [TestCase(true)]
+        [TestCase(false)]
+        public void WhenUpdateVisibilityOnTheViewModel_ShowOrHideTheGameObject(bool expectedValue)
+        {
+            _inGame.SetActive(!expectedValue);
+            Assert.AreEqual(!expectedValue, _inGame.activeSelf);
+            _inGameViewModel.IsVisible.SetValueAndForceNotify(expectedValue);
+
+            Assert.AreEqual(expectedValue, _inGame.activeSelf);
         }
     }
 }
