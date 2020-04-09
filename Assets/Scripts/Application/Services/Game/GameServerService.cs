@@ -23,7 +23,7 @@ namespace Application.Services.Game
             var response = await _restClient.Post<Request, NewGameResponse>(EndPoints.NewGame, new Request());
             _gameRepository.Word = new Word(response.hangman);
             _gameRepository.GameToken = response.token;
-            return  _gameRepository.Word;
+            return _gameRepository.Word;
         }
 
         public async Task<Guess> GuessLetter(char letter)
@@ -40,9 +40,14 @@ namespace Application.Services.Game
             return new Guess(_gameRepository.Word, response.correct);
         }
 
-        public Task<Word> GetSolution()
+        public async Task<Word> GetSolution()
         {
-            throw new System.NotImplementedException();
+            var response =
+                await _restClient.Get<GetSolutionRequest, GetSolutionResponse>(EndPoints.GetSolution,
+                    new GetSolutionRequest {token = _gameRepository.GameToken});
+            _gameRepository.Word = new Word(response.solution);
+            _gameRepository.GameToken = response.token;
+            return _gameRepository.Word;
         }
     }
 }

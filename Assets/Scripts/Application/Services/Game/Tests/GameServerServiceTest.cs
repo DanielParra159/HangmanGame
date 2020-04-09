@@ -66,9 +66,9 @@ namespace Application.Services.Game.Tests
             _restClient
                 .PutWithParametersOnUrl<GameServerService.GuessLetterRequest, GameServerService.GuessLetterResponse>(
                     EndPoints.GuessLetter, Arg.Any<GameServerService.GuessLetterRequest>())
-                .Returns(info =>  new GameServerService.GuessLetterResponse
+                .Returns(info => new GameServerService.GuessLetterResponse
                 {
-                    hangman = "____" + ((GameServerService.GuessLetterRequest)info.Args()[1]).letter,
+                    hangman = "____" + ((GameServerService.GuessLetterRequest) info.Args()[1]).letter,
                     correct = true, token = "token"
                 });
 
@@ -78,16 +78,16 @@ namespace Application.Services.Game.Tests
             Assert.AreEqual("____a", word.CurrentWord.CurrentWord);
             Assert.AreEqual(true, word.IsCorrect);
         }
-        
+
         [Test]
         public async void WhenCallToGuessLetter_StoreTheUpdatedWord()
         {
             _restClient
                 .PutWithParametersOnUrl<GameServerService.GuessLetterRequest, GameServerService.GuessLetterResponse>(
                     EndPoints.GuessLetter, Arg.Any<GameServerService.GuessLetterRequest>())
-                .Returns(info =>  new GameServerService.GuessLetterResponse
+                .Returns(info => new GameServerService.GuessLetterResponse
                 {
-                    hangman = "____" + ((GameServerService.GuessLetterRequest)info.Args()[1]).letter,
+                    hangman = "____" + ((GameServerService.GuessLetterRequest) info.Args()[1]).letter,
                     correct = true, token = "token"
                 });
 
@@ -95,21 +95,41 @@ namespace Application.Services.Game.Tests
 
             _gameRepository.Received().Word = Arg.Is<Word>(word => word.CurrentWord == "____a");
         }
-        
+
         [Test]
         public async void WhenCallToGuessLetter_RefreshStoredTokenId()
         {
             _restClient
                 .PutWithParametersOnUrl<GameServerService.GuessLetterRequest, GameServerService.GuessLetterResponse>(
                     EndPoints.GuessLetter, Arg.Any<GameServerService.GuessLetterRequest>())
-                .Returns(info =>  new GameServerService.GuessLetterResponse
+                .Returns(info => new GameServerService.GuessLetterResponse
                 {
-                    hangman = "____" + ((GameServerService.GuessLetterRequest)info.Args()[1]).letter,
-                    correct = true, token = "token"
+                    hangman = "____" + ((GameServerService.GuessLetterRequest) info.Args()[1]).letter,
+                    correct = true,
+                    token = "token"
                 });
 
             await _gameServerService.GuessLetter('a');
 
+            _gameRepository.Received().GameToken = "token";
+        }
+
+        [Test]
+        public async void WhenCallToGetSolution_DoGetRequestToTheServer()
+        {
+            _restClient
+                .Get<GameServerService.GetSolutionRequest, GameServerService.GetSolutionResponse>(
+                    EndPoints.GetSolution, Arg.Any<GameServerService.GetSolutionRequest>())
+                .Returns(info => new GameServerService.GetSolutionResponse
+                {
+                    solution = "word",
+                    token = "token"
+                });
+
+            var word = await _gameServerService.GetSolution();
+
+            Assert.AreEqual("word", word.CurrentWord);
+            _gameRepository.Received().Word = Arg.Is<Word>(storedWord => storedWord.CurrentWord == "word");
             _gameRepository.Received().GameToken = "token";
         }
     }
