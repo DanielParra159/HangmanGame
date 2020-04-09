@@ -10,6 +10,8 @@ For the comunication with the view I have used a reactive MVVM pattern, using [U
 
 For the creation of <b>End to end (E2E) tests</b>, since Unity does not support <b>cucumber</b> or similar, I have improvised some [helper functions](https://github.com/DanielParra159/HangmanGame/blob/master/Assets/Scripts/EndToEndTests/StartGameE2E.cs) for this purpose.
 
+For the server we use this (hangman api)[https://hangman-api.herokuapp.com/api].
+
 ## Next steps
 
 * Finish the game.
