@@ -21,8 +21,14 @@ namespace EndToEndTests
             yield return Utils.IShouldSeeTheText("Start game");
 
             yield return Utils.IPressTheButton("Start game");
-
-            // TODO: hide menu
+            
+            yield return Utils.IShouldNotSeeTheText("Start game");
+            
+            yield return Utils.GivenGameObjectIsInvisible<MainMenuView>();
+            
+            // TODO: we need to use a mock server
+            // yield return Utils.IShouldSeeTheText("_ _ _ _");
+            
             yield return SceneManager.UnloadSceneAsync("Game");
         }
 

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -19,7 +20,7 @@ namespace EndToEndTests
             Assert.IsTrue(scene != null, $"Scene {scene} can not be loaded");
         }
 
-        public static IEnumerator GivenGameObjectIsInScene<T>() where T : Object
+        public static async Task<Object> GivenGameObjectIsInScene<T>() where T : Object
         {
             var retries = 0;
             Object gameObject = null;
@@ -28,12 +29,13 @@ namespace EndToEndTests
                 gameObject = Object.FindObjectOfType<T>();
                 if (gameObject == null)
                 {
-                    yield return new WaitForSeconds(1);
-                    ++retries;
+                    await Task.Delay(1000);
+                    retries += 1;
                 }
             }
 
             Assert.IsNotNull(gameObject, $"Object of type {typeof(T).Name} is not in the scene");
+            return gameObject;
         }
 
         public static IEnumerator GivenGameObjectIsInScene(string name)
@@ -46,7 +48,7 @@ namespace EndToEndTests
                 if (gameObject == null)
                 {
                     yield return new WaitForSeconds(1);
-                    ++retries;
+                    retries += 1;
                 }
             }
 
@@ -72,7 +74,7 @@ namespace EndToEndTests
                 }
 
                 await Task.Delay(1000);
-                ++retries;
+                retries += 1;
             }
 
             Assert.IsNotNull(textFound, "Text " + text + " not found");
@@ -92,6 +94,28 @@ namespace EndToEndTests
             Assert.IsNotNull(button, "Button with name " + text + " not found");
 
             button.onClick.Invoke();
+        }
+
+        public static async Task IShouldNotSeeTheText(string text)
+        {
+            var texts = Object.FindObjectsOfType<Text>();
+            var found = true;
+            var retries = 0;
+            while (found && retries < MaxOfRetries)
+            {
+                found = texts.Any(textObject => textObject.text.Equals(text));
+                retries += 1;
+            }
+            
+            await Task.Delay(1000);
+
+            Assert.IsFalse(found, $"Text {text} found");
+        }
+
+        public static async Task GivenGameObjectIsInvisible<T>() where T : Object
+        {
+            var gameObject = await GivenGameObjectIsInScene<T>();
+            Assert.IsFalse(((GameObject)gameObject).activeSelf, $"The object with type {typeof(T)} is active");
         }
     }
 }
