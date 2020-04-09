@@ -4,6 +4,7 @@ using NUnit.Framework;
 
 namespace InterfaceAdapters.Controllers.Tests
 {
+    [TestFixture]
     public class StartGameControllerTest
     {
         private StartGame _startGame;
@@ -19,7 +20,7 @@ namespace InterfaceAdapters.Controllers.Tests
         }
         
         [Test]
-        public void StartGameControllerTestSimplePasses()
+        public void WhenReceiveCommandOnStartGamePressed_CallToStart()
         {
             _mainMenuViewModel.OnStartGamePressed.Execute();
             
