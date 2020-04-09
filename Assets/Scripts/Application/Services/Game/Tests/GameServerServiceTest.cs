@@ -77,7 +77,7 @@ namespace Application.Services.Game.Tests
             var word = await _gameServerService.GuessLetter('a');
 
             Assert.AreEqual("____a", word.CurrentWord);
-            Assert.AreEqual(true, word.Correct);
+            Assert.AreEqual(true, word.IsCorrect);
         }
         
         [Test]

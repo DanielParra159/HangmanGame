@@ -1,4 +1,5 @@
-﻿using Domain.Services.EventDispatcher;
+﻿using Domain.Model.Game;
+using Domain.Services.EventDispatcher;
 using Domain.Services.Game;
 using Domain.UseCases.CommonSignals;
 using Domain.UseCases.GuessLetter;
@@ -20,6 +21,7 @@ namespace Domain.UseCases.Tests
             _eventDispatcherService = Substitute.For<EventDispatcherService>();
             _guessLetterUseCase = new GuessLetterUseCase(_gameService, _eventDispatcherService);
         }
+
         [Test]
         public void WhenCallToGuess_CallToGameServiceGuessLetter()
         {
@@ -27,7 +29,7 @@ namespace Domain.UseCases.Tests
 
             _gameService.Received().GuessLetter('A');
         }
-        
+
         [Test]
         public void WhenCallToStart_DispatchSignalToUpdateTheLoadingScreen()
         {
@@ -40,11 +42,26 @@ namespace Domain.UseCases.Tests
                     .Dispatch(Arg.Is<UpdateLoadingScreenSignal>(signal => signal.IsVisible));
 
                 _gameService.Received().GuessLetter(Arg.Any<char>());
-                
+
                 _eventDispatcherService
                     .Received()
                     .Dispatch(Arg.Is<UpdateLoadingScreenSignal>(signal => !signal.IsVisible));
             });
+        }
+
+        [Test]
+        public void WhenCallToGuess_DispatchTheResult()
+        {
+            _gameService.GuessLetter('A').Returns(info => new Guess("___a", true));
+            _guessLetterUseCase.Guess('A');
+
+            _eventDispatcherService
+                .Received()
+                .Dispatch(Arg.Is<GuessResultSignal>
+                    (
+                        signal => signal.CurrentWord == "___a" && signal.IsCorrect
+                    )
+                );
         }
     }
 }

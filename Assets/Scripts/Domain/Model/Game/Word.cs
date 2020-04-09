@@ -13,12 +13,12 @@
     public class Guess
     {
         public readonly string CurrentWord;
-        public readonly bool Correct;
+        public readonly bool IsCorrect;
 
-        public Guess(string currentWord, bool correct)
+        public Guess(string currentWord, bool isCorrect)
         {
             CurrentWord = currentWord;
-            Correct = correct;
+            IsCorrect = isCorrect;
         }
     }
 }

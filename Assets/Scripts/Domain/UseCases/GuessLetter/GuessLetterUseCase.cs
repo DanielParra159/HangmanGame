@@ -15,10 +15,11 @@ namespace Domain.UseCases.GuessLetter
             _eventDispatcherService = eventDispatcherService;
         }
 
-        public void Guess(char letter)
+        public async void Guess(char letter)
         {
             _eventDispatcherService.Dispatch(new UpdateLoadingScreenSignal(true));
-            _gameService.GuessLetter(letter);
+            var guess = await _gameService.GuessLetter(letter);
+            _eventDispatcherService.Dispatch(new GuessResultSignal(guess.CurrentWord, guess.IsCorrect));
             _eventDispatcherService.Dispatch(new UpdateLoadingScreenSignal(false));
         }
     }
