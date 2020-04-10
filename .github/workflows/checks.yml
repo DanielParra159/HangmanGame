@@ -1,4 +1,4 @@
-name: 'Auto Assign'
+name: 'Checks'
 on: pull_request
 
 jobs:
