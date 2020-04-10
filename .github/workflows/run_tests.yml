@@ -28,19 +28,3 @@ jobs:
         uses: webbertakken/unity-test-runner@v1.3
         with:
           unityVersion: 2019.3.8f1
-          
-      # Sonar
-      - name: unity-sonarscanner
-        uses: MirrorNG/unity-sonarscanner@1.0.1
-        with:
-          buildCommand: dotnet build .
-          projectKey: DanielParra159_HangmanGame
-          projectName: HangmanGame
-          sonarOrganisation: danielparra159
-          beginArguments: >
-              /d:sonar.verbose="true"
-              /d:sonar.coverage.exclusions='"**/*.md"'
-              /d:sonar.login='${{ secrets.SONAR_TOKEN }}'
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
