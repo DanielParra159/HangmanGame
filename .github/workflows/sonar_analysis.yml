@@ -1,0 +1,22 @@
+name: Sonar
+
+on: pull_request
+
+jobs:
+  sonar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Sonarscanner for dotnet
+      - uses: Secbyte/dotnet-sonarscanner@v2.2
+        with:
+          buildCommand: dotnet build .
+          projectKey: DanielParra159_HangmanGame
+          projectName: HangmanGame
+          sonarOrganisation: an-org
+          beginArguments: >
+              /d:sonar.verbose="true"
+              /d:sonar.coverage.exclusions='"**/*.md"'
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
