@@ -1,6 +1,7 @@
 name: Build
 
-on: pull_request
+on: 
+  push: { branches: [master] }
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
