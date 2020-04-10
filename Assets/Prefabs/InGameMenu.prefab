@@ -4916,7 +4916,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentWordText: {fileID: 6078822567460166384}
   VictoryImage: {fileID: 1314746183180749953}
-  RestartGameButton: {fileID: 0}
+  RestartGameButton: {fileID: 8878892975674405906}
 --- !u!1 &7581926303658777571
 GameObject:
   m_ObjectHideFlags: 0

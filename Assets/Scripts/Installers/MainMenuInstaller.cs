@@ -8,6 +8,7 @@ using Application.Services.Web;
 using Domain.Repositories;
 using Domain.UseCases.CheckLastWordIsCompleted;
 using Domain.UseCases.GuessLetter;
+using Domain.UseCases.RestartGame;
 using Domain.UseCases.StartGame;
 using InterfaceAdapters.Controllers;
 using InterfaceAdapters.Presenters;
@@ -47,8 +48,9 @@ namespace Installers
                 gameRepositoryImpl
             );
             var eventDispatcherServiceImpl = new EventDispatcherServiceImpl();
+            var startGameUseCase = new StartGameUseCase(gameServerService, eventDispatcherServiceImpl);
             var startGameController = new StartGameController(mainMenuViewModel,
-                new StartGameUseCase(gameServerService, eventDispatcherServiceImpl)
+                startGameUseCase
             );
             var keyboardController = new KeyboardController(inGameViewModel,
                 new GuessLetterUseCase(
@@ -61,6 +63,9 @@ namespace Installers
                     eventDispatcherServiceImpl
                 )
             );
+            var restartGameController =
+                new RestartGameController(inGameViewModel,
+                    new RestartGameUseCase(startGameUseCase, eventDispatcherServiceImpl));
 
             var updateWordPresenter = new InGamePresenter(inGameViewModel, eventDispatcherServiceImpl);
             var mainMenuPresenter = new MainMenuPresenter(mainMenuViewModel, eventDispatcherServiceImpl);
