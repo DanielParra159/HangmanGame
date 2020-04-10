@@ -6,7 +6,7 @@ namespace InterfaceAdapters.Controllers
     public class InGameViewModel
     {
         // TODO: extract these colors
-        public const string WhiteColor = "#FFFFFF";
+        public const string DefaultColor = "#FFFFFF";
         public const string IncorrectColor = "#DF3939";
         public const string CorrectColor = "#6FE25D";
 
@@ -18,7 +18,7 @@ namespace InterfaceAdapters.Controllers
             public KeyButtonViewModel()
             {
                 IsEnabled = new BoolReactiveProperty(true);
-                Color = new StringReactiveProperty(WhiteColor);
+                Color = new StringReactiveProperty(DefaultColor);
             }
         }
 
