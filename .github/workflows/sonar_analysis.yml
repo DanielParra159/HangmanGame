@@ -7,8 +7,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Sonarscanner for dotnet
-        uses: Secbyte/dotnet-sonarscanner@v2.2
+      - name: unity-sonarscanner
+        uses: MirrorNG/unity-sonarscanner@1.0.1
         with:
           buildCommand: dotnet build .
           projectKey: DanielParra159_HangmanGame
