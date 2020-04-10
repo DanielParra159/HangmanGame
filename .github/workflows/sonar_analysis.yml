@@ -13,7 +13,7 @@ jobs:
           buildCommand: dotnet build .
           projectKey: DanielParra159_HangmanGame
           projectName: HangmanGame
-          sonarOrganisation: an-org
+          sonarOrganisation: danielparra159
           beginArguments: >
               /d:sonar.verbose="true"
               /d:sonar.coverage.exclusions='"**/*.md"'
