@@ -1,4 +1,5 @@
-﻿using Domain.Services.EventDispatcher;
+﻿using System.Threading.Tasks;
+using Domain.Services.EventDispatcher;
 using Domain.Services.Game;
 using Domain.UseCases.CommonSignals;
 
@@ -15,7 +16,7 @@ namespace Domain.UseCases.StartGame
             _eventDispatcherService = eventDispatcherService;
         }
 
-        public async void Start()
+        public async Task Start()
         {
             _eventDispatcherService.Dispatch(new UpdateLoadingScreenSignal(true));
             var newWord = await _gameService.StartNewGame();

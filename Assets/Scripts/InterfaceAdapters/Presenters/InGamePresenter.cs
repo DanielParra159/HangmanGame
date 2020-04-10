@@ -1,6 +1,7 @@
 ﻿using Domain.Services.EventDispatcher;
 using Domain.UseCases.CheckLastWordIsCompleted;
 using Domain.UseCases.GuessLetter;
+using Domain.UseCases.RestartGame;
 using Domain.UseCases.StartGame;
 using InterfaceAdapters.Controllers;
 
@@ -18,6 +19,17 @@ namespace InterfaceAdapters.Presenters
             _eventDispatcherService.Subscribe<NewWordSignal>(NewWord);
             _eventDispatcherService.Subscribe<GuessResultSignal>(GuessReceived);
             _eventDispatcherService.Subscribe<WordCompletedSignal>(WordCompleted);
+            _eventDispatcherService.Subscribe<RestartGameSignal>(RestartGame);
+        }
+
+        private void RestartGame(Signal signal)
+        {
+            _viewModel.VictoryIsVisible.Value = false;
+            foreach (var buttonViewModel in _viewModel.KeyButtonsViewModel)
+            {
+                buttonViewModel.Value.IsEnabled.Value = true;
+                buttonViewModel.Value.Color.Value = InGameViewModel.DefaultColor;
+            }
         }
 
         private void WordCompleted(Signal signal)

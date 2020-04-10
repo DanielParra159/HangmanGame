@@ -1,7 +1,9 @@
+using System.Threading.Tasks;
+
 namespace Domain.UseCases.StartGame
 {
     public interface StartGame
     {
-        void Start();
+        Task Start();
     }
 }
