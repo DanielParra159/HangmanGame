@@ -9,7 +9,7 @@ namespace InterfaceAdapters.Controllers
         public const string WhiteColor = "#FFFFFF";
         public const string IncorrectColor = "#DF3939";
         public const string CorrectColor = "#6FE25D";
-        
+
         public class KeyButtonViewModel
         {
             public readonly ReactiveProperty<bool> IsEnabled;
@@ -18,16 +18,18 @@ namespace InterfaceAdapters.Controllers
             public KeyButtonViewModel()
             {
                 IsEnabled = new BoolReactiveProperty(true);
-                
                 Color = new StringReactiveProperty(WhiteColor);
             }
         }
-        
+
+
         public readonly ReactiveProperty<string> CurrentWord;
         public readonly ReactiveCommand<string> OnKeyPressedPressed;
         public readonly Dictionary<string, KeyButtonViewModel> KeyButtonsViewModel;
         public readonly ReactiveProperty<bool> IsVisible;
         public readonly ReactiveProperty<bool> VictoryIsVisible;
+        public readonly ReactiveCommand OnRestartGamePressed;
+
 
         public InGameViewModel()
         {
@@ -36,6 +38,7 @@ namespace InterfaceAdapters.Controllers
             KeyButtonsViewModel = new Dictionary<string, KeyButtonViewModel>();
             IsVisible = new BoolReactiveProperty(false);
             VictoryIsVisible = new BoolReactiveProperty(false);
+            OnRestartGamePressed = new ReactiveCommand();
         }
 
 

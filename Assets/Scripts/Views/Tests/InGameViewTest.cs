@@ -1,5 +1,8 @@
+using System;
 using InterfaceAdapters.Controllers;
+using NSubstitute;
 using NUnit.Framework;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using Assert = UnityEngine.Assertions.Assert;
@@ -9,20 +12,24 @@ namespace Views.Tests
     [TestFixture]
     public class InGameViewTest
     {
-        private GameObject _inGame;
+        private GameObject _inGameGameObject;
         private InGameView _inGameView;
         private InGameViewModel _inGameViewModel;
-        private GameObject _image;
+        private GameObject _victoryImageGameObject;
+        private GameObject _RestartGameGameObject;
 
         [SetUp]
         public void SetUp()
         {
-            _inGame = new GameObject();
-            _inGameView = _inGame.AddComponent<InGameView>();
-            _inGameView.CurrentWordText = _inGame.AddComponent<Text>();
-            _image = new GameObject();
-            _image.transform.SetParent(_inGame.transform);
-            _inGameView.VictoryImage = _image.AddComponent<Image>();;
+            _inGameGameObject = new GameObject();
+            _inGameView = _inGameGameObject.AddComponent<InGameView>();
+            _inGameView.CurrentWordText = _inGameGameObject.AddComponent<Text>();
+            _victoryImageGameObject = new GameObject();
+            _victoryImageGameObject.transform.SetParent(_inGameGameObject.transform);
+            _inGameView.VictoryImage = _victoryImageGameObject.AddComponent<Image>();
+            ;
+            _RestartGameGameObject = new GameObject();
+            _inGameView.RestartGameButton = _RestartGameGameObject.AddComponent<Button>();
             _inGameViewModel = new InGameViewModel();
             _inGameView.SetModel(_inGameViewModel);
         }
@@ -40,22 +47,33 @@ namespace Views.Tests
         [TestCase(false)]
         public void WhenUpdateVisibilityOnTheViewModel_ShowOrHideTheGameObject(bool expectedValue)
         {
-            _inGame.SetActive(!expectedValue);
-            Assert.AreEqual(!expectedValue, _inGame.activeSelf);
+            _inGameGameObject.SetActive(!expectedValue);
+            Assert.AreEqual(!expectedValue, _inGameGameObject.activeSelf);
             _inGameViewModel.IsVisible.SetValueAndForceNotify(expectedValue);
 
-            Assert.AreEqual(expectedValue, _inGame.activeSelf);
+            Assert.AreEqual(expectedValue, _inGameGameObject.activeSelf);
         }
-        
+
         [TestCase(true)]
         [TestCase(false)]
         public void WhenUpdateVictoryVisibilityOnTheViewModel_ShowOrHideTheGameObject(bool expectedValue)
         {
-            _image.SetActive(!expectedValue);
-            Assert.AreEqual(!expectedValue, _image.activeSelf);
+            _victoryImageGameObject.SetActive(!expectedValue);
+            Assert.AreEqual(!expectedValue, _victoryImageGameObject.activeSelf);
             _inGameViewModel.VictoryIsVisible.SetValueAndForceNotify(expectedValue);
 
-            Assert.AreEqual(expectedValue, _image.activeSelf);
+            Assert.AreEqual(expectedValue, _victoryImageGameObject.activeSelf);
+        }
+
+        [Test]
+        public void WhenClickOnRestartGameButton_ExecuteRestartGameButtonCommand()
+        {
+            var observer = Substitute.For<IObserver<Unit>>();
+            _inGameViewModel.OnRestartGamePressed.Subscribe(observer);
+
+            _inGameView.RestartGameButton.onClick.Invoke();
+
+            observer.Received().OnNext(Unit.Default);
         }
     }
 }
