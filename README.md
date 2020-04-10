@@ -21,6 +21,8 @@ For the server we use this (hangman api)[https://hangman-api.herokuapp.com/api].
 
 ## Workflows
 
+[Unity actions](https://github.com/webbertakken/unity-actions): used to run all the tests during pull request and build the project when push to master.
+
 [Labeler](https://github.com/marketplace/actions/labeler?version=v3-preview): used to assign labels during pull requests depending on the modified files.
 
 [Auto assign action](https://github.com/marketplace/actions/auto-assign-action): used to auto-assign the author of the pull request to this.
