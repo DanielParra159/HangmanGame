@@ -4,6 +4,7 @@ on: pull_request
 jobs:
   add-reviews:
     runs-on: ubuntu-latest
+    name: Add reviews
     steps:
       - uses: kentaro-m/auto-assign-action@v1.1.0
         with:
@@ -27,6 +28,7 @@ jobs:
               workflows
   set-label:
     runs-on: ubuntu-latest
+    name: Set labels
     steps:
     - uses: actions/labeler@v3-preview
       with:
