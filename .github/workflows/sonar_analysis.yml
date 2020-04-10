@@ -17,6 +17,7 @@ jobs:
           beginArguments: >
               /d:sonar.verbose="true"
               /d:sonar.coverage.exclusions='"**/*.md"'
+              /d:sonar.login='${{ secrets.SONAR_TOKEN }}'
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
