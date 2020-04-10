@@ -1,0 +1,30 @@
+name: Run tests
+
+on: pull_request
+
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
+jobs:
+  build:
+    name: Run tests
+    runs-on: ubuntu-latest
+    steps:
+    
+      # Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+    
+      # Cache
+      - uses: actions/cache@v1.1.0
+        with:
+          path: Library
+          key: Library
+
+      # Test
+      - name: Run tests
+        uses: webbertakken/unity-test-runner@v1.3
+        with:
+          unityVersion: 2019.3.8f1
