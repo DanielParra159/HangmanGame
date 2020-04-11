@@ -29,12 +29,14 @@ jobs:
       - name: Install filter-repo
         run: pip3 install git-filter-repo
               
+              
+      # Test
       - name: Generate Solution
-        uses: MirrorNG/unity-runner@2.0.0
+        uses: webbertakken/unity-test-runner@v1.3
         with:
-          # Arguments to pass to unity
-          args: -buildTarget StandaloneWindows64 -customBuildPath ./build/StandaloneWindows64 -projectPath . -executeMethod  UnityEditor.SyncVS.SyncSolution -quit
-  
+          unityVersion: 2019.3.8f1
+          customParameters: -executeMethod  UnityEditor.SyncVS.SyncSolution -quit
+
       - name: SonarQube analysis
         if: always()
         uses: MirrorNG/unity-runner@2.0.0
