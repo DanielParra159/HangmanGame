@@ -2,6 +2,9 @@ name: Sonar
 
 on: pull_request
 
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
 jobs:
   sonar:
     runs-on: ubuntu-latest
