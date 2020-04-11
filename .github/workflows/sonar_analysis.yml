@@ -10,12 +10,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Generate Solution
+      - uses: actions/cache@v1.1.0
+        with:
+          path: Library
+          key: Library
+
+      - name: Run tests
         uses: webbertakken/unity-test-runner@v1.6
         with:
           unityVersion: 2019.3.8f1
-          projectPath: ./
-          args: -buildTarget StandaloneWindows64 -projectPath . -executeMethod  UnityEditor.SyncVS.SyncSolution -quit
   
       - name: Sonar analysis
         uses: webbertakken/unity-test-runner@v1.6
