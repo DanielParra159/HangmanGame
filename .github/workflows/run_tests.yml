@@ -42,10 +42,10 @@ jobs:
             name: Test results
             path: artifacts
       - shell: bash
-        run: cat ./artifacts/CodeCoverage/Report/Summary.xml
+        run: cat /home/runner/work/HangmanGame/HangmanGame/artifacts/CodeCoverage/Report/Summary.xml
 
       - name: Check Code Coverage
         uses: AnImaginedReality/UnityCodeCoverage.Action@v0.0.4
         with:
           required-coverage: 99 #test
-          coverage-file-path: ./artifacts/CodeCoverage/Report/Summary.xml
+          coverage-file-path: /home/runner/work/HangmanGame/HangmanGame/artifacts/CodeCoverage/Report/Summary.xml
