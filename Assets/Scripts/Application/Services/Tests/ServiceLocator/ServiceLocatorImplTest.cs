@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Application.Services.ServiceLocator;
 using NUnit.Framework;
 
-namespace Application.Services.ServiceLocator.Tests
+namespace Application.Services.Tests.ServiceLocator
 {
     public class ServiceLocatorImplTest
     {

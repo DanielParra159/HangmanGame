@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections;
-using System.Runtime.CompilerServices;
+using Application.Services.Game;
 using Domain.Configuration;
 using Domain.Model.Game;
+using Domain.Model.Tests.Factories;
 using Domain.Repositories;
 using Domain.Services.Web;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace Application.Services.Game.Tests
+namespace Application.Services.Tests.Game
 {
     public class GameServerServiceTest
     {
@@ -20,8 +20,8 @@ namespace Application.Services.Game.Tests
         public void SetUp()
         {
             _gameRepository = Substitute.For<GameRepository>();
-            _gameRepository.Word = new Word(string.Empty);
-            _gameRepository.GameToken = new Token(string.Empty);
+            _gameRepository.Word = WordFactory.GetWord;
+            _gameRepository.GameToken = TokenFactory.GetToken;
             _restClient = Substitute.For<RestClient>();
             _gameServerService = new GameServerService(_restClient, _gameRepository);
         }
@@ -36,10 +36,10 @@ namespace Application.Services.Game.Tests
                 .Returns(newGameResponse);
 
 
-            var result = await _gameServerService.StartNewGame();
+            var (word, token) = await _gameServerService.StartNewGame();
 
-            Assert.AreEqual(expectedWord, result.Item1.Value);
-            Assert.AreEqual(expectedToken, result.Item2.Value);
+            Assert.AreEqual(expectedWord, word.Value);
+            Assert.AreEqual(expectedToken, token.Value);
         }
 
 
