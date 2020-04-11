@@ -7,17 +7,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: unity-sonarscanner
-        uses: MirrorNG/unity-sonarscanner@1.0.1
+      - name: Sonar analysis
+        uses: webbertakken/unity-test-runner@v1.6
         with:
-          buildCommand: dotnet build .
           projectKey: DanielParra159_HangmanGame
           projectName: HangmanGame
           sonarOrganisation: danielparra159
-          beginArguments: >
-              /d:sonar.verbose="true"
-              /d:sonar.coverage.exclusions='"**/*.md"'
-              /d:sonar.login=${{ secrets.SONAR_TOKEN }}
+          beginArguments: /d:sonar.verbose="true"
         env:
+          FrameworkPathOverride: /opt/Unity/Editor/Data/MonoBleedingEdge/
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
