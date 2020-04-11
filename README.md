@@ -6,18 +6,19 @@ This is just a Unity project for learning purposes, applying <b>TDD</b> and <b>D
 
 In this architecture the components from an inner layer cannot speak with components in an outer layer, <b>helping to keep our domain testable and decoupled from everything</b>. For this communication the <b>inversion of control principle</b> is used, the outer layers must subscribe to the inner layers if they want to know their results, for this I have used an improvised <i>EventDispatcher</i>.
 
-For the comunication with the view I have used a reactive MVVM pattern, using [UniRx](https://github.com/neuecc/UniRx) to do it reactive. Thanks to this pattern, we can maintain our view logic decoupled of Unity by <b>facilitating testing with unit tests</b>.
+For the comunication with the view I have used a reactive <b>MVVM pattern</b>, using [UniRx](https://github.com/neuecc/UniRx) to do it reactive. Thanks to this pattern, we can maintain our view logic decoupled of Unity by <b>facilitating testing with unit tests</b>.
 
 For the creation of <b>End to end (E2E) tests</b>, since Unity does not support <b>cucumber</b> or similar, I have improvised some [helper functions](https://github.com/DanielParra159/HangmanGame/blob/master/Assets/Scripts/EndToEndTests/StartGameE2E.cs) for this purpose.
 
-For the server we use this (hangman api)[https://hangman-api.herokuapp.com/api].
+For the server I have used this [hangman api](https://hangman-api.herokuapp.com/api).
+
+## CI
+I have created a workflow to [run the tests](https://github.com/DanielParra159/HangmanGame/blob/master/.github/workflows/run_tests.yml) during pull request step and other to [build](https://github.com/DanielParra159/HangmanGame/blob/master/.github/workflows/build.yml) and archive the project when merges to master. To do that I have used [Unity actions](https://github.com/webbertakken/unity-actions) that uses [Unity3D docker](https://gitlab.com/gableroux/unity3d) images from [GabLeRoux](https://github.com/GabLeRoux).
 
 ## Next steps
 
-* Finish the game.
-* Add a <b>CI</b> service to the repo with <b>Github actions</b>.
-  * Run edit mode and play mode tests.
-  * Generate a release.
+* Improve graphics.
+* Introduce game over.
 
 ## Workflows
 
