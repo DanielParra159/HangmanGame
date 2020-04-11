@@ -32,7 +32,6 @@ jobs:
       - name: Activate license
         uses: MirrorNG/unity-runner@2.0.0
         with:
-          entrypoint: /activate.sh
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           
       - name: Generate Solution
@@ -40,32 +39,6 @@ jobs:
         with:
           # Arguments to pass to unity
           args: -buildTarget StandaloneWindows64 -customBuildName MirrorNG -customBuildPath ./build/StandaloneWindows64 -projectPath . -executeMethod  UnityEditor.SyncVS.SyncSolution -quit
-  
-      # Configure test runner
-      - name: Run editor Tests
-        uses: MirrorNG/unity-runner@2.0.0
-        with:
-          args: -runTests -testPlatform editmode -testResults Tests/editmode-results.xml -enableCodeCoverage -coverageResultsPath Tests
-
-      - name: Run play Tests
-        uses: MirrorNG/unity-runner@2.0.0
-        with:
-          args: -runTests -testPlatform playmode -testResults Tests/playmode-results.xml -enableCodeCoverage -coverageResultsPath Tests
-          
-      # Upload artifacts
-      - name: Archive test results
-        uses: actions/upload-artifact@v1
-        if: always()
-        with:
-          name: Test results (editor mode)
-          path: Tests
-
-      - name: Publish test results
-        uses: MirrorNG/nunit-reporter@1.0.3
-        if: always()
-        with:
-          path: "Tests/*.xml"
-          access-token: ${{ secrets.GITHUB_TOKEN }}
   
       - name: SonarQube analysis
         if: always()
@@ -76,7 +49,7 @@ jobs:
           projectName: HangmanGame
           sonarOrganisation: danielparra159
           unityVersion: 2019.3.8f1
-          beginArguments: /d:sonar.verbose="true" /d:sonar.cs.nunit.reportsPaths=Tests/editmode-results.xml,Tests/playimode-results.xml /d:sonar.cs.opencover.reportsPaths=Tests/workspace-opencov/EditMode/TestCoverageResults_0000.xml,Tests/workspace-opencov/PlayMode/TestCoverageResults_0000.xml
+          beginArguments: /d:sonar.verbose="true"
         env:
           FrameworkPathOverride: /opt/Unity/Editor/Data/MonoBleedingEdge/
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
