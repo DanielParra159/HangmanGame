@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace Domain.UseCases.Tests
 {
     [TestFixture]
-    public class CheckIfTheLastWordIsCompletedUseCaseTest
+    public class CheckSolutionUseCaseTest
     {
         [Test]
         public void WhenCallToCheckAndIsComplete_CallToServerToCheckIt()
@@ -33,7 +33,9 @@ namespace Domain.UseCases.Tests
             var eventDispatcherService = Substitute.For<EventDispatcherService>();
             var gameRepository = Substitute.For<GameRepository>();
             var gameService = Substitute.For<GameService>();
-            gameRepository.Word.Returns(new Word("wor_"));
+            var word = new Word("wor_");
+            gameRepository.Word.Returns(word);
+            gameRepository.LastGuess.Returns(new Guess(word, true));
             var checkIfTheLastWordIsCompletedUseCase =
                 new CheckSolutionUseCase(gameService, gameRepository, eventDispatcherService);
 
@@ -43,29 +45,55 @@ namespace Domain.UseCases.Tests
         }
         
         [Test]
-        public void WhenCallToCheckAndIsNotComplete_RemoveOneLive()
+        public void WhenCallToCheckAndLastGuessWasCorrect_DoNotRemoveLive()
         {
             var eventDispatcherService = Substitute.For<EventDispatcherService>();
             var gameRepository = Substitute.For<GameRepository>();
             var gameService = Substitute.For<GameService>();
             gameRepository.RemainingLives = 2;
-            gameRepository.Word.Returns(new Word("wor_"));
+            gameRepository.ClearReceivedCalls();
+            var word = new Word("wor_");
+            gameRepository.Word.Returns(word);
+            gameRepository.LastGuess.Returns(new Guess(word, true));
+            var checkIfTheLastWordIsCompletedUseCase =
+                new CheckSolutionUseCase(gameService, gameRepository, eventDispatcherService);
+
+            checkIfTheLastWordIsCompletedUseCase.Check();
+
+            gameRepository.DidNotReceive().RemainingLives = Arg.Any<int>();
+        }
+        
+        [Test]
+        public void WhenCallToCheckAndLastGuessWasNotCorrect_RemoveOneLive()
+        {
+            var eventDispatcherService = Substitute.For<EventDispatcherService>();
+            var gameRepository = Substitute.For<GameRepository>();
+            var gameService = Substitute.For<GameService>();
+            gameRepository.RemainingLives = 2;
+            var word = new Word("wor_");
+            gameRepository.Word.Returns(word);
+            gameRepository.LastGuess.Returns(new Guess(word, false));
             var checkIfTheLastWordIsCompletedUseCase =
                 new CheckSolutionUseCase(gameService, gameRepository, eventDispatcherService);
 
             checkIfTheLastWordIsCompletedUseCase.Check();
 
             gameRepository.Received().RemainingLives = 1;
+            eventDispatcherService
+                .DidNotReceive()
+                .Dispatch(Arg.Any<GameOverSignal>());
         }
         
         [Test]
-        public void WhenCallToCheckIsNotCompleteAndLivesAreOne_RemoveOneLiveAndDispatchGameOverSignal()
+        public void WhenCallToCheckLastGuessWasNotCorrectAndLivesAreOne_RemoveOneLiveAndDispatchGameOverSignal()
         {
             var eventDispatcherService = Substitute.For<EventDispatcherService>();
             var gameRepository = Substitute.For<GameRepository>();
             var gameService = Substitute.For<GameService>();
             gameRepository.RemainingLives = 1;
-            gameRepository.Word.Returns(new Word("wor_"));
+            var word = new Word("wor_");
+            gameRepository.Word.Returns(word);
+            gameRepository.LastGuess.Returns(new Guess(word, false));
             var checkIfTheLastWordIsCompletedUseCase =
                 new CheckSolutionUseCase(gameService, gameRepository, eventDispatcherService);
 

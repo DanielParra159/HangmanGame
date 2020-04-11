@@ -20,10 +20,18 @@ namespace InterfaceAdapters.Presenters
             _eventDispatcherService.Subscribe<GuessResultSignal>(GuessReceived);
             _eventDispatcherService.Subscribe<WordCompletedSignal>(WordCompleted);
             _eventDispatcherService.Subscribe<RestartGameSignal>(RestartGame);
+            _eventDispatcherService.Subscribe<GameOverSignal>(GameOver);
+        }
+
+        private void GameOver(Signal signal)
+        {
+            SetGameOverState(false);
         }
 
         private void RestartGame(Signal signal)
         {
+            _viewModel.IsEndGameVisible.Value = false;
+            _viewModel.IsGameOverVisible.Value = false;
             _viewModel.IsVictoryVisible.Value = false;
             foreach (var buttonViewModel in _viewModel.KeyButtonsViewModel)
             {
@@ -31,13 +39,19 @@ namespace InterfaceAdapters.Presenters
                 buttonViewModel.Value.Color.Value = InGameViewModel.DefaultColor;
             }
 
-
             ResetGallowState();
         }
 
         private void WordCompleted(Signal signal)
         {
-            _viewModel.IsVictoryVisible.Value = true;
+            SetGameOverState(true);
+        }
+
+        private void SetGameOverState(bool victory)
+        {
+            _viewModel.IsEndGameVisible.Value = true;
+            _viewModel.IsVictoryVisible.Value = victory;
+            _viewModel.IsGameOverVisible.Value = !victory;
         }
 
         private void NewWord(Signal signal)

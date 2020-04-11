@@ -1,6 +1,7 @@
 using Domain.Repositories;
 using Domain.Services.EventDispatcher;
 using Domain.Services.Game;
+using UnityEngine;
 
 namespace Domain.UseCases.CheckLastWordIsCompleted
 {
@@ -23,8 +24,16 @@ namespace Domain.UseCases.CheckLastWordIsCompleted
             var currentWord = _gameRepository.Word;
             if (!currentWord.IsCompleted())
             {
+                if (_gameRepository.LastGuess.IsCorrect)
+                {
+                    return;
+                }
                 _gameRepository.RemainingLives -= 1;
-                _eventDispatcherService.Dispatch(new GameOverSignal());
+                if (_gameRepository.RemainingLives == 0)
+                {
+                    _eventDispatcherService.Dispatch(new GameOverSignal());
+                }
+
                 return;
             }
 

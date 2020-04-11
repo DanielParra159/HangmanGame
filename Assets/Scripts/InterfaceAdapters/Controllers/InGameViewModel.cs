@@ -27,7 +27,9 @@ namespace InterfaceAdapters.Controllers
         public readonly ReactiveCommand<string> OnKeyPressedPressed;
         public readonly Dictionary<string, KeyButtonViewModel> KeyButtonsViewModel;
         public readonly ReactiveProperty<bool> IsVisible;
+        public readonly ReactiveProperty<bool> IsEndGameVisible;
         public readonly ReactiveProperty<bool> IsVictoryVisible;
+        public readonly ReactiveProperty<bool> IsGameOverVisible;
         public readonly ReactiveCommand OnRestartGamePressed;
         public readonly List<ReactiveProperty<bool>> IsGallowPartVisible;
         public int NextGallowPartToShow { get; set; }
@@ -39,7 +41,9 @@ namespace InterfaceAdapters.Controllers
             OnKeyPressedPressed = new ReactiveCommand<string>();
             KeyButtonsViewModel = new Dictionary<string, KeyButtonViewModel>();
             IsVisible = new BoolReactiveProperty(false);
+            IsEndGameVisible = new BoolReactiveProperty(false);
             IsVictoryVisible = new BoolReactiveProperty(false);
+            IsGameOverVisible = new BoolReactiveProperty(false);
             OnRestartGamePressed = new ReactiveCommand();
             IsGallowPartVisible = new List<ReactiveProperty<bool>>();
         }
