@@ -1,3 +1,5 @@
+using System;
+using Domain.Model.Game;
 using Domain.Repositories;
 using Domain.Services.EventDispatcher;
 using Domain.Services.Game;
@@ -11,8 +13,11 @@ namespace Domain.UseCases.CheckLastWordIsCompleted
         private readonly GameRepository _gameRepository;
         private readonly GameService _gameService;
 
-        public CheckSolutionUseCase(GameService gameService, GameRepository gameRepository,
-            EventDispatcherService eventDispatcherService)
+        public CheckSolutionUseCase(
+            GameService gameService, 
+            GameRepository gameRepository,
+            EventDispatcherService eventDispatcherService
+            )
         {
             _gameService = gameService;
             _gameRepository = gameRepository;
@@ -37,8 +42,10 @@ namespace Domain.UseCases.CheckLastWordIsCompleted
                 return;
             }
 
-            var solution = await _gameService.GetSolution();
-            if (solution.Equals(currentWord))
+            var (word, token) = await _gameService.GetSolution();
+            _gameRepository.Word = word;
+            _gameRepository.GameToken = token;
+            if (word.Equals(currentWord))
             {
                 _eventDispatcherService.Dispatch(new WordCompletedSignal());
             }

@@ -1,7 +1,9 @@
+using System.Threading.Tasks;
+
 namespace Domain.UseCases.GuessLetter
 {
     public interface GuessLetter
     {
-        void Guess(char letter);
+        Task Guess(char letter);
     }
 }

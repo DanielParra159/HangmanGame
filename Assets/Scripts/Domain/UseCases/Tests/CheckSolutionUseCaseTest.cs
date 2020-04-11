@@ -1,4 +1,6 @@
+using System;
 using Domain.Model.Game;
+using Domain.Model.Tests.Factories;
 using Domain.Repositories;
 using Domain.Services.EventDispatcher;
 using Domain.Services.Game;
@@ -17,8 +19,13 @@ namespace Domain.UseCases.Tests
             var eventDispatcherService = Substitute.For<EventDispatcherService>();
             var gameRepository = Substitute.For<GameRepository>();
             var gameService = Substitute.For<GameService>();
-            gameService.GetSolution().Returns(new Word("word"));
-            gameRepository.Word.Returns(new Word("word"));
+            gameService.GetSolution().Returns(info =>
+                new Tuple<Word, Token>
+                (
+                    WordFactory.GetWord,
+                    TokenFactory.GetToken
+                ));
+            gameRepository.Word.Returns(WordFactory.GetWord);
             var checkIfTheLastWordIsCompletedUseCase =
                 new CheckSolutionUseCase(gameService, gameRepository, eventDispatcherService);
 
@@ -33,7 +40,7 @@ namespace Domain.UseCases.Tests
             var eventDispatcherService = Substitute.For<EventDispatcherService>();
             var gameRepository = Substitute.For<GameRepository>();
             var gameService = Substitute.For<GameService>();
-            var word = new Word("wor_");
+            var word = WordFactory.GetWord.WithValue("wor_");
             gameRepository.Word.Returns(word);
             gameRepository.LastGuess.Returns(new Guess(word, true));
             var checkIfTheLastWordIsCompletedUseCase =
@@ -43,7 +50,7 @@ namespace Domain.UseCases.Tests
 
             gameService.DidNotReceive().GetSolution();
         }
-        
+
         [Test]
         public void WhenCallToCheckAndLastGuessWasCorrect_DoNotRemoveLive()
         {
@@ -52,7 +59,7 @@ namespace Domain.UseCases.Tests
             var gameService = Substitute.For<GameService>();
             gameRepository.RemainingLives = 2;
             gameRepository.ClearReceivedCalls();
-            var word = new Word("wor_");
+            var word = WordFactory.GetWord.WithValue("wor_");
             gameRepository.Word.Returns(word);
             gameRepository.LastGuess.Returns(new Guess(word, true));
             var checkIfTheLastWordIsCompletedUseCase =
@@ -62,7 +69,7 @@ namespace Domain.UseCases.Tests
 
             gameRepository.DidNotReceive().RemainingLives = Arg.Any<int>();
         }
-        
+
         [Test]
         public void WhenCallToCheckAndLastGuessWasNotCorrect_RemoveOneLive()
         {
@@ -70,7 +77,7 @@ namespace Domain.UseCases.Tests
             var gameRepository = Substitute.For<GameRepository>();
             var gameService = Substitute.For<GameService>();
             gameRepository.RemainingLives = 2;
-            var word = new Word("wor_");
+            var word = WordFactory.GetWord.WithValue("wor_");
             gameRepository.Word.Returns(word);
             gameRepository.LastGuess.Returns(new Guess(word, false));
             var checkIfTheLastWordIsCompletedUseCase =
@@ -83,7 +90,7 @@ namespace Domain.UseCases.Tests
                 .DidNotReceive()
                 .Dispatch(Arg.Any<GameOverSignal>());
         }
-        
+
         [Test]
         public void WhenCallToCheckLastGuessWasNotCorrectAndLivesAreOne_RemoveOneLiveAndDispatchGameOverSignal()
         {
@@ -91,7 +98,7 @@ namespace Domain.UseCases.Tests
             var gameRepository = Substitute.For<GameRepository>();
             var gameService = Substitute.For<GameService>();
             gameRepository.RemainingLives = 1;
-            var word = new Word("wor_");
+            var word = WordFactory.GetWord.WithValue("wor_");
             gameRepository.Word.Returns(word);
             gameRepository.LastGuess.Returns(new Guess(word, false));
             var checkIfTheLastWordIsCompletedUseCase =
@@ -111,8 +118,13 @@ namespace Domain.UseCases.Tests
             var eventDispatcherService = Substitute.For<EventDispatcherService>();
             var gameRepository = Substitute.For<GameRepository>();
             var gameService = Substitute.For<GameService>();
-            gameService.GetSolution().Returns(info => new Word("word"));
-            gameRepository.Word.Returns(new Word("word"));
+            gameService.GetSolution().Returns(info =>
+                new Tuple<Word, Token>
+                (
+                    WordFactory.GetWord.WithValue("word"),
+                    TokenFactory.GetToken.WithValue("token")
+                ));
+            gameRepository.Word.Returns(WordFactory.GetWord.WithValue("word"));
             var checkIfTheLastWordIsCompletedUseCase =
                 new CheckSolutionUseCase(gameService, gameRepository, eventDispatcherService);
 
@@ -129,8 +141,13 @@ namespace Domain.UseCases.Tests
             var eventDispatcherService = Substitute.For<EventDispatcherService>();
             var gameRepository = Substitute.For<GameRepository>();
             var gameService = Substitute.For<GameService>();
-            gameService.GetSolution().Returns(info => new Word("wor_"));
-            gameRepository.Word.Returns(new Word("word"));
+            gameService.GetSolution().Returns(info =>
+                new Tuple<Word, Token>
+                (
+                    WordFactory.GetWord.WithValue("wor_"),
+                    TokenFactory.GetToken.WithValue("token")
+                ));
+            gameRepository.Word.Returns(WordFactory.GetWord.WithValue("word"));
             var checkIfTheLastWordIsCompletedUseCase =
                 new CheckSolutionUseCase(gameService, gameRepository, eventDispatcherService);
 
@@ -139,6 +156,32 @@ namespace Domain.UseCases.Tests
             eventDispatcherService
                 .DidNotReceive()
                 .Dispatch(Arg.Any<WordCompletedSignal>());
+        }
+
+        [Test]
+        public void WhenCallToCheck_UpdateGameRepo()
+        {
+            var eventDispatcherService = Substitute.For<EventDispatcherService>();
+            var gameRepository = Substitute.For<GameRepository>();
+            var gameService = Substitute.For<GameService>();
+            var expectedWord = WordFactory.GetWord.WithValue("word");
+            var expectedToken = TokenFactory.GetToken.WithValue("token");
+
+            gameService.GetSolution().Returns(info =>
+                new Tuple<Word, Token>
+                (
+                    expectedWord,
+                    expectedToken
+                ));
+            gameRepository.Word.Returns(expectedWord);
+            gameRepository.ClearReceivedCalls();
+            var checkIfTheLastWordIsCompletedUseCase =
+                new CheckSolutionUseCase(gameService, gameRepository, eventDispatcherService);
+
+            checkIfTheLastWordIsCompletedUseCase.Check();
+
+            gameRepository.Received().Word = expectedWord;
+            gameRepository.Received().GameToken = expectedToken;
         }
     }
 }

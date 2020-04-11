@@ -1,8 +1,9 @@
-﻿using Domain.Services.EventDispatcher;
+﻿using Application.Services.EventDispatcher;
+using Domain.Services.EventDispatcher;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace Application.Services.EventDispatcher.Tests
+namespace Application.Services.Tests.EventDispatcher
 {
     public class TestSignal : Signal
     {

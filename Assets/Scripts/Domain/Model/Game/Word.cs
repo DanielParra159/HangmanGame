@@ -1,23 +1,23 @@
 ﻿namespace Domain.Model.Game
 {
-    public class Word
+    public sealed class Word
     {
-        public readonly string CurrentWord;
+        public readonly string Value;
 
-        public Word(string currentWord)
+        public Word(string value)
         {
-            CurrentWord = currentWord;
+            Value = value;
         }
 
         public bool IsCompleted()
         {
             const string secretCharacter = "_";
-            return !CurrentWord.Contains(secretCharacter);
+            return !Value.Contains(secretCharacter);
         }
 
-        protected bool Equals(Word other)
+        private bool Equals(Word other)
         {
-            return CurrentWord == other.CurrentWord;
+            return Value == other.Value;
         }
 
         public override bool Equals(object obj)
@@ -30,7 +30,7 @@
 
         public override int GetHashCode()
         {
-            return (CurrentWord != null ? CurrentWord.GetHashCode() : 0);
+            return (Value != null ? Value.GetHashCode() : 0);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Domain.Repositories;
 using Domain.Services.EventDispatcher;
 using Domain.Services.Game;
@@ -29,9 +30,11 @@ namespace Domain.UseCases.StartGame
         public async Task Start()
         {
             _eventDispatcherService.Dispatch(new UpdateLoadingScreenSignal(true));
-            var newWord = await _gameService.StartNewGame();
+            var (word, token) = await _gameService.StartNewGame();
             _gameRepository.RemainingLives = _configurationGameRepository.StartLives;
-            _eventDispatcherService.Dispatch(new NewWordSignal(newWord.CurrentWord));
+            _gameRepository.Word = word;
+            _gameRepository.GameToken = token;
+            _eventDispatcherService.Dispatch(new NewWordSignal(word.Value));
             _eventDispatcherService.Dispatch(new UpdateLoadingScreenSignal(false));
         }
     }

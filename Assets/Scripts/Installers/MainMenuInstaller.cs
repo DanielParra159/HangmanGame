@@ -32,15 +32,15 @@ namespace Installers
             InstantiateViews(mainMenuViewModel, inGameViewModel, loadingViewModel);
 
             // TODO: these services should be unique, instantiate it in a previous step
-            var gameRepositoryImpl = new GameRepositoryImpl();
+            var gameRepository = new GameRepositoryImpl();
             var gameServerService = new GameServerService
             (
                 new RestRestClientAdapter(new JsonUtilityAdapter()),
-                gameRepositoryImpl
+                gameRepository
             );
-            var eventDispatcherServiceImpl = new EventDispatcherServiceImpl();
+            var eventDispatcherService = new EventDispatcherServiceImpl();
             var startGameUseCase =
-                new StartGameUseCase(gameServerService, gameRepositoryImpl, new ConfigurationGameRepositoryImpl(), eventDispatcherServiceImpl);
+                new StartGameUseCase(gameServerService, gameRepository, new ConfigurationGameRepositoryImpl(), eventDispatcherService);
             var startGameController = new StartGameController(mainMenuViewModel,
                 startGameUseCase
             );
@@ -48,20 +48,21 @@ namespace Installers
                 new GuessLetterUseCase(
                     new CheckSolutionUseCase(
                         gameServerService,
-                        gameRepositoryImpl,
-                        eventDispatcherServiceImpl
+                        gameRepository,
+                        eventDispatcherService
                     ),
+                    gameRepository,
                     gameServerService,
-                    eventDispatcherServiceImpl
+                    eventDispatcherService
                 )
             );
             var restartGameController =
                 new RestartGameController(inGameViewModel,
-                    new RestartGameUseCase(startGameUseCase, eventDispatcherServiceImpl));
+                    new RestartGameUseCase(startGameUseCase, eventDispatcherService));
 
-            var updateWordPresenter = new InGamePresenter(inGameViewModel, eventDispatcherServiceImpl);
-            var mainMenuPresenter = new MainMenuPresenter(mainMenuViewModel, eventDispatcherServiceImpl);
-            var loadingPresenter = new LoadingPresenter(loadingViewModel, eventDispatcherServiceImpl);
+            var updateWordPresenter = new InGamePresenter(inGameViewModel, eventDispatcherService);
+            var mainMenuPresenter = new MainMenuPresenter(mainMenuViewModel, eventDispatcherService);
+            var loadingPresenter = new LoadingPresenter(loadingViewModel, eventDispatcherService);
         }
 
         private void InstantiateViews(

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using Application.Services.Web;
 using NUnit.Framework;
 
-namespace Application.Services.Web.Tests
+namespace Application.Services.Tests.Web
 {
     public class UriExtensionTest
     {
