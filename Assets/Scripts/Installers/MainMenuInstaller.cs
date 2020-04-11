@@ -39,7 +39,8 @@ namespace Installers
                 gameRepositoryImpl
             );
             var eventDispatcherServiceImpl = new EventDispatcherServiceImpl();
-            var startGameUseCase = new StartGameUseCase(gameServerService, eventDispatcherServiceImpl);
+            var startGameUseCase =
+                new StartGameUseCase(gameServerService, gameRepositoryImpl, new ConfigurationGameRepositoryImpl(), eventDispatcherServiceImpl);
             var startGameController = new StartGameController(mainMenuViewModel,
                 startGameUseCase
             );

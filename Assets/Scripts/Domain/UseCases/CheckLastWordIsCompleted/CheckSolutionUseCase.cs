@@ -23,6 +23,8 @@ namespace Domain.UseCases.CheckLastWordIsCompleted
             var currentWord = _gameRepository.Word;
             if (!currentWord.IsCompleted())
             {
+                _gameRepository.RemainingLives -= 1;
+                _eventDispatcherService.Dispatch(new GameOverSignal());
                 return;
             }
 

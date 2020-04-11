@@ -6,5 +6,6 @@ namespace Domain.Repositories
     {
         string GameToken { get; set; }
         Word Word { get; set; }
+        int RemainingLives { get; set; }
     }
 }
