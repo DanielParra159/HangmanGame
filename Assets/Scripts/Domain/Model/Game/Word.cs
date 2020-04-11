@@ -15,7 +15,7 @@
             return !Value.Contains(secretCharacter);
         }
 
-        protected bool Equals(Word other)
+        private bool Equals(Word other)
         {
             return Value == other.Value;
         }

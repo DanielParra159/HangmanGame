@@ -1,5 +1,6 @@
 ﻿using System;
 using Domain.Model.Game;
+using Domain.Model.Tests.Factories;
 using Domain.Repositories;
 using Domain.Services.EventDispatcher;
 using Domain.Services.Game;
@@ -27,7 +28,7 @@ namespace Domain.UseCases.Tests
             _checkSolution = Substitute.For<CheckSolution>();
             _gameRepository = Substitute.For<GameRepository>();
             _gameService.GuessLetter(Arg.Any<char>()).Returns(info =>
-                new Tuple<Guess, Token>(new Guess(new Word(""), false), new Token("")));
+                new Tuple<Guess, Token>(GuessFactory.GetGuess, TokenFactory.GetToken));
             _eventDispatcherService = Substitute.For<EventDispatcherService>();
             _guessLetterUseCase =
                 new GuessLetterUseCase(_checkSolution, _gameRepository, _gameService, _eventDispatcherService);
@@ -64,7 +65,8 @@ namespace Domain.UseCases.Tests
         public async void WhenCallToGuess_DispatchTheResult()
         {
             _gameService.GuessLetter('A').Returns(info =>
-                new Tuple<Guess, Token>(new Guess(new Word("___a"), true), Arg.Any<Token>()));
+                new Tuple<Guess, Token>(GuessFactory.GetGuess.WithWord("___a").IsCorrect(true),
+                    TokenFactory.GetToken));
             await _guessLetterUseCase.Guess('A');
 
             _eventDispatcherService
@@ -79,15 +81,22 @@ namespace Domain.UseCases.Tests
         [Test]
         public async void WhenCallToGuess_UpdateGameRepository()
         {
+            var expectedToken = TokenFactory.GetToken.WithValue("token");
+            var expectedWord = new Word("___a");
+            var expectedGuess = GuessFactory.GetGuess.WithWord(expectedWord).IsCorrect(true);
+
             _gameService.GuessLetter('A').Returns(info =>
-                new Tuple<Guess, Token>(new Guess(new Word("___a"), true), new Token("token")));
+                new Tuple<Guess, Token>
+                (
+                    expectedGuess,
+                    expectedToken
+                ));
 
             await _guessLetterUseCase.Guess('A');
 
-            _gameRepository.Received().Word = Arg.Is<Word>(word => word.Value == "___a");
-            _gameRepository.Received().LastGuess =
-                Arg.Is<Guess>(guess => guess.UpdatedWord.Value == "___a" && guess.IsCorrect);
-            _gameRepository.Received().GameToken = Arg.Is<Token>(token => token.Value == "token");
+            _gameRepository.Received().Word = expectedWord;
+            _gameRepository.Received().LastGuess = expectedGuess;
+            _gameRepository.Received().GameToken = expectedToken;
         }
 
 

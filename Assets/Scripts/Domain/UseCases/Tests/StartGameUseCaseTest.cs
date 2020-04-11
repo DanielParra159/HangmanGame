@@ -1,5 +1,6 @@
 ﻿using System;
 using Domain.Model.Game;
+using Domain.Model.Tests.Factories;
 using Domain.Repositories;
 using Domain.Services.EventDispatcher;
 using Domain.Services.Game;
@@ -24,7 +25,12 @@ namespace Domain.UseCases.Tests
             _gameService = Substitute.For<GameService>();
             _gameRepository = Substitute.For<GameRepository>();
             _configurationGameRepository = Substitute.For<ConfigurationGameRepository>();
-            _gameService.StartNewGame().Returns(info => new Tuple<Word, Token>(new Word("word"), new Token("token")));
+            _gameService.StartNewGame().Returns(info =>
+                new Tuple<Word, Token>
+                (
+                    WordFactory.GetWord,
+                    TokenFactory.GetToken
+                ));
             _eventDispatcherService = Substitute.For<EventDispatcherService>();
             _startGameUseCase = new StartGameUseCase(
                 _gameService,
@@ -41,14 +47,23 @@ namespace Domain.UseCases.Tests
 
             _gameService.Received().StartNewGame();
         }
-        
+
         [Test]
         public async void WhenCallToStartNewGame_StoreWordAndToken()
         {
+            var expectedWord = WordFactory.GetWord.WithValue("word");
+            var expectedToken = TokenFactory.GetToken.WithValue("token");
+            _gameService.StartNewGame().Returns(info =>
+                new Tuple<Word, Token>
+                (
+                    expectedWord,
+                    expectedToken
+                ));
+
             await _startGameUseCase.Start();
 
-            _gameRepository.Received().Word = Arg.Is<Word>(word => word.Value == "word");
-            _gameRepository.Received().GameToken = Arg.Is<Token>(word => word.Value == "token");
+            _gameRepository.Received().Word = expectedWord;
+            _gameRepository.Received().GameToken = expectedToken;
         }
 
         [Test]
@@ -63,6 +78,13 @@ namespace Domain.UseCases.Tests
         [Test]
         public void WhenCallToStart_DispatchSignalWithTheNewWord()
         {
+            _gameService.StartNewGame().Returns(info =>
+                new Tuple<Word, Token>
+                (
+                    WordFactory.GetWord.WithValue("word"),
+                    TokenFactory.GetToken
+                ));
+
             _startGameUseCase.Start();
 
             _eventDispatcherService
