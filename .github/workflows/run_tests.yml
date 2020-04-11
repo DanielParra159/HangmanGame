@@ -24,3 +24,5 @@ jobs:
         uses: webbertakken/unity-test-runner@v1.6
         with:
           unityVersion: 2019.3.8f1
+          customParameters: -enableCodeCoverage -coverageResultsPath "$FULL_ARTIFACTS_PATH/CodeCoverage/" -coverageOptions "generateHtmlReport;assemblyFilters:+*Hangman*,-*unity*,-*Tests*"
+      
