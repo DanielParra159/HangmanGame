@@ -2,12 +2,12 @@ namespace Domain.Model.Game
 {
     public class Guess
     {
-        public readonly Word CurrentWord;
+        public readonly Word UpdatedWord;
         public readonly bool IsCorrect;
 
-        public Guess(Word currentWord, bool isCorrect)
+        public Guess(Word updatedWord, bool isCorrect)
         {
-            CurrentWord = currentWord;
+            UpdatedWord = updatedWord;
             IsCorrect = isCorrect;
         }
     }

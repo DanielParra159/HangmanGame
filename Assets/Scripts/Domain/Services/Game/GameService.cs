@@ -1,12 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Domain.Model.Game;
 
 namespace Domain.Services.Game
 {
     public interface GameService
     {
-        Task<Word> StartNewGame();
-        Task<Guess> GuessLetter(char letter);
-        Task<Word> GetSolution();
+        Task<Tuple<Word, Token>> StartNewGame();
+        Task<Tuple<Guess, Token>> GuessLetter(char letter);
+        Task<Tuple<Word, Token>> GetSolution();
     }
 }
