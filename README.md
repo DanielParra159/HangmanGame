@@ -1,4 +1,4 @@
-![Build](https://github.com/DanielParra159/HangmanGame/workflows/Build/badge.svg) ![Tests](https://github.com/DanielParra159/HangmanGame/workflows/Build/badge.svg)
+![Build](https://github.com/DanielParra159/HangmanGame/workflows/Build/badge.svg)
 # HangmanGame
 
 This is just a Unity project for learning purposes, applying <b>TDD</b> and <b>DDD</b> principles, following the architecture proposed by Robert C. Martin in his book <b>Clean Architecture</b>.
