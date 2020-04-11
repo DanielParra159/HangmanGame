@@ -15,11 +15,24 @@ namespace InterfaceAdapters.Presenters.Tests
     {
         private InGameViewModel _inGameViewModel;
         private EventDispatcherService _eventDispatcherService;
+        private IObserver<string> _colorObserver;
+        private InGameViewModel.KeyButtonViewModel _keyButtonViewModel;
+        private IObserver<bool> _isKetEnabledObserver;
+        private string _letterToGuess;
 
         [SetUp]
         public void SetUp()
         {
             _inGameViewModel = Substitute.For<InGameViewModel>();
+            _inGameViewModel.SubscribeGallowImage();
+            _colorObserver = Substitute.For<IObserver<string>>();
+            _isKetEnabledObserver = Substitute.For<IObserver<bool>>();
+            _letterToGuess = "d";
+            _keyButtonViewModel = _inGameViewModel.SubscribeKeyButton(_letterToGuess);
+            _keyButtonViewModel.Color.Subscribe(_colorObserver);
+            _keyButtonViewModel.IsEnabled.Subscribe(_isKetEnabledObserver);
+
+
             _eventDispatcherService = Substitute.For<EventDispatcherService>();
         }
 
@@ -64,11 +77,10 @@ namespace InterfaceAdapters.Presenters.Tests
                 .Do(info => callback = info.Arg<SignalDelegate>());
             var wordObserver = Substitute.For<IObserver<string>>();
             _inGameViewModel.CurrentWord.Subscribe(wordObserver);
-            _inGameViewModel.SubscribeKeyButton("d");
             var inGamePresenter = new InGamePresenter(_inGameViewModel, _eventDispatcherService);
 
 
-            callback(new GuessResultSignal("d", "word", true));
+            callback(new GuessResultSignal(_letterToGuess, "word", true));
 
             wordObserver.Received().OnNext("w o r d");
         }
@@ -81,19 +93,45 @@ namespace InterfaceAdapters.Presenters.Tests
             _eventDispatcherService
                 .When(service => service.Subscribe<GuessResultSignal>(Arg.Any<SignalDelegate>()))
                 .Do(info => callback = info.Arg<SignalDelegate>());
-            var colorObserver = Substitute.For<IObserver<string>>();
-            var isEnabledObserver = Substitute.For<IObserver<bool>>();
-            var keyButtonViewModel = _inGameViewModel.SubscribeKeyButton("d");
-            keyButtonViewModel.Color.Subscribe(colorObserver);
-            keyButtonViewModel.IsEnabled.Subscribe(isEnabledObserver);
             var inGamePresenter = new InGamePresenter(_inGameViewModel, _eventDispatcherService);
 
-            callback(new GuessResultSignal("d", "word", isCorrect));
+            callback(new GuessResultSignal(_letterToGuess, "word", isCorrect));
 
-            colorObserver.Received().OnNext(isCorrect ? InGameViewModel.CorrectColor : InGameViewModel.IncorrectColor);
-            isEnabledObserver.Received().OnNext(false);
+            _colorObserver.Received().OnNext(isCorrect ? InGameViewModel.CorrectColor : InGameViewModel.IncorrectColor);
+            _isKetEnabledObserver.Received().OnNext(false);
         }
-        
+
+        [Test]
+        public void WhenDispatchGuessResultSignal_UpdateGallowVisibilityViewModel()
+        {
+            SignalDelegate callback = null;
+            _eventDispatcherService
+                .When(service => service.Subscribe<GuessResultSignal>(Arg.Any<SignalDelegate>()))
+                .Do(info => callback = info.Arg<SignalDelegate>());
+            var isEnabledObserver1 = Substitute.For<IObserver<bool>>();
+            _inGameViewModel.IsGallowPartVisible.Clear();
+            var gallowImageProperty1 = _inGameViewModel.SubscribeGallowImage();
+            gallowImageProperty1.Subscribe(isEnabledObserver1);
+            isEnabledObserver1.ClearReceivedCalls();
+            var isEnabledObserver2 = Substitute.For<IObserver<bool>>();
+            var gallowImageProperty2 = _inGameViewModel.SubscribeGallowImage();
+            gallowImageProperty2.Subscribe(isEnabledObserver2);
+            isEnabledObserver2.ClearReceivedCalls();
+            var inGamePresenter = new InGamePresenter(_inGameViewModel, _eventDispatcherService);
+
+            callback(new GuessResultSignal(_letterToGuess, "word", true));
+            callback(new GuessResultSignal(_letterToGuess, "word", false));
+            callback(new GuessResultSignal(_letterToGuess, "word", true));
+            callback(new GuessResultSignal(_letterToGuess, "word", false));
+            callback(new GuessResultSignal(_letterToGuess, "word", true));
+
+            Received.InOrder(() =>
+            {
+                isEnabledObserver1.Received().OnNext(true);
+                isEnabledObserver2.Received().OnNext(true);
+            });
+        }
+
         [Test]
         public void WhenDispatchWordCompletedSignal_UpdateVictoryVisibilityInViewModel()
         {
@@ -101,31 +139,21 @@ namespace InterfaceAdapters.Presenters.Tests
             _eventDispatcherService
                 .When(service => service.Subscribe<WordCompletedSignal>(Arg.Any<SignalDelegate>()))
                 .Do(info => callback = info.Arg<SignalDelegate>());
+            var isEndGameVisibleObserver = Substitute.For<IObserver<bool>>();
+            _inGameViewModel.IsEndGameVisible.Subscribe(isEndGameVisibleObserver);
             var isVisibleObserver = Substitute.For<IObserver<bool>>();
-            _inGameViewModel.VictoryIsVisible.Subscribe(isVisibleObserver);
+            _inGameViewModel.IsVictoryVisible.Subscribe(isVisibleObserver);
+            var isGameOverVisibleObserver = Substitute.For<IObserver<bool>>();
+            _inGameViewModel.IsGameOverVisible.Subscribe(isGameOverVisibleObserver);
             var inGamePresenter = new InGamePresenter(_inGameViewModel, _eventDispatcherService);
 
             callback(new WordCompletedSignal());
 
             isVisibleObserver.Received().OnNext(true);
+            isEndGameVisibleObserver.Received().OnNext(true);
+            isGameOverVisibleObserver.Received().OnNext(false);
         }
-        
-        [Test]
-        public void WhenDispatchRestartGameSignal_UpdateVictoryVisibilityInViewModel()
-        {
-            SignalDelegate callback = null;
-            _eventDispatcherService
-                .When(service => service.Subscribe<RestartGameSignal>(Arg.Any<SignalDelegate>()))
-                .Do(info => callback = info.Arg<SignalDelegate>());
-            var isVisibleObserver = Substitute.For<IObserver<bool>>();
-            _inGameViewModel.VictoryIsVisible.Subscribe(isVisibleObserver);
-            var inGamePresenter = new InGamePresenter(_inGameViewModel, _eventDispatcherService);
 
-            callback(new RestartGameSignal());
-
-            isVisibleObserver.Received().OnNext(false);
-        }
-        
         [Test]
         public void WhenDispatchRestartGameSignal_RestartKeyboard()
         {
@@ -133,22 +161,85 @@ namespace InterfaceAdapters.Presenters.Tests
             _eventDispatcherService
                 .When(service => service.Subscribe<RestartGameSignal>(Arg.Any<SignalDelegate>()))
                 .Do(info => callback = info.Arg<SignalDelegate>());
-            var colorObserver = Substitute.For<IObserver<string>>();
-            var isEnabledObserver = Substitute.For<IObserver<bool>>();
-            var keyButtonViewModel = _inGameViewModel.SubscribeKeyButton("d");
             var inGamePresenter = new InGamePresenter(_inGameViewModel, _eventDispatcherService);
-            keyButtonViewModel.Color.Subscribe(colorObserver);
-            keyButtonViewModel.IsEnabled.Subscribe(isEnabledObserver);
-            keyButtonViewModel.Color.Value = "";
-            keyButtonViewModel.IsEnabled.Value = false;
+            _keyButtonViewModel.Color.Value = "";
+            _keyButtonViewModel.IsEnabled.Value = false;
+            _colorObserver.ClearReceivedCalls();
+            _isKetEnabledObserver.ClearReceivedCalls();
 
-            Assert.AreNotEqual(InGameViewModel.DefaultColor, keyButtonViewModel.Color.Value);
-            Assert.AreNotEqual(true, keyButtonViewModel.IsEnabled.Value);
+            Assert.AreNotEqual(InGameViewModel.DefaultColor, _keyButtonViewModel.Color.Value);
+            Assert.AreNotEqual(true, _keyButtonViewModel.IsEnabled.Value);
             callback(new RestartGameSignal());
 
-            // 2 because when the reactive property is created it notifies to the subscribers
-            colorObserver.Received(2).OnNext(InGameViewModel.DefaultColor);
-            isEnabledObserver.Received(2).OnNext(true);
+            _colorObserver.Received().OnNext(InGameViewModel.DefaultColor);
+            _isKetEnabledObserver.Received().OnNext(true);
+        }
+
+        [Test]
+        public void WhenDispatchRestartGameSignal_RestartGallow()
+        {
+            SignalDelegate callback = null;
+            _eventDispatcherService
+                .When(service => service.Subscribe<RestartGameSignal>(Arg.Any<SignalDelegate>()))
+                .Do(info => callback = info.Arg<SignalDelegate>());
+            var isEnabledObserver = Substitute.For<IObserver<bool>>();
+            _inGameViewModel.IsGallowPartVisible.Clear();
+            var gallowImageProperty = _inGameViewModel.SubscribeGallowImage();
+            var inGamePresenter = new InGamePresenter(_inGameViewModel, _eventDispatcherService);
+            gallowImageProperty.Subscribe(isEnabledObserver);
+            gallowImageProperty.Value = true;
+            _inGameViewModel.NextGallowPartToShow = 2;
+
+            Assert.AreNotEqual(0, _inGameViewModel.NextGallowPartToShow);
+            Assert.IsTrue(gallowImageProperty.Value);
+            callback(new RestartGameSignal());
+
+            Assert.AreEqual(0, _inGameViewModel.NextGallowPartToShow);
+            isEnabledObserver.Received().OnNext(false);
+        }
+
+        [Test]
+        public void WhenDispatchWordCompletedSignal_UpdateGameOverVisibilityInViewModel()
+        {
+            SignalDelegate callback = null;
+            _eventDispatcherService
+                .When(service => service.Subscribe<GameOverSignal>(Arg.Any<SignalDelegate>()))
+                .Do(info => callback = info.Arg<SignalDelegate>());
+            var isEndGameVisibleObserver = Substitute.For<IObserver<bool>>();
+            _inGameViewModel.IsEndGameVisible.Subscribe(isEndGameVisibleObserver);
+            var isGameOverVisibleObserver = Substitute.For<IObserver<bool>>();
+            _inGameViewModel.IsGameOverVisible.Subscribe(isGameOverVisibleObserver);
+            var isVictoryVisibleObserver = Substitute.For<IObserver<bool>>();
+            _inGameViewModel.IsVictoryVisible.Subscribe(isVictoryVisibleObserver);
+            var inGamePresenter = new InGamePresenter(_inGameViewModel, _eventDispatcherService);
+
+            callback(new GameOverSignal());
+
+            isEndGameVisibleObserver.Received().OnNext(true);
+            isGameOverVisibleObserver.Received().OnNext(true);
+            isVictoryVisibleObserver.Received().OnNext(false);
+        }
+        
+        [Test]
+        public void WhenDispatchRestartGameSignal_RestartEndGameVisibilityInViewModel()
+        {
+            SignalDelegate callback = null;
+            _eventDispatcherService
+                .When(service => service.Subscribe<RestartGameSignal>(Arg.Any<SignalDelegate>()))
+                .Do(info => callback = info.Arg<SignalDelegate>());
+            var isEndGameVisibleObserver = Substitute.For<IObserver<bool>>();
+            _inGameViewModel.IsEndGameVisible.Subscribe(isEndGameVisibleObserver);
+            var isGameOverVisibleObserver = Substitute.For<IObserver<bool>>();
+            _inGameViewModel.IsGameOverVisible.Subscribe(isGameOverVisibleObserver);
+            var isVictoryVisibleObserver = Substitute.For<IObserver<bool>>();
+            _inGameViewModel.IsVictoryVisible.Subscribe(isVictoryVisibleObserver);
+            var inGamePresenter = new InGamePresenter(_inGameViewModel, _eventDispatcherService);
+
+            callback(new RestartGameSignal());
+
+            isEndGameVisibleObserver.Received().OnNext(false);
+            isGameOverVisibleObserver.Received().OnNext(false);
+            isVictoryVisibleObserver.Received().OnNext(false);
         }
     }
 }

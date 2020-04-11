@@ -15,21 +15,27 @@ namespace Views.Tests
         private GameObject _inGameGameObject;
         private InGameView _inGameView;
         private InGameViewModel _inGameViewModel;
+        private GameObject _endGameGameObject;
         private GameObject _victoryImageGameObject;
-        private GameObject _RestartGameGameObject;
+        private GameObject _gameOverImageGameObject;
+        private GameObject _restartGameGameObject;
 
         [SetUp]
         public void SetUp()
         {
             _inGameGameObject = new GameObject();
             _inGameView = _inGameGameObject.AddComponent<InGameView>();
+            _endGameGameObject = new GameObject();
+            _inGameView.EndGameImage = _endGameGameObject;
             _inGameView.CurrentWordText = _inGameGameObject.AddComponent<Text>();
             _victoryImageGameObject = new GameObject();
-            _victoryImageGameObject.transform.SetParent(_inGameGameObject.transform);
+            _victoryImageGameObject.transform.SetParent(_endGameGameObject.transform);
             _inGameView.VictoryImage = _victoryImageGameObject.AddComponent<Image>();
-            ;
-            _RestartGameGameObject = new GameObject();
-            _inGameView.RestartGameButton = _RestartGameGameObject.AddComponent<Button>();
+            _gameOverImageGameObject = new GameObject();
+            _gameOverImageGameObject.transform.SetParent(_endGameGameObject.transform);
+            _inGameView.GameOverImage = _gameOverImageGameObject.AddComponent<Image>();
+            _restartGameGameObject = new GameObject();
+            _inGameView.RestartGameButton = _restartGameGameObject.AddComponent<Button>();
             _inGameViewModel = new InGameViewModel();
             _inGameView.SetModel(_inGameViewModel);
         }
@@ -60,9 +66,31 @@ namespace Views.Tests
         {
             _victoryImageGameObject.SetActive(!expectedValue);
             Assert.AreEqual(!expectedValue, _victoryImageGameObject.activeSelf);
-            _inGameViewModel.VictoryIsVisible.SetValueAndForceNotify(expectedValue);
+            _inGameViewModel.IsVictoryVisible.SetValueAndForceNotify(expectedValue);
 
             Assert.AreEqual(expectedValue, _victoryImageGameObject.activeSelf);
+        }
+        
+        [TestCase(true)]
+        [TestCase(false)]
+        public void WhenUpdateGameOverVisibilityOnTheViewModel_ShowOrHideTheGameObject(bool expectedValue)
+        {
+            _gameOverImageGameObject.SetActive(!expectedValue);
+            Assert.AreEqual(!expectedValue, _gameOverImageGameObject.activeSelf);
+            _inGameViewModel.IsGameOverVisible.SetValueAndForceNotify(expectedValue);
+
+            Assert.AreEqual(expectedValue, _gameOverImageGameObject.activeSelf);
+        }
+        
+        [TestCase(true)]
+        [TestCase(false)]
+        public void WhenUpdateEndGameVisibilityOnTheViewModel_ShowOrHideTheGameObject(bool expectedValue)
+        {
+            _endGameGameObject.SetActive(!expectedValue);
+            Assert.AreEqual(!expectedValue, _endGameGameObject.activeSelf);
+            _inGameViewModel.IsEndGameVisible.SetValueAndForceNotify(expectedValue);
+
+            Assert.AreEqual(expectedValue, _endGameGameObject.activeSelf);
         }
 
         [Test]

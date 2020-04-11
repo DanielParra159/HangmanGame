@@ -97,6 +97,24 @@ namespace Application.Services.Game.Tests
         }
 
         [Test]
+        public async void WhenCallToGuessLetter_StoreLastGuess()
+        {
+            _restClient
+                .PutWithParametersOnUrl<GameServerService.GuessLetterRequest, GameServerService.GuessLetterResponse>(
+                    EndPoints.GuessLetter, Arg.Any<GameServerService.GuessLetterRequest>())
+                .Returns(info => new GameServerService.GuessLetterResponse
+                {
+                    hangman = "____" + ((GameServerService.GuessLetterRequest) info.Args()[1]).letter,
+                    correct = true, token = "token"
+                });
+
+            await _gameServerService.GuessLetter('a');
+
+            _gameRepository.Received().LastGuess =
+                Arg.Is<Guess>(word => word.CurrentWord.CurrentWord == "____a" && word.IsCorrect);
+        }
+
+        [Test]
         public async void WhenCallToGuessLetter_RefreshStoredTokenId()
         {
             _restClient

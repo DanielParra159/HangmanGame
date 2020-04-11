@@ -37,7 +37,9 @@ namespace Application.Services.Game
                     );
             _gameRepository.Word = new Word(response.hangman);
             _gameRepository.GameToken = response.token;
-            return new Guess(_gameRepository.Word, response.correct);
+            var guess = new Guess(_gameRepository.Word, response.correct);
+            _gameRepository.LastGuess = guess;
+            return guess;
         }
 
         public async Task<Word> GetSolution()

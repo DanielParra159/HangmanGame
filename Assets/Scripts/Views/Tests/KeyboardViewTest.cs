@@ -15,7 +15,7 @@ namespace Views.Tests
         private static readonly Random Random = new Random();
         private GameObject _keyboard;
         private KeyboardView _keyboardView;
-        private InGameViewModel _keyboardViewModel;
+        private InGameViewModel _inGameViewModel;
 
         private static char GetRandomLetter()
         {
@@ -48,15 +48,15 @@ namespace Views.Tests
             }
 
 
-            _keyboardViewModel = new InGameViewModel();
-            _keyboardView.SetModel(_keyboardViewModel);
+            _inGameViewModel = new InGameViewModel();
+            _keyboardView.SetModel(_inGameViewModel);
         }
 
         [Test]
         public void WhenClickInSomeKey_ExecuteTheCommand()
         {
             var observer = Substitute.For<IObserver<string>>();
-            _keyboardViewModel.OnKeyPressedPressed.Subscribe(observer);
+            _inGameViewModel.OnKeyPressedPressed.Subscribe(observer);
 
             foreach (var button in _keyboardView.Buttons)
             {
@@ -68,7 +68,7 @@ namespace Views.Tests
         [Test]
         public void WhenTheColorChangesOnTheViewModel_UpdateTheColor()
         {
-            foreach (var keyButtonViewModel in _keyboardViewModel.KeyButtonsViewModel)
+            foreach (var keyButtonViewModel in _inGameViewModel.KeyButtonsViewModel)
             {
                 keyButtonViewModel.Value.Color.SetValueAndForceNotify(InGameViewModel.CorrectColor);
                 keyButtonViewModel.Value.IsEnabled.SetValueAndForceNotify(false);
