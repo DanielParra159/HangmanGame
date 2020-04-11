@@ -30,7 +30,7 @@ namespace InterfaceAdapters.Controllers
         public readonly ReactiveProperty<bool> IsVictoryVisible;
         public readonly ReactiveCommand OnRestartGamePressed;
         public readonly List<ReactiveProperty<bool>> IsGallowPartVisible;
-
+        public int NextGallowPartToShow { get; set; }
 
 
         public InGameViewModel()
@@ -43,7 +43,6 @@ namespace InterfaceAdapters.Controllers
             OnRestartGamePressed = new ReactiveCommand();
             IsGallowPartVisible = new List<ReactiveProperty<bool>>();
         }
-
 
 
         public KeyButtonViewModel SubscribeKeyButton(string key)

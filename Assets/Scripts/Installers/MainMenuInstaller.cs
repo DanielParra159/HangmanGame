@@ -25,20 +25,11 @@ namespace Installers
 
         private void Start()
         {
-            var mainMenuViewInstance = Instantiate(MainMenuViewPrefab); // TODO: extract to a service
             var mainMenuViewModel = new MainMenuViewModel();
-            mainMenuViewInstance.SetModel(mainMenuViewModel);
-
-            var inGameViewInstance = Instantiate(InGameViewPrefab); // TODO: extract to a service
             var inGameViewModel = new InGameViewModel();
-            inGameViewInstance.SetModel(inGameViewModel);
-            inGameViewInstance
-                .GetComponentInChildren<KeyboardView>()
-                .SetModel(inGameViewModel); // TODO: consider move this responsability to the parent view
-
-            var loadingViewInstance = Instantiate(LoadingViewPrefab); // TODO: extract to a service
             var loadingViewModel = new LoadingViewModel();
-            loadingViewInstance.SetModel(loadingViewModel);
+
+            InstantiateViews(mainMenuViewModel, inGameViewModel, loadingViewModel);
 
             // TODO: these services should be unique, instantiate it in a previous step
             var gameRepositoryImpl = new GameRepositoryImpl();
@@ -70,6 +61,29 @@ namespace Installers
             var updateWordPresenter = new InGamePresenter(inGameViewModel, eventDispatcherServiceImpl);
             var mainMenuPresenter = new MainMenuPresenter(mainMenuViewModel, eventDispatcherServiceImpl);
             var loadingPresenter = new LoadingPresenter(loadingViewModel, eventDispatcherServiceImpl);
+        }
+
+        private void InstantiateViews(
+            MainMenuViewModel mainMenuViewModel,
+            InGameViewModel inGameViewModel,
+            LoadingViewModel loadingViewModel
+        )
+        {
+            var mainMenuViewInstance = Instantiate(MainMenuViewPrefab); // TODO: extract to a service
+            mainMenuViewInstance.SetModel(mainMenuViewModel);
+
+            var inGameViewInstance = Instantiate(InGameViewPrefab); // TODO: extract to a service
+
+            inGameViewInstance.SetModel(inGameViewModel);
+            inGameViewInstance
+                .GetComponentInChildren<KeyboardView>()
+                .SetModel(inGameViewModel); // TODO: consider move this responsability to the parent view
+            inGameViewInstance
+                .GetComponentInChildren<GallowView>()
+                .SetModel(inGameViewModel); // TODO: consider move this responsability to the parent view
+
+            var loadingViewInstance = Instantiate(LoadingViewPrefab); // TODO: extract to a service
+            loadingViewInstance.SetModel(loadingViewModel);
         }
     }
 }
