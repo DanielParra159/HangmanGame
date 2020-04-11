@@ -13,9 +13,9 @@ jobs:
       - name: Generate Solution
         uses: webbertakken/unity-test-runner@v1.6
         with:
-          args: -buildTarget StandaloneWindows64 -projectPath . -executeMethod  UnityEditor.SyncVS.SyncSolution -quit
           unityVersion: 2019.3.8f1
           projectPath: ./
+          args: -buildTarget StandaloneWindows64 -projectPath . -executeMethod  UnityEditor.SyncVS.SyncSolution -quit
   
       - name: Sonar analysis
         uses: webbertakken/unity-test-runner@v1.6
