@@ -15,6 +15,7 @@ jobs:
         with:
           args: -buildTarget StandaloneWindows64 -customBuildName MirrorNG -customBuildPath ./build/StandaloneWindows64 -projectPath . -executeMethod  UnityEditor.SyncVS.SyncSolution -quit
           unityVersion: 2019.3.8f1
+          projectPath: ./
   
       - name: Sonar analysis
         uses: webbertakken/unity-test-runner@v1.6
