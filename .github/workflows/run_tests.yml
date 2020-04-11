@@ -28,3 +28,15 @@ jobs:
         uses: webbertakken/unity-test-runner@v1.3
         with:
           unityVersion: 2019.3.8f1
+
+      - name: Sonar analysis
+        uses: webbertakken/unity-test-runner@v1.6
+        with:
+          projectKey: DanielParra159_HangmanGame
+          projectName: HangmanGame
+          sonarOrganisation: danielparra159
+          beginArguments: /d:sonar.verbose="true"
+        env:
+          FrameworkPathOverride: /opt/Unity/Editor/Data/MonoBleedingEdge/
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
