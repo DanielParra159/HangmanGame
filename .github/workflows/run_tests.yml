@@ -26,3 +26,26 @@ jobs:
           unityVersion: 2019.3.8f1
           customParameters: -enableCodeCoverage -coverageResultsPath "$FULL_ARTIFACTS_PATH/CodeCoverage/" -coverageOptions "generateHtmlReport;assemblyFilters:+*Hangman*,-*unity*,-*Tests*"
       
+      - name: Save Test Result Artifacts 
+        uses: actions/upload-artifact@v1
+        with:
+            name: Test results
+            path: artifacts
+  code-coverage:
+    name: Test coverage
+    needs: run-tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Load Test Result Artifacts 
+        uses: actions/download-artifact@v1
+        with:
+            name: Test results
+            path: artifacts
+      - shell: bash
+        run: cat ./artifacts/CodeCoverage/Report/Summary.xml
+
+      - name: Check Code Coverage
+        uses: AnImaginedReality/UnityCodeCoverage.Action@v0.0.4
+        with:
+          required-coverage: 99 #test
+          coverage-file-path: ./artifacts/CodeCoverage/Report/Summary.xml
