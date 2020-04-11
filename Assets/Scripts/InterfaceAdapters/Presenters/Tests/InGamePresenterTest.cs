@@ -102,7 +102,7 @@ namespace InterfaceAdapters.Presenters.Tests
                 .When(service => service.Subscribe<WordCompletedSignal>(Arg.Any<SignalDelegate>()))
                 .Do(info => callback = info.Arg<SignalDelegate>());
             var isVisibleObserver = Substitute.For<IObserver<bool>>();
-            _inGameViewModel.VictoryIsVisible.Subscribe(isVisibleObserver);
+            _inGameViewModel.IsVictoryVisible.Subscribe(isVisibleObserver);
             var inGamePresenter = new InGamePresenter(_inGameViewModel, _eventDispatcherService);
 
             callback(new WordCompletedSignal());
@@ -118,7 +118,7 @@ namespace InterfaceAdapters.Presenters.Tests
                 .When(service => service.Subscribe<RestartGameSignal>(Arg.Any<SignalDelegate>()))
                 .Do(info => callback = info.Arg<SignalDelegate>());
             var isVisibleObserver = Substitute.For<IObserver<bool>>();
-            _inGameViewModel.VictoryIsVisible.Subscribe(isVisibleObserver);
+            _inGameViewModel.IsVictoryVisible.Subscribe(isVisibleObserver);
             var inGamePresenter = new InGamePresenter(_inGameViewModel, _eventDispatcherService);
 
             callback(new RestartGameSignal());

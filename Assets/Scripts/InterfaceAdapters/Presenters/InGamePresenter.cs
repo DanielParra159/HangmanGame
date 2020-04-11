@@ -24,7 +24,7 @@ namespace InterfaceAdapters.Presenters
 
         private void RestartGame(Signal signal)
         {
-            _viewModel.VictoryIsVisible.Value = false;
+            _viewModel.IsVictoryVisible.Value = false;
             foreach (var buttonViewModel in _viewModel.KeyButtonsViewModel)
             {
                 buttonViewModel.Value.IsEnabled.Value = true;
@@ -34,7 +34,7 @@ namespace InterfaceAdapters.Presenters
 
         private void WordCompleted(Signal signal)
         {
-            _viewModel.VictoryIsVisible.Value = true;
+            _viewModel.IsVictoryVisible.Value = true;
         }
 
         private void NewWord(Signal signal)

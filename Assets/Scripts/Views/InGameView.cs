@@ -17,7 +17,7 @@ namespace Views
             _inGameViewModel = inGameViewModel;
             _inGameViewModel.CurrentWord.Subscribe(word => CurrentWordText.text = word);
             _inGameViewModel.IsVisible.Subscribe(isVisible => gameObject.SetActive(isVisible));
-            _inGameViewModel.VictoryIsVisible.Subscribe(isVisible => VictoryImage.gameObject.SetActive(isVisible));
+            _inGameViewModel.IsVictoryVisible.Subscribe(isVisible => VictoryImage.gameObject.SetActive(isVisible));
             _inGameViewModel.OnRestartGamePressed.BindTo(RestartGameButton);
         }
     }

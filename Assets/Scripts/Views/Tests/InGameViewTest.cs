@@ -60,7 +60,7 @@ namespace Views.Tests
         {
             _victoryImageGameObject.SetActive(!expectedValue);
             Assert.AreEqual(!expectedValue, _victoryImageGameObject.activeSelf);
-            _inGameViewModel.VictoryIsVisible.SetValueAndForceNotify(expectedValue);
+            _inGameViewModel.IsVictoryVisible.SetValueAndForceNotify(expectedValue);
 
             Assert.AreEqual(expectedValue, _victoryImageGameObject.activeSelf);
         }
