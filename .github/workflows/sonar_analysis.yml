@@ -32,3 +32,4 @@ jobs:
           FrameworkPathOverride: /opt/Unity/Editor/Data/MonoBleedingEdge/
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
