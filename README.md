@@ -24,7 +24,7 @@ I have used [Sonar cloud](https://sonarcloud.io/dashboard?id=DanielParra159_Hang
 ## Next steps
 
 * Improve graphics.
-* Introduce game over.
+* Execute sonar in every pull request and merge to master.
 
 ## Workflows
 
