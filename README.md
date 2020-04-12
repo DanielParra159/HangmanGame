@@ -1,4 +1,4 @@
-![Build](https://github.com/DanielParra159/HangmanGame/workflows/Build/badge.svg)
+![Build](https://github.com/DanielParra159/HangmanGame/workflows/Build/badge.svg) ![Code coverage](https://github.com/DanielParra159/HangmanGame/blob/add-unity-coverage/CodeCoverage/Report/badge_linecoverage.svg)
 # HangmanGame
 
 This is just a Unity project for learning purposes, applying <b>TDD</b> and <b>DDD</b> principles, following the architecture proposed by Robert C. Martin in his book <b>Clean Architecture</b>.
@@ -15,6 +15,11 @@ For the server I have used this [hangman api](https://hangman-api.herokuapp.com/
 
 ## CI
 I have created a workflow to [run the tests](https://github.com/DanielParra159/HangmanGame/blob/master/.github/workflows/run_tests.yml) during pull request step and other to [build](https://github.com/DanielParra159/HangmanGame/blob/master/.github/workflows/build.yml) and archive the project when merges to master. To do that I have used [Unity actions](https://github.com/webbertakken/unity-actions) that uses [Unity3D docker](https://gitlab.com/gableroux/unity3d) images from [GabLeRoux](https://github.com/GabLeRoux).
+
+
+## Code coverage
+For the code coverage I am using [Unity code coverage](https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@0.2/manual/index.html) package than generates this report:
+![Code coverage](https://github.com/DanielParra159/HangmanGame/blob/add-unity-coverage/CodeCoverage/Report/CodeCoverage.png)
 
 ## Next steps
 
