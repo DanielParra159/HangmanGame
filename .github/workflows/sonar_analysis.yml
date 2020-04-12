@@ -41,13 +41,12 @@ jobs:
         if: always()
         uses: MirrorNG/unity-runner@2.0.0
         with:
-          entrypoint: /sonar-scanner.sh
           projectKey: DanielParra159_HangmanGame
           projectName: HangmanGame
           sonarOrganisation: danielparra159
           unityVersion: 2019.3.8f1
           beginArguments: /d:sonar.verbose="true"
-          solution: /github/workspace/HangmanGame.sln
+          solution: /github/workspace/workspace.sln
         env:
           FrameworkPathOverride: /opt/Unity/Editor/Data/MonoBleedingEdge/
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
