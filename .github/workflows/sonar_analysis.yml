@@ -47,6 +47,7 @@ jobs:
           sonarOrganisation: danielparra159
           unityVersion: 2019.3.8f1
           beginArguments: /d:sonar.verbose="true"
+          solution: /github/workspace/HangmanGame.sln
         env:
           FrameworkPathOverride: /opt/Unity/Editor/Data/MonoBleedingEdge/
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
