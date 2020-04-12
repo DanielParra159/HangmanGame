@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CoverageReport scope="Summary">
+  <Summary>
+    <Generatedon>12/04/2020 - 22:59:26</Generatedon>
+    <Parser>MultiReportParser (2x OpenCoverParser)</Parser>
+    <Assemblies>5</Assemblies>
+    <Classes>34</Classes>
+    <Files>34</Files>
+    <Coveredlines>447</Coveredlines>
+    <Uncoveredlines>15</Uncoveredlines>
+    <Coverablelines>462</Coverablelines>
+    <Totallines>1152</Totallines>
+    <Linecoverage>96.7</Linecoverage>
+    <Coveredbranches>0</Coveredbranches>
+    <Totalbranches>0</Totalbranches>
+  </Summary>
+  <Coverage>
+    <Assembly name="Hangman.Application" classes="8" coverage="95.2" coveredlines="101" coverablelines="106" totallines="281" branchcoverage="" coveredbranches="0" totalbranches="0">
+      <Class name="Application.Services.EventDispatcher.EventDispatcherServiceImpl" coverage="100" coveredlines="26" coverablelines="26" totallines="45" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Application.Services.Game.GameServerService" coverage="100" coveredlines="18" coverablelines="18" totallines="49" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Application.Services.Parsers.JsonUtilityAdapter" coverage="100" coveredlines="6" coverablelines="6" totallines="18" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Application.Services.Repositories.ConfigurationGameRepositoryImpl" coverage="100" coveredlines="1" coverablelines="1" totallines="10" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Application.Services.Repositories.GameRepositoryImpl" coverage="75" coveredlines="3" coverablelines="4" totallines="13" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Application.Services.ServiceLocator.ServiceLocatorImpl" coverage="100" coveredlines="23" coverablelines="23" totallines="47" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Application.Services.Web.RestRestClientAdapter" coverage="100" coveredlines="5" coverablelines="5" totallines="57" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Application.Services.Web.UriExtension" coverage="82.6" coveredlines="19" coverablelines="23" totallines="42" branchcoverage="" coveredbranches="0" totalbranches="0" />
+    </Assembly>
+    <Assembly name="Hangman.Domain" classes="11" coverage="92.6" coveredlines="126" coverablelines="136" totallines="324" branchcoverage="" coveredbranches="0" totalbranches="0">
+      <Class name="Domain.Configuration.EndPoints" coverage="100" coveredlines="3" coverablelines="3" totallines="9" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Domain.Model.Game.Guess" coverage="77.7" coveredlines="14" coverablelines="18" totallines="35" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Domain.Model.Game.Token" coverage="76.9" coveredlines="10" coverablelines="13" totallines="27" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Domain.Model.Game.Word" coverage="84.2" coveredlines="16" coverablelines="19" totallines="36" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Domain.UseCases.CheckLastWordIsCompleted.CheckSolutionUseCase" coverage="100" coveredlines="27" coverablelines="27" totallines="54" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Domain.UseCases.CommonSignals.UpdateLoadingScreenSignal" coverage="100" coveredlines="4" coverablelines="4" totallines="14" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Domain.UseCases.GuessLetter.GuessLetterUseCase" coverage="100" coveredlines="17" coverablelines="17" totallines="54" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Domain.UseCases.GuessLetter.GuessResultSignal" coverage="100" coveredlines="6" coverablelines="6" totallines="18" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Domain.UseCases.RestartGame.RestartGameUseCase" coverage="100" coveredlines="9" coverablelines="9" totallines="22" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Domain.UseCases.StartGame.NewWordSignal" coverage="100" coveredlines="4" coverablelines="4" totallines="14" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Domain.UseCases.StartGame.StartGameUseCase" coverage="100" coveredlines="16" coverablelines="16" totallines="41" branchcoverage="" coveredbranches="0" totalbranches="0" />
+    </Assembly>
+    <Assembly name="Hangman.Installers" classes="1" coverage="100" coveredlines="26" coverablelines="26" totallines="91" branchcoverage="" coveredbranches="0" totalbranches="0">
+      <Class name="Installers.MainMenuInstaller" coverage="100" coveredlines="26" coverablelines="26" totallines="91" branchcoverage="" coveredbranches="0" totalbranches="0" />
+    </Assembly>
+    <Assembly name="Hangman.InterfaceAdapters" classes="9" coverage="100" coveredlines="146" coverablelines="146" totallines="328" branchcoverage="" coveredbranches="0" totalbranches="0">
+      <Class name="InterfaceAdapters.Controllers.InGameViewModel" coverage="100" coveredlines="28" coverablelines="28" totallines="66" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="InterfaceAdapters.Controllers.KeyboardController" coverage="100" coveredlines="10" coverablelines="10" totallines="27" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="InterfaceAdapters.Controllers.LoadingViewModel" coverage="100" coveredlines="4" coverablelines="4" totallines="14" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="InterfaceAdapters.Controllers.MainMenuViewModel" coverage="100" coveredlines="5" coverablelines="5" totallines="16" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="InterfaceAdapters.Controllers.RestartGameController" coverage="100" coveredlines="6" coverablelines="6" totallines="19" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="InterfaceAdapters.Controllers.StartGameController" coverage="100" coveredlines="7" coverablelines="7" totallines="21" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="InterfaceAdapters.Presenters.InGamePresenter" coverage="100" coveredlines="68" coverablelines="68" totallines="116" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="InterfaceAdapters.Presenters.LoadingPresenter" coverage="100" coveredlines="9" coverablelines="9" totallines="25" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="InterfaceAdapters.Presenters.MainMenuPresenter" coverage="100" coveredlines="9" coverablelines="9" totallines="24" branchcoverage="" coveredbranches="0" totalbranches="0" />
+    </Assembly>
+    <Assembly name="Hangman.Views" classes="5" coverage="100" coveredlines="48" coverablelines="48" totallines="128" branchcoverage="" coveredbranches="0" totalbranches="0">
+      <Class name="Views.GallowView" coverage="100" coveredlines="7" coverablelines="7" totallines="22" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Views.InGameView" coverage="100" coveredlines="9" coverablelines="9" totallines="28" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Views.KeyboardView" coverage="100" coveredlines="18" coverablelines="18" totallines="34" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Views.LoadingView" coverage="100" coveredlines="9" coverablelines="9" totallines="23" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Views.MainMenuView" coverage="100" coveredlines="5" coverablelines="5" totallines="21" branchcoverage="" coveredbranches="0" totalbranches="0" />
+    </Assembly>
+  </Coverage>
+</CoverageReport>
