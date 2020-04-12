@@ -1,4 +1,4 @@
-![Build](https://github.com/DanielParra159/HangmanGame/workflows/Build/badge.svg) ![Code coverage](https://github.com/DanielParra159/HangmanGame/blob/add-unity-coverage/CodeCoverage/Report/badge_linecoverage.svg)
+![Build](https://github.com/DanielParra159/HangmanGame/workflows/Build/badge.svg) ![Code coverage](https://github.com/DanielParra159/HangmanGame/blob/master/CodeCoverage/Report/badge_linecoverage.svg) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=DanielParra159_HangmanGame&metric=coverage)](https://sonarcloud.io/dashboard?id=DanielParra159_HangmanGame) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=DanielParra159_HangmanGame&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=DanielParra159_HangmanGame) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=DanielParra159_HangmanGame&metric=alert_status)](https://sonarcloud.io/dashboard?id=DanielParra159_HangmanGame) [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=DanielParra159_HangmanGame&metric=sqale_index)](https://sonarcloud.io/dashboard?id=DanielParra159_HangmanGame)
 # HangmanGame
 
 This is just a Unity project for learning purposes, applying <b>TDD</b> and <b>DDD</b> principles, following the architecture proposed by Robert C. Martin in his book <b>Clean Architecture</b>.
@@ -17,14 +17,14 @@ For the server I have used this [hangman api](https://hangman-api.herokuapp.com/
 I have created a workflow to [run the tests](https://github.com/DanielParra159/HangmanGame/blob/master/.github/workflows/run_tests.yml) during pull request step and other to [build](https://github.com/DanielParra159/HangmanGame/blob/master/.github/workflows/build.yml) and archive the project when merges to master. To do that I have used [Unity actions](https://github.com/webbertakken/unity-actions) that uses [Unity3D docker](https://gitlab.com/gableroux/unity3d) images from [GabLeRoux](https://github.com/GabLeRoux).
 
 
-## Code coverage
-For the code coverage I am using [Unity code coverage](https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@0.2/manual/index.html) package than generates this report:
-![Code coverage](https://github.com/DanielParra159/HangmanGame/blob/add-unity-coverage/CodeCoverage/Report/CodeCoverage.png)
+## Static analyzers
+I have used [Sonar cloud](https://sonarcloud.io/dashboard?id=DanielParra159_HangmanGame) as static analyzer but also [Unity code coverage](https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@0.2/manual/index.html) package to generate reports, like the next image, the difference between the two is that the second is taking into account the play mode tests.
+![Code coverage](https://github.com/DanielParra159/HangmanGame/blob/master/CodeCoverage/Report/CodeCoverage.png)
 
 ## Next steps
 
 * Improve graphics.
-* Introduce game over.
+* Execute sonar in every pull request and merge to master.
 
 ## Workflows
 
