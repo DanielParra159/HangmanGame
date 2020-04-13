@@ -7,19 +7,24 @@ namespace Views
 {
     public class KeyboardView : MonoBehaviour
     {
-        public Button[] Buttons;
-        private InGameViewModel _viewModel;
+        [SerializeField]
+        private Button[] _buttons;
+
+        public Button[] Buttons
+        {
+            get => _buttons;
+            set => _buttons = value;
+        }
 
         public void SetModel(InGameViewModel keyboardViewModel)
         {
-            _viewModel = keyboardViewModel;
-            foreach (var button in Buttons)
+            foreach (var button in _buttons)
             {
                 var letter = button.GetComponentInChildren<Text>().text;
 
                 button.onClick.AddListener(() =>
                 {
-                    _viewModel.OnKeyPressedPressed.Execute(letter);
+                    keyboardViewModel.OnKeyPressedPressed.Execute(letter);
                 });
                 var keyButtonViewModel = keyboardViewModel.SubscribeKeyButton(letter);
                 keyButtonViewModel.IsEnabled.Subscribe(isEnabled => button.interactable = isEnabled);

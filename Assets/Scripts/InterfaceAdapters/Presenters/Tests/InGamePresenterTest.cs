@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Domain.Services.EventDispatcher;
 using Domain.UseCases.CheckLastWordIsCompleted;
 using Domain.UseCases.GuessLetter;
@@ -14,7 +15,7 @@ namespace InterfaceAdapters.Presenters.Tests
     public class InGamePresenterTest
     {
         private InGameViewModel _inGameViewModel;
-        private EventDispatcherService _eventDispatcherService;
+        private IEventDispatcherService _eventDispatcherService;
         private IObserver<string> _colorObserver;
         private InGameViewModel.KeyButtonViewModel _keyButtonViewModel;
         private IObserver<bool> _isKetEnabledObserver;
@@ -33,7 +34,7 @@ namespace InterfaceAdapters.Presenters.Tests
             _keyButtonViewModel.IsEnabled.Subscribe(_isKetEnabledObserver);
 
 
-            _eventDispatcherService = Substitute.For<EventDispatcherService>();
+            _eventDispatcherService = Substitute.For<IEventDispatcherService>();
         }
 
         [Test]
@@ -48,8 +49,24 @@ namespace InterfaceAdapters.Presenters.Tests
             var inGamePresenter = new InGamePresenter(_inGameViewModel, _eventDispatcherService);
 
             callback(new NewWordSignal("word"));
-
+            
             wordObserver.Received().OnNext("w o r d");
+        }
+        
+        [Test]
+        public void WhenCallToDispose_UnsubscribeFromEventDispatch()
+        {
+            var inGamePresenter = new InGamePresenter(_inGameViewModel, _eventDispatcherService);
+
+            _eventDispatcherService.ClearReceivedCalls();
+            inGamePresenter.Dispose();
+            
+            _eventDispatcherService.Received(1).Unsubscribe<NewWordSignal>(Arg.Any<SignalDelegate>());
+            _eventDispatcherService.Received(1).Unsubscribe<GuessResultSignal>(Arg.Any<SignalDelegate>());
+            _eventDispatcherService.Received(1).Unsubscribe<WordCompletedSignal>(Arg.Any<SignalDelegate>());
+            _eventDispatcherService.Received(1).Unsubscribe<RestartGameSignal>(Arg.Any<SignalDelegate>());
+            _eventDispatcherService.Received(1).Unsubscribe<GameOverSignal>(Arg.Any<SignalDelegate>());
+            Assert.AreEqual(5, _eventDispatcherService.ReceivedCalls().Count());
         }
 
         [Test]

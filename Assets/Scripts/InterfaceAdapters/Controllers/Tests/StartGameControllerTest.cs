@@ -7,14 +7,14 @@ namespace InterfaceAdapters.Controllers.Tests
     [TestFixture]
     public class StartGameControllerTest
     {
-        private StartGame _startGame;
+        private IStartGame _startGame;
         private MainMenuViewModel _mainMenuViewModel;
         private StartGameController _startGameController;
 
         [SetUp]
         public void SetUp()
         {
-            _startGame = Substitute.For<StartGame>();
+            _startGame = Substitute.For<IStartGame>();
             _mainMenuViewModel = new MainMenuViewModel();
             _startGameController = new StartGameController(_mainMenuViewModel, _startGame);
         }

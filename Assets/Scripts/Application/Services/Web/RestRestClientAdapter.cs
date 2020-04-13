@@ -7,12 +7,12 @@ using Domain.Services.Web;
 
 namespace Application.Services.Web
 {
-    public class RestRestClientAdapter : RestClient
+    public class RestRestClientAdapter : IRestClient
     {
         private readonly HttpClient _client;
-        private readonly JsonParser _jsonParser;
+        private readonly IJsonParser _jsonParser;
 
-        public RestRestClientAdapter(JsonParser jsonParser)
+        public RestRestClientAdapter(IJsonParser jsonParser)
         {
             _jsonParser = jsonParser;
             _client = new HttpClient();

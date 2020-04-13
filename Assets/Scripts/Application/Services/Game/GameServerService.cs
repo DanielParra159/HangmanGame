@@ -8,12 +8,12 @@ using Domain.Services.Web;
 
 namespace Application.Services.Game
 {
-    public partial class GameServerService : GameService
+    public partial class GameServerService : IGameService
     {
-        private readonly RestClient _restClient;
-        private readonly GameRepository _gameRepository;
+        private readonly IRestClient _restClient;
+        private readonly IGameRepository _gameRepository;
 
-        public GameServerService(RestClient restClient, GameRepository gameRepository)
+        public GameServerService(IRestClient restClient, IGameRepository gameRepository)
         {
             _restClient = restClient;
             _gameRepository = gameRepository;

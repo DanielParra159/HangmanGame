@@ -11,7 +11,7 @@ namespace InterfaceAdapters.Controllers.Tests
         public void WhenReceiveCommandOnRestartGamePressed_CallToRestart()
         {
             var inGameViewModel = new InGameViewModel();
-            var restartGame = Substitute.For<RestartGame>();
+            var restartGame = Substitute.For<IRestartGame>();
 
             var startGameController = new RestartGameController(inGameViewModel, restartGame);
             inGameViewModel.OnRestartGamePressed.Execute();

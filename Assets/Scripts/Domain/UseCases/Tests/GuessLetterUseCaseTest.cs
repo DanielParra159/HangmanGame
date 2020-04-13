@@ -16,20 +16,20 @@ namespace Domain.UseCases.Tests
     public class GuessLetterUseCaseTest
     {
         private GuessLetterUseCase _guessLetterUseCase;
-        private EventDispatcherService _eventDispatcherService;
-        private GameService _gameService;
-        private CheckSolution _checkSolution;
-        private GameRepository _gameRepository;
+        private IEventDispatcherService _eventDispatcherService;
+        private IGameService _gameService;
+        private ICheckSolution _checkSolution;
+        private IGameRepository _gameRepository;
 
         [SetUp]
         public void SetUp()
         {
-            _gameService = Substitute.For<GameService>();
-            _checkSolution = Substitute.For<CheckSolution>();
-            _gameRepository = Substitute.For<GameRepository>();
+            _gameService = Substitute.For<IGameService>();
+            _checkSolution = Substitute.For<ICheckSolution>();
+            _gameRepository = Substitute.For<IGameRepository>();
             _gameService.GuessLetter(Arg.Any<char>()).Returns(info =>
                 new Tuple<Guess, Token>(GuessFactory.GetGuess, TokenFactory.GetToken));
-            _eventDispatcherService = Substitute.For<EventDispatcherService>();
+            _eventDispatcherService = Substitute.For<IEventDispatcherService>();
             _guessLetterUseCase =
                 new GuessLetterUseCase(_checkSolution, _gameRepository, _gameService, _eventDispatcherService);
         }

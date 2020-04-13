@@ -5,7 +5,7 @@ using NUnit.Framework;
 
 namespace Application.Services.Tests.EventDispatcher
 {
-    public class TestSignal : Signal
+    public class TestSignal : ISignal
     {
         public readonly string SomeData;
 
@@ -15,7 +15,7 @@ namespace Application.Services.Tests.EventDispatcher
         }
     }
 
-    public class TestSignal2 : Signal
+    public class TestSignal2 : ISignal
     {
         public readonly int SomeData;
 
@@ -30,7 +30,7 @@ namespace Application.Services.Tests.EventDispatcher
         [Test]
         public void WhenCallbackIsSubscribedAndPerformCall_CallToTheCallback()
         {
-            var eventDispatcher = new EventDispatcherServiceImpl();
+            var eventDispatcher = new EventDispatcherService();
             var callback1 = Substitute.For<SignalDelegate>();
             eventDispatcher.Subscribe<TestSignal>(callback1);
 
@@ -43,7 +43,7 @@ namespace Application.Services.Tests.EventDispatcher
         [Test]
         public void WhenMultipleCallbacksAreSubscribedAndPerformCall_CallToTheCallbacks()
         {
-            var eventDispatcher = new EventDispatcherServiceImpl();
+            var eventDispatcher = new EventDispatcherService();
             var callback1 = Substitute.For<SignalDelegate>();
             var callback2 = Substitute.For<SignalDelegate>();
             eventDispatcher.Subscribe<TestSignal>(callback1);
@@ -59,7 +59,7 @@ namespace Application.Services.Tests.EventDispatcher
         [Test]
         public void WhenCallbacksIsUnsubscribedAndPerformCall_DoNotCallToTheCallback()
         {
-            var eventDispatcher = new EventDispatcherServiceImpl();
+            var eventDispatcher = new EventDispatcherService();
             var callback1 = Substitute.For<SignalDelegate>();
             var callback2 = Substitute.For<SignalDelegate>();
             eventDispatcher.Subscribe<TestSignal>(callback1);
@@ -76,7 +76,7 @@ namespace Application.Services.Tests.EventDispatcher
         [Test]
         public void WhenDifferentSignalsAreRegisteredAndPerformCallWithOne_OnlyCallToTheAssociateCallbacksOfThisSignal()
         {
-            var eventDispatcher = new EventDispatcherServiceImpl();
+            var eventDispatcher = new EventDispatcherService();
             var callback1 = Substitute.For<SignalDelegate>();
             var callback2 = Substitute.For<SignalDelegate>();
             eventDispatcher.Subscribe<TestSignal>(callback1);

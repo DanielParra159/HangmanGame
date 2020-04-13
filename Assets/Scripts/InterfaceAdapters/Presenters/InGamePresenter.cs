@@ -1,4 +1,5 @@
-﻿using Domain.Services.EventDispatcher;
+﻿using System;
+using Domain.Services.EventDispatcher;
 using Domain.UseCases.CheckLastWordIsCompleted;
 using Domain.UseCases.GuessLetter;
 using Domain.UseCases.RestartGame;
@@ -7,12 +8,12 @@ using InterfaceAdapters.Controllers;
 
 namespace InterfaceAdapters.Presenters
 {
-    public class InGamePresenter
+    public class InGamePresenter : IDisposable 
     {
-        private readonly EventDispatcherService _eventDispatcherService;
+        private readonly IEventDispatcherService _eventDispatcherService;
         private readonly InGameViewModel _viewModel;
 
-        public InGamePresenter(InGameViewModel viewModel, EventDispatcherService eventDispatcherService)
+        public InGamePresenter(InGameViewModel viewModel, IEventDispatcherService eventDispatcherService)
         {
             _viewModel = viewModel;
             _eventDispatcherService = eventDispatcherService;
@@ -22,13 +23,21 @@ namespace InterfaceAdapters.Presenters
             _eventDispatcherService.Subscribe<RestartGameSignal>(RestartGame);
             _eventDispatcherService.Subscribe<GameOverSignal>(GameOver);
         }
-
-        private void GameOver(Signal signal)
+        public void Dispose()
+        {
+            _eventDispatcherService.Unsubscribe<NewWordSignal>(NewWord);
+            _eventDispatcherService.Unsubscribe<GuessResultSignal>(GuessReceived);
+            _eventDispatcherService.Unsubscribe<WordCompletedSignal>(WordCompleted);
+            _eventDispatcherService.Unsubscribe<RestartGameSignal>(RestartGame);
+            _eventDispatcherService.Unsubscribe<GameOverSignal>(GameOver);
+        }
+        
+        private void GameOver(ISignal signal)
         {
             SetGameOverState(false);
         }
 
-        private void RestartGame(Signal signal)
+        private void RestartGame(ISignal signal)
         {
             _viewModel.IsEndGameVisible.Value = false;
             _viewModel.IsGameOverVisible.Value = false;
@@ -42,7 +51,7 @@ namespace InterfaceAdapters.Presenters
             ResetGallowState();
         }
 
-        private void WordCompleted(Signal signal)
+        private void WordCompleted(ISignal signal)
         {
             SetGameOverState(true);
         }
@@ -54,7 +63,7 @@ namespace InterfaceAdapters.Presenters
             _viewModel.IsGameOverVisible.Value = !victory;
         }
 
-        private void NewWord(Signal signal)
+        private void NewWord(ISignal signal)
         {
             // TODO: find a better way, without casting
             var newWord = ((NewWordSignal) signal).NewWord;
@@ -72,7 +81,7 @@ namespace InterfaceAdapters.Presenters
             _viewModel.NextGallowPartToShow = 0;
         }
 
-        private void GuessReceived(Signal signal)
+        private void GuessReceived(ISignal signal)
         {
             // TODO: find a better way, without casting
             var guessResultSignal = ((GuessResultSignal) signal);
@@ -112,5 +121,7 @@ namespace InterfaceAdapters.Presenters
         {
             return string.Join(" ", word.ToCharArray());
         }
+
+        
     }
 }

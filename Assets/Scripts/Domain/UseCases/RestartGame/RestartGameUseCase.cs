@@ -2,12 +2,12 @@ using Domain.Services.EventDispatcher;
 
 namespace Domain.UseCases.RestartGame
 {
-    public class RestartGameUseCase : RestartGame
+    public class RestartGameUseCase : IRestartGame
     {
-        private readonly StartGame.StartGame _startGame;
-        private readonly EventDispatcherService _eventDispatcherService;
+        private readonly StartGame.IStartGame _startGame;
+        private readonly IEventDispatcherService _eventDispatcherService;
 
-        public RestartGameUseCase(StartGame.StartGame startGame, EventDispatcherService eventDispatcherService)
+        public RestartGameUseCase(StartGame.IStartGame startGame, IEventDispatcherService eventDispatcherService)
         {
             _startGame = startGame;
             _eventDispatcherService = eventDispatcherService;

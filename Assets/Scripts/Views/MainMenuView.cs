@@ -7,15 +7,19 @@ namespace Views
 {
     public class MainMenuView : MonoBehaviour
     {
-        public Button StartGameButton;
-        private MainMenuViewModel _viewModel;
+        [SerializeField]
+        private Button _startGameButton;
+
+        public Button StartGameButton
+        {
+            get => _startGameButton;
+            set => _startGameButton = value;
+        }
 
         public void SetModel(MainMenuViewModel viewModel)
         {
-            _viewModel = viewModel;
-
-            _viewModel.OnStartGamePressed.BindTo(StartGameButton);
-            _viewModel.IsVisible.Subscribe(isVisible => gameObject.SetActive(isVisible));
+            viewModel.OnStartGamePressed.BindTo(_startGameButton);
+            viewModel.IsVisible.Subscribe(isVisible => gameObject.SetActive(isVisible));
         }
     }
 }

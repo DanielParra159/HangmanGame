@@ -11,7 +11,7 @@ namespace InterfaceAdapters.Controllers.Tests
         public void WhenReceiveCommandOnKeyPressedPressed_CallToGuessLetter()
         {
             var keyboardViewModel = new InGameViewModel();
-            var guessLetter = Substitute.For<GuessLetter>();
+            var guessLetter = Substitute.For<IGuessLetter>();
             var keyboardController = new KeyboardController(keyboardViewModel, guessLetter);
             
             keyboardViewModel.OnKeyPressedPressed.Execute("A");

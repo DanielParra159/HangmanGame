@@ -5,15 +5,9 @@ namespace InterfaceAdapters.Controllers
 {
     public class RestartGameController
     {
-        private readonly InGameViewModel _inGameViewModel;
-        private readonly RestartGame _restartGame;
-
-        public RestartGameController(InGameViewModel inGameViewModel, RestartGame restartGame)
+        public RestartGameController(InGameViewModel inGameViewModel, IRestartGame restartGame)
         {
-            _inGameViewModel = inGameViewModel;
-            _restartGame = restartGame;
-
-            _inGameViewModel.OnRestartGamePressed.Subscribe(_ => _restartGame.Restart());
+            inGameViewModel.OnRestartGamePressed.Subscribe(_ => restartGame.Restart());
         }
     }
 }

@@ -3081,7 +3081,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c033cf7db8ee4ce3a94ccc7d1d2bd7f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Buttons:
+  _buttons:
   - {fileID: 5307163942060700169}
   - {fileID: 8472178458241913680}
   - {fileID: 4546992620503614114}
@@ -5718,11 +5718,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8a95113eae54f11851fbb09431cd5d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentWordText: {fileID: 6078822567460166384}
-  VictoryImage: {fileID: 1053362703672269649}
-  RestartGameButton: {fileID: 8878892975674405906}
-  GameOverImage: {fileID: 6716903652688775871}
-  EndGameImage: {fileID: 7584249919318351277}
+  _currentWordText: {fileID: 6078822567460166384}
+  _victoryImage: {fileID: 1053362703672269649}
+  _restartGameButton: {fileID: 8878892975674405906}
+  _gameOverImage: {fileID: 6716903652688775871}
+  _endGameImage: {fileID: 7584249919318351277}
 --- !u!1 &7581926303658777571
 GameObject:
   m_ObjectHideFlags: 0
@@ -6177,7 +6177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65b3efece4c347fab02f539fcbd37758, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Images:
+  _images:
   - {fileID: 3542389554432356776}
   - {fileID: 4841744063956324590}
   - {fileID: 7045086695463883706}

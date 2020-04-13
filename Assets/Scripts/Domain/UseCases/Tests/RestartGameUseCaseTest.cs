@@ -8,15 +8,15 @@ namespace Domain.UseCases.Tests
     [TestFixture]
     public class RestartGameUseCaseTest
     {
-        private StartGame.StartGame _startGame;
-        private EventDispatcherService _eventDispatcherService;
+        private StartGame.IStartGame _startGame;
+        private IEventDispatcherService _eventDispatcherService;
         private RestartGameUseCase _restartGameUseCase;
 
         [SetUp]
         public void SetUo()
         {
-            _startGame = Substitute.For<StartGame.StartGame>();
-            _eventDispatcherService = Substitute.For<EventDispatcherService>();
+            _startGame = Substitute.For<StartGame.IStartGame>();
+            _eventDispatcherService = Substitute.For<IEventDispatcherService>();
             _restartGameUseCase = new RestartGameUseCase(_startGame, _eventDispatcherService);
         }
         

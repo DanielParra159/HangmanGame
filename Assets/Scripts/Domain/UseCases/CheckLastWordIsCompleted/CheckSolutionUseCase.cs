@@ -1,22 +1,20 @@
 using System;
-using Domain.Model.Game;
 using Domain.Repositories;
 using Domain.Services.EventDispatcher;
 using Domain.Services.Game;
-using UnityEngine;
 
 namespace Domain.UseCases.CheckLastWordIsCompleted
 {
-    public class CheckSolutionUseCase : CheckSolution
+    public class CheckSolutionUseCase : ICheckSolution
     {
-        private readonly EventDispatcherService _eventDispatcherService;
-        private readonly GameRepository _gameRepository;
-        private readonly GameService _gameService;
+        private readonly IEventDispatcherService _eventDispatcherService;
+        private readonly IGameRepository _gameRepository;
+        private readonly IGameService _gameService;
 
         public CheckSolutionUseCase(
-            GameService gameService, 
-            GameRepository gameRepository,
-            EventDispatcherService eventDispatcherService
+            IGameService gameService, 
+            IGameRepository gameRepository,
+            IEventDispatcherService eventDispatcherService
             )
         {
             _gameService = gameService;

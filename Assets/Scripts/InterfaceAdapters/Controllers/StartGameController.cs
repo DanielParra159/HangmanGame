@@ -5,17 +5,11 @@ namespace InterfaceAdapters.Controllers
 {
     public class StartGameController
     {
-        private readonly MainMenuViewModel _mainMenuViewModel;
-        private readonly StartGame _startGame;
-
-        public StartGameController(MainMenuViewModel mainMenuViewModel, StartGame startGame)
+        public StartGameController(MainMenuViewModel mainMenuViewModel, IStartGame startGame)
         {
-            _mainMenuViewModel = mainMenuViewModel;
-            _startGame = startGame;
-
-            _mainMenuViewModel
+            mainMenuViewModel
                 .OnStartGamePressed
-                .Subscribe(_ => _startGame.Start());
+                .Subscribe(_ => startGame.Start());
         }
     }
 }

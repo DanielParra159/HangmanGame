@@ -233,11 +233,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7009de9762d93b24abbd29257467dc79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainMenuViewPrefab: {fileID: 4200291969297541729, guid: cc6ad07567e478d4283acadf4709844d,
+  _mainMenuViewPrefab: {fileID: 4200291969297541729, guid: cc6ad07567e478d4283acadf4709844d,
     type: 3}
-  InGameViewPrefab: {fileID: 6855530190908319207, guid: f2e9c135f99b6194b8bda843496df485,
+  _inGameViewPrefab: {fileID: 6855530190908319207, guid: f2e9c135f99b6194b8bda843496df485,
     type: 3}
-  LoadingViewPrefab: {fileID: -1839141702487942370, guid: 27272902c14a89940ac91df89b9224d5,
+  _loadingViewPrefab: {fileID: -1839141702487942370, guid: 27272902c14a89940ac91df89b9224d5,
     type: 3}
 --- !u!4 &1604400637
 Transform:

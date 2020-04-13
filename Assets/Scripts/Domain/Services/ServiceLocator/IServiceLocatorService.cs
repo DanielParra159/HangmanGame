@@ -1,11 +1,11 @@
 namespace Domain.Services.ServiceLocator
 {
-    public interface ServiceLocatorService
+    public interface IServiceLocatorService
     {
         T Get<T>();
     }
     
-    public interface ServiceLocatorRegisterService
+    public interface IServiceLocatorRegisterService
     {
         void Register<T>(T service);
     }

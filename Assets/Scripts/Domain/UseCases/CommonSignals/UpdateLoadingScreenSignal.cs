@@ -2,7 +2,7 @@ using Domain.Services.EventDispatcher;
 
 namespace Domain.UseCases.CommonSignals
 {
-    public class UpdateLoadingScreenSignal : Signal
+    public class UpdateLoadingScreenSignal : ISignal
     {
         public readonly bool IsVisible;
 

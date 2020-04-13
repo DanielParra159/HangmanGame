@@ -7,15 +7,19 @@ namespace Views
 {
     public class GallowView : MonoBehaviour
     {
-        public Image[] Images;
-        private InGameViewModel _viewModel;
+        [SerializeField] private Image[] _images;
+
+        public Image[] Images
+        {
+            get => _images;
+            set => _images = value;
+        }
 
         public void SetModel(InGameViewModel keyboardViewModel)
         {
-            _viewModel = keyboardViewModel;
             foreach (var image in Images)
             {
-                _viewModel.SubscribeGallowImage().Subscribe(isVisible => image.enabled = isVisible);
+                keyboardViewModel.SubscribeGallowImage().Subscribe(isVisible => image.enabled = isVisible);
             }
         }
     }

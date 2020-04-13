@@ -2,7 +2,7 @@
 
 namespace Domain.Repositories
 {
-    public interface GameRepository
+    public interface IGameRepository
     {
         Token GameToken { get; set; }
         Word Word { get; set; }

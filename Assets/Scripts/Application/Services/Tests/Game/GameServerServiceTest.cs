@@ -12,17 +12,17 @@ namespace Application.Services.Tests.Game
 {
     public class GameServerServiceTest
     {
-        private GameRepository _gameRepository;
-        private RestClient _restClient;
+        private IGameRepository _gameRepository;
+        private IRestClient _restClient;
         private GameServerService _gameServerService;
 
         [SetUp]
         public void SetUp()
         {
-            _gameRepository = Substitute.For<GameRepository>();
+            _gameRepository = Substitute.For<IGameRepository>();
             _gameRepository.Word = WordFactory.GetWord;
             _gameRepository.GameToken = TokenFactory.GetToken;
-            _restClient = Substitute.For<RestClient>();
+            _restClient = Substitute.For<IRestClient>();
             _gameServerService = new GameServerService(_restClient, _gameRepository);
         }
 

@@ -7,22 +7,51 @@ namespace Views
 {
     public class InGameView : MonoBehaviour
     {
-        public Text CurrentWordText;
-        public Image VictoryImage;
-        public Button RestartGameButton;
-        public Image GameOverImage;
-        public GameObject EndGameImage;
-        private InGameViewModel _inGameViewModel;
+        [SerializeField] private Text _currentWordText;
+        [SerializeField] private Image _victoryImage;
+        [SerializeField] private Button _restartGameButton;
+        [SerializeField] private Image _gameOverImage;
+        [SerializeField] private GameObject _endGameImage;
+
+
+        public Text CurrentWordText
+        {
+            get => _currentWordText;
+            set => _currentWordText = value;
+        }
+
+        public Image VictoryImage
+        {
+            get => _victoryImage;
+            set => _victoryImage = value;
+        }
+
+        public Button RestartGameButton
+        {
+            get => _restartGameButton;
+            set => _restartGameButton = value;
+        }
+
+        public Image GameOverImage
+        {
+            get => _gameOverImage;
+            set => _gameOverImage = value;
+        }
+
+        public GameObject EndGameImage
+        {
+            get => _endGameImage;
+            set => _endGameImage = value;
+        }
 
         public void SetModel(InGameViewModel inGameViewModel)
         {
-            _inGameViewModel = inGameViewModel;
-            _inGameViewModel.CurrentWord.Subscribe(word => CurrentWordText.text = word);
-            _inGameViewModel.IsVisible.Subscribe(isVisible => gameObject.SetActive(isVisible));
-            _inGameViewModel.IsVictoryVisible.Subscribe(isVisible => VictoryImage.gameObject.SetActive(isVisible));
-            _inGameViewModel.IsGameOverVisible.Subscribe(isVisible => GameOverImage.gameObject.SetActive(isVisible));
-            _inGameViewModel.IsEndGameVisible.Subscribe(isVisible => EndGameImage.gameObject.SetActive(isVisible));
-            _inGameViewModel.OnRestartGamePressed.BindTo(RestartGameButton);
+            inGameViewModel.CurrentWord.Subscribe(word => _currentWordText.text = word);
+            inGameViewModel.IsVisible.Subscribe(isVisible => gameObject.SetActive(isVisible));
+            inGameViewModel.IsVictoryVisible.Subscribe(isVisible => _victoryImage.gameObject.SetActive(isVisible));
+            inGameViewModel.IsGameOverVisible.Subscribe(isVisible => _gameOverImage.gameObject.SetActive(isVisible));
+            inGameViewModel.IsEndGameVisible.Subscribe(isVisible => _endGameImage.gameObject.SetActive(isVisible));
+            inGameViewModel.OnRestartGamePressed.BindTo(_restartGameButton);
         }
     }
 }

@@ -4,16 +4,16 @@ using Domain.Services.EventDispatcher;
 
 namespace Application.Services.EventDispatcher
 {
-    public class EventDispatcherServiceImpl : EventDispatcherService
+    public class EventDispatcherService : IEventDispatcherService
     {
         private readonly Dictionary<Type, SignalDelegate> _events;
 
-        public EventDispatcherServiceImpl()
+        public EventDispatcherService()
         {
             _events = new Dictionary<Type, SignalDelegate>();
         }
 
-        public void Subscribe<T>(SignalDelegate callback) where T : Signal
+        public void Subscribe<T>(SignalDelegate callback) where T : ISignal
         {
             var type = typeof(T);
             if (!_events.ContainsKey(type))
@@ -24,7 +24,7 @@ namespace Application.Services.EventDispatcher
             _events[type] += callback;
         }
 
-        public void Unsubscribe<T>(SignalDelegate callback) where T : Signal
+        public void Unsubscribe<T>(SignalDelegate callback) where T : ISignal
         {
             var type = typeof(T);
             if (_events.ContainsKey(type))
@@ -33,7 +33,7 @@ namespace Application.Services.EventDispatcher
             }
         }
 
-        public void Dispatch<T>(T signal) where T : Signal
+        public void Dispatch<T>(T signal) where T : ISignal
         {
             var type = typeof(T);
             if (_events.ContainsKey(type))
