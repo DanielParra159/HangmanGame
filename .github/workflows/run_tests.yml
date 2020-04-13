@@ -27,7 +27,7 @@ jobs:
       - name: Run tests
         uses: webbertakken/unity-test-runner@v1.3
         with:
-          unityVersion: 2019.3.8f1
+          unityVersion: 2019.3.0f1
           customParameters: -enableCodeCoverage -coverageOptions enableCyclomaticComplexity;generateHtmlReport;generateBadgeReport;assemblyFilters:+*Hangman.*,-Tests*
 
       - name: SonarQube analysis
