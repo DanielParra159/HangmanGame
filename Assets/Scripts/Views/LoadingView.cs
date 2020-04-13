@@ -6,17 +6,21 @@ namespace Views
 {
     public class LoadingView : MonoBehaviour
     {
-        public CanvasGroup CanvasGroup;
-        private LoadingViewModel _loadingViewModel;
-        
+        [SerializeField] private CanvasGroup _canvasGroup;
+
+        public CanvasGroup CanvasGroup
+        {
+            get => _canvasGroup;
+            set => _canvasGroup = value;
+        }
+
         public void SetModel(LoadingViewModel loadingViewModel)
         {
-            _loadingViewModel = loadingViewModel;
-            _loadingViewModel.IsVisible.Subscribe(isVisible =>
+            loadingViewModel.IsVisible.Subscribe(isVisible =>
             {
-                CanvasGroup.alpha = isVisible ? 1 : 0;
-                CanvasGroup.interactable = isVisible;
-                CanvasGroup.blocksRaycasts = isVisible;
+                _canvasGroup.alpha = isVisible ? 1 : 0;
+                _canvasGroup.interactable = isVisible;
+                _canvasGroup.blocksRaycasts = isVisible;
             });
         }
     }
