@@ -46,7 +46,6 @@ jobs:
           projectKey: DanielParra159_HangmanGame
           projectName: HangmanGame
           sonarOrganisation: danielparra159
-          unityVersion: 2019.3.8f1
           beginArguments: /d:sonar.verbose="true"
           solution: /github/workspace/workspace.sln
         env:
