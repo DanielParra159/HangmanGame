@@ -7,7 +7,7 @@ namespace Views
 {
     public class GallowView : MonoBehaviour
     {
-        [SerializeField] public Image[] _images;
+        [SerializeField] private Image[] _images;
 
         public Image[] Images
         {

@@ -1,9 +1,7 @@
 using System;
-using Domain.Model.Game;
 using Domain.Repositories;
 using Domain.Services.EventDispatcher;
 using Domain.Services.Game;
-using UnityEngine;
 
 namespace Domain.UseCases.CheckLastWordIsCompleted
 {

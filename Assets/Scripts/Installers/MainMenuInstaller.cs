@@ -1,11 +1,8 @@
-﻿using System;
-using Application.Services;
-using Application.Services.EventDispatcher;
+﻿using Application.Services.EventDispatcher;
 using Application.Services.Game;
 using Application.Services.Parsers;
 using Application.Services.Repositories;
 using Application.Services.Web;
-using Domain.Repositories;
 using Domain.UseCases.CheckLastWordIsCompleted;
 using Domain.UseCases.GuessLetter;
 using Domain.UseCases.RestartGame;
@@ -19,9 +16,9 @@ namespace Installers
 {
     public class MainMenuInstaller : MonoBehaviour
     {
-        public MainMenuView MainMenuViewPrefab;
-        public InGameView InGameViewPrefab;
-        public LoadingView LoadingViewPrefab;
+        [SerializeField] private MainMenuView _mainMenuViewPrefab;
+        [SerializeField] private InGameView _inGameViewPrefab;
+        [SerializeField] private LoadingView _loadingViewPrefab;
 
         private void Start()
         {
@@ -40,7 +37,8 @@ namespace Installers
             );
             var eventDispatcherService = new EventDispatcherService();
             var startGameUseCase =
-                new StartGameUseCase(gameServerService, gameRepository, new ConfigurationGameRepository(), eventDispatcherService);
+                new StartGameUseCase(gameServerService, gameRepository, new ConfigurationGameRepository(),
+                    eventDispatcherService);
             var startGameController = new StartGameController(mainMenuViewModel,
                 startGameUseCase
             );
@@ -71,10 +69,10 @@ namespace Installers
             LoadingViewModel loadingViewModel
         )
         {
-            var mainMenuViewInstance = Instantiate(MainMenuViewPrefab); // TODO: extract to a service
+            var mainMenuViewInstance = Instantiate(_mainMenuViewPrefab); // TODO: extract to a service
             mainMenuViewInstance.SetModel(mainMenuViewModel);
 
-            var inGameViewInstance = Instantiate(InGameViewPrefab); // TODO: extract to a service
+            var inGameViewInstance = Instantiate(_inGameViewPrefab); // TODO: extract to a service
 
             inGameViewInstance.SetModel(inGameViewModel);
             inGameViewInstance
@@ -84,7 +82,7 @@ namespace Installers
                 .GetComponentInChildren<GallowView>()
                 .SetModel(inGameViewModel); // TODO: consider move this responsability to the parent view
 
-            var loadingViewInstance = Instantiate(LoadingViewPrefab); // TODO: extract to a service
+            var loadingViewInstance = Instantiate(_loadingViewPrefab); // TODO: extract to a service
             loadingViewInstance.SetModel(loadingViewModel);
         }
     }
