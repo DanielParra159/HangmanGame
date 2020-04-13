@@ -41,7 +41,7 @@ jobs:
          
       - name: SonarQube analysis
         if: always()
-        uses: MirrorNG/unity-runner@2.0.0
+        uses: MirrorNG/unity-sonarscanner@1.0.1
         with:
           projectKey: DanielParra159_HangmanGame
           projectName: HangmanGame
