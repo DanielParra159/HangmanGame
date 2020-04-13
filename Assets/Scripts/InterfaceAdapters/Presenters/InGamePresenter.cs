@@ -1,4 +1,5 @@
-﻿using Domain.Services.EventDispatcher;
+﻿using System;
+using Domain.Services.EventDispatcher;
 using Domain.UseCases.CheckLastWordIsCompleted;
 using Domain.UseCases.GuessLetter;
 using Domain.UseCases.RestartGame;
@@ -7,7 +8,7 @@ using InterfaceAdapters.Controllers;
 
 namespace InterfaceAdapters.Presenters
 {
-    public class InGamePresenter
+    public class InGamePresenter : IDisposable 
     {
         private readonly IEventDispatcherService _eventDispatcherService;
         private readonly InGameViewModel _viewModel;
@@ -22,7 +23,15 @@ namespace InterfaceAdapters.Presenters
             _eventDispatcherService.Subscribe<RestartGameSignal>(RestartGame);
             _eventDispatcherService.Subscribe<GameOverSignal>(GameOver);
         }
-
+        public void Dispose()
+        {
+            _eventDispatcherService.Unsubscribe<NewWordSignal>(NewWord);
+            _eventDispatcherService.Unsubscribe<GuessResultSignal>(GuessReceived);
+            _eventDispatcherService.Unsubscribe<WordCompletedSignal>(WordCompleted);
+            _eventDispatcherService.Unsubscribe<RestartGameSignal>(RestartGame);
+            _eventDispatcherService.Unsubscribe<GameOverSignal>(GameOver);
+        }
+        
         private void GameOver(ISignal signal)
         {
             SetGameOverState(false);
@@ -112,5 +121,7 @@ namespace InterfaceAdapters.Presenters
         {
             return string.Join(" ", word.ToCharArray());
         }
+
+        
     }
 }
