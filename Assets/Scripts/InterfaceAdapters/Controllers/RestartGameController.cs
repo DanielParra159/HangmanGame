@@ -6,9 +6,9 @@ namespace InterfaceAdapters.Controllers
     public class RestartGameController
     {
         private readonly InGameViewModel _inGameViewModel;
-        private readonly RestartGame _restartGame;
+        private readonly IRestartGame _restartGame;
 
-        public RestartGameController(InGameViewModel inGameViewModel, RestartGame restartGame)
+        public RestartGameController(InGameViewModel inGameViewModel, IRestartGame restartGame)
         {
             _inGameViewModel = inGameViewModel;
             _restartGame = restartGame;

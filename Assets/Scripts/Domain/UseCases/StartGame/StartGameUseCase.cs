@@ -7,18 +7,18 @@ using Domain.UseCases.CommonSignals;
 
 namespace Domain.UseCases.StartGame
 {
-    public class StartGameUseCase : StartGame
+    public class StartGameUseCase : IStartGame
     {
-        private readonly GameService _gameService;
-        private readonly EventDispatcherService _eventDispatcherService;
-        private readonly GameRepository _gameRepository;
-        private readonly ConfigurationGameRepository _configurationGameRepository;
+        private readonly IGameService _gameService;
+        private readonly IEventDispatcherService _eventDispatcherService;
+        private readonly IGameRepository _gameRepository;
+        private readonly IConfigurationGameRepository _configurationGameRepository;
 
         public StartGameUseCase(
-            GameService gameService,
-            GameRepository gameRepository,
-            ConfigurationGameRepository configurationGameRepository,
-            EventDispatcherService eventDispatcherService
+            IGameService gameService,
+            IGameRepository gameRepository,
+            IConfigurationGameRepository configurationGameRepository,
+            IEventDispatcherService eventDispatcherService
         )
         {
             _gameService = gameService;

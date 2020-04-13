@@ -14,7 +14,7 @@ namespace InterfaceAdapters.Presenters.Tests
         public void WhenDispatchUpdateLoadingScreenSignal_UpdateTheViewModel()
         {
             var loadingViewModel = Substitute.For<LoadingViewModel>();
-            var eventDispatcherService = Substitute.For<EventDispatcherService>();
+            var eventDispatcherService = Substitute.For<IEventDispatcherService>();
             SignalDelegate callback = null;
             eventDispatcherService
                 .When(service => service.Subscribe<UpdateLoadingScreenSignal>(Arg.Any<SignalDelegate>()))

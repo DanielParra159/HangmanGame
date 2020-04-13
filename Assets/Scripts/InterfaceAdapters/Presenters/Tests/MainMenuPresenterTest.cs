@@ -13,7 +13,7 @@ namespace InterfaceAdapters.Presenters.Tests
         public void WhenDispatchNewWordSignal_UpdateTheViewModel()
         {
             var mainMenuViewModel = Substitute.For<MainMenuViewModel>();
-            var eventDispatcherService = Substitute.For<EventDispatcherService>();
+            var eventDispatcherService = Substitute.For<IEventDispatcherService>();
             SignalDelegate callback = null;
             eventDispatcherService
                 .When(service => service.Subscribe<NewWordSignal>(Arg.Any<SignalDelegate>()))

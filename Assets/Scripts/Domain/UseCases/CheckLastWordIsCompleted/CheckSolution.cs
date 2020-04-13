@@ -1,6 +1,6 @@
 namespace Domain.UseCases.CheckLastWordIsCompleted
 {
-    public interface CheckSolution
+    public interface ICheckSolution
     {
         void Check();
     }

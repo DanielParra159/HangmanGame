@@ -1,8 +1,8 @@
 namespace Domain.Services.EventDispatcher
 {
-    public delegate void SignalDelegate(Signal signal);
+    public delegate void SignalDelegate(ISignal signal);
 
-    public interface Signal
+    public interface ISignal
     {
         
     }

@@ -7,9 +7,9 @@ namespace InterfaceAdapters.Controllers
     public class KeyboardController
     {
         private readonly InGameViewModel _viewModel;
-        private readonly GuessLetter _guessLetter;
+        private readonly IGuessLetter _guessLetter;
 
-        public KeyboardController(InGameViewModel viewModel, GuessLetter guessLetter)
+        public KeyboardController(InGameViewModel viewModel, IGuessLetter guessLetter)
         {
             _viewModel = viewModel;
             _guessLetter = guessLetter;

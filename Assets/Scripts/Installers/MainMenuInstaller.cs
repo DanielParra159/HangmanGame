@@ -32,15 +32,15 @@ namespace Installers
             InstantiateViews(mainMenuViewModel, inGameViewModel, loadingViewModel);
 
             // TODO: these services should be unique, instantiate it in a previous step
-            var gameRepository = new GameRepositoryImpl();
+            var gameRepository = new GameRepository();
             var gameServerService = new GameServerService
             (
                 new RestRestClientAdapter(new JsonUtilityAdapter()),
                 gameRepository
             );
-            var eventDispatcherService = new EventDispatcherServiceImpl();
+            var eventDispatcherService = new EventDispatcherService();
             var startGameUseCase =
-                new StartGameUseCase(gameServerService, gameRepository, new ConfigurationGameRepositoryImpl(), eventDispatcherService);
+                new StartGameUseCase(gameServerService, gameRepository, new ConfigurationGameRepository(), eventDispatcherService);
             var startGameController = new StartGameController(mainMenuViewModel,
                 startGameUseCase
             );

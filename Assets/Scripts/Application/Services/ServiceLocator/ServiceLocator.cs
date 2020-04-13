@@ -4,11 +4,11 @@ using Domain.Services.ServiceLocator;
 
 namespace Application.Services.ServiceLocator
 {
-    public class ServiceLocatorImpl : ServiceLocatorService, ServiceLocatorRegisterService
+    public class ServiceLocator : IServiceLocatorService, IServiceLocatorRegisterService
     {
         private readonly Dictionary<Type, object> _services;
 
-        public ServiceLocatorImpl()
+        public ServiceLocator()
         {
             _services = new Dictionary<Type, object>();
         }

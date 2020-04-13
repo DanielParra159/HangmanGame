@@ -2,7 +2,7 @@ using Domain.Services.EventDispatcher;
 
 namespace Domain.UseCases.GuessLetter
 {
-    public class GuessResultSignal : Signal
+    public class GuessResultSignal : ISignal
     {
         public readonly string Guess;
         public readonly string CurrentWord;

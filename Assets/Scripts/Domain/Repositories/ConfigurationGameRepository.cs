@@ -1,6 +1,6 @@
 namespace Domain.Repositories
 {
-    public interface ConfigurationGameRepository
+    public interface IConfigurationGameRepository
     {
         int StartLives { get; }
     }

@@ -4,7 +4,7 @@ using Domain.Model.Game;
 
 namespace Domain.Services.Game
 {
-    public interface GameService
+    public interface IGameService
     {
         Task<Tuple<Word, Token>> StartNewGame();
         Task<Tuple<Guess, Token>> GuessLetter(char letter);

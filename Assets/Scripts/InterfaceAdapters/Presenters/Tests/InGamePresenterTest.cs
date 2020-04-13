@@ -14,7 +14,7 @@ namespace InterfaceAdapters.Presenters.Tests
     public class InGamePresenterTest
     {
         private InGameViewModel _inGameViewModel;
-        private EventDispatcherService _eventDispatcherService;
+        private IEventDispatcherService _eventDispatcherService;
         private IObserver<string> _colorObserver;
         private InGameViewModel.KeyButtonViewModel _keyButtonViewModel;
         private IObserver<bool> _isKetEnabledObserver;
@@ -33,7 +33,7 @@ namespace InterfaceAdapters.Presenters.Tests
             _keyButtonViewModel.IsEnabled.Subscribe(_isKetEnabledObserver);
 
 
-            _eventDispatcherService = Substitute.For<EventDispatcherService>();
+            _eventDispatcherService = Substitute.For<IEventDispatcherService>();
         }
 
         [Test]

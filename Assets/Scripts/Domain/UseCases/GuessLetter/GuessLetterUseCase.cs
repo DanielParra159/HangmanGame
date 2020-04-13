@@ -9,18 +9,18 @@ using Domain.UseCases.CommonSignals;
 
 namespace Domain.UseCases.GuessLetter
 {
-    public class GuessLetterUseCase : GuessLetter
+    public class GuessLetterUseCase : IGuessLetter
     {
-        private readonly CheckSolution _checkSolution;
-        private readonly GameService _gameService;
-        private readonly EventDispatcherService _eventDispatcherService;
-        private readonly GameRepository _gameRepository;
+        private readonly ICheckSolution _checkSolution;
+        private readonly IGameService _gameService;
+        private readonly IEventDispatcherService _eventDispatcherService;
+        private readonly IGameRepository _gameRepository;
 
         public GuessLetterUseCase(
-            CheckSolution checkSolution,
-            GameRepository gameRepository,
-            GameService gameService,
-            EventDispatcherService eventDispatcherService
+            ICheckSolution checkSolution,
+            IGameRepository gameRepository,
+            IGameService gameService,
+            IEventDispatcherService eventDispatcherService
         )
         {
             _checkSolution = checkSolution;

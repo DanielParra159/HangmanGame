@@ -10,7 +10,7 @@ namespace Domain.Services.Web
     {
     }
 
-    public interface RestClient
+    public interface IRestClient
     {
         Task<TResponse> Post<TRequest, TResponse>(string url, TRequest request)
             where TRequest : Request where TResponse : Response;

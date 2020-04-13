@@ -13,25 +13,25 @@ namespace Domain.UseCases.Tests
 {
     public class StartGameUseCaseTest
     {
-        private GameService _gameService;
-        private EventDispatcherService _eventDispatcherService;
+        private IGameService _gameService;
+        private IEventDispatcherService _eventDispatcherService;
         private StartGameUseCase _startGameUseCase;
-        private GameRepository _gameRepository;
-        private ConfigurationGameRepository _configurationGameRepository;
+        private IGameRepository _gameRepository;
+        private IConfigurationGameRepository _configurationGameRepository;
 
         [SetUp]
         public void SetUp()
         {
-            _gameService = Substitute.For<GameService>();
-            _gameRepository = Substitute.For<GameRepository>();
-            _configurationGameRepository = Substitute.For<ConfigurationGameRepository>();
+            _gameService = Substitute.For<IGameService>();
+            _gameRepository = Substitute.For<IGameRepository>();
+            _configurationGameRepository = Substitute.For<IConfigurationGameRepository>();
             _gameService.StartNewGame().Returns(info =>
                 new Tuple<Word, Token>
                 (
                     WordFactory.GetWord,
                     TokenFactory.GetToken
                 ));
-            _eventDispatcherService = Substitute.For<EventDispatcherService>();
+            _eventDispatcherService = Substitute.For<IEventDispatcherService>();
             _startGameUseCase = new StartGameUseCase(
                 _gameService,
                 _gameRepository,

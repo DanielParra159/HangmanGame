@@ -16,9 +16,9 @@ namespace Domain.UseCases.Tests
         [Test]
         public void WhenCallToCheckAndIsComplete_CallToServerToCheckIt()
         {
-            var eventDispatcherService = Substitute.For<EventDispatcherService>();
-            var gameRepository = Substitute.For<GameRepository>();
-            var gameService = Substitute.For<GameService>();
+            var eventDispatcherService = Substitute.For<IEventDispatcherService>();
+            var gameRepository = Substitute.For<IGameRepository>();
+            var gameService = Substitute.For<IGameService>();
             gameService.GetSolution().Returns(info =>
                 new Tuple<Word, Token>
                 (
@@ -37,9 +37,9 @@ namespace Domain.UseCases.Tests
         [Test]
         public void WhenCallToCheckAndIsNotComplete_DoNotCallToServerToCheckIt()
         {
-            var eventDispatcherService = Substitute.For<EventDispatcherService>();
-            var gameRepository = Substitute.For<GameRepository>();
-            var gameService = Substitute.For<GameService>();
+            var eventDispatcherService = Substitute.For<IEventDispatcherService>();
+            var gameRepository = Substitute.For<IGameRepository>();
+            var gameService = Substitute.For<IGameService>();
             var word = WordFactory.GetWord.WithValue("wor_");
             gameRepository.Word.Returns(word);
             gameRepository.LastGuess.Returns(new Guess(word, true));
@@ -54,9 +54,9 @@ namespace Domain.UseCases.Tests
         [Test]
         public void WhenCallToCheckAndLastGuessWasCorrect_DoNotRemoveLive()
         {
-            var eventDispatcherService = Substitute.For<EventDispatcherService>();
-            var gameRepository = Substitute.For<GameRepository>();
-            var gameService = Substitute.For<GameService>();
+            var eventDispatcherService = Substitute.For<IEventDispatcherService>();
+            var gameRepository = Substitute.For<IGameRepository>();
+            var gameService = Substitute.For<IGameService>();
             gameRepository.RemainingLives = 2;
             gameRepository.ClearReceivedCalls();
             var word = WordFactory.GetWord.WithValue("wor_");
@@ -73,9 +73,9 @@ namespace Domain.UseCases.Tests
         [Test]
         public void WhenCallToCheckAndLastGuessWasNotCorrect_RemoveOneLive()
         {
-            var eventDispatcherService = Substitute.For<EventDispatcherService>();
-            var gameRepository = Substitute.For<GameRepository>();
-            var gameService = Substitute.For<GameService>();
+            var eventDispatcherService = Substitute.For<IEventDispatcherService>();
+            var gameRepository = Substitute.For<IGameRepository>();
+            var gameService = Substitute.For<IGameService>();
             gameRepository.RemainingLives = 2;
             var word = WordFactory.GetWord.WithValue("wor_");
             gameRepository.Word.Returns(word);
@@ -94,9 +94,9 @@ namespace Domain.UseCases.Tests
         [Test]
         public void WhenCallToCheckLastGuessWasNotCorrectAndLivesAreOne_RemoveOneLiveAndDispatchGameOverSignal()
         {
-            var eventDispatcherService = Substitute.For<EventDispatcherService>();
-            var gameRepository = Substitute.For<GameRepository>();
-            var gameService = Substitute.For<GameService>();
+            var eventDispatcherService = Substitute.For<IEventDispatcherService>();
+            var gameRepository = Substitute.For<IGameRepository>();
+            var gameService = Substitute.For<IGameService>();
             gameRepository.RemainingLives = 1;
             var word = WordFactory.GetWord.WithValue("wor_");
             gameRepository.Word.Returns(word);
@@ -115,9 +115,9 @@ namespace Domain.UseCases.Tests
         [Test]
         public void WhenCallToCheckAndIsComplete_DispatchASignal()
         {
-            var eventDispatcherService = Substitute.For<EventDispatcherService>();
-            var gameRepository = Substitute.For<GameRepository>();
-            var gameService = Substitute.For<GameService>();
+            var eventDispatcherService = Substitute.For<IEventDispatcherService>();
+            var gameRepository = Substitute.For<IGameRepository>();
+            var gameService = Substitute.For<IGameService>();
             gameService.GetSolution().Returns(info =>
                 new Tuple<Word, Token>
                 (
@@ -138,9 +138,9 @@ namespace Domain.UseCases.Tests
         [Test]
         public void WhenCallToCheckAndServerReturnsIsNotComplete_DoNotDispatchASignal()
         {
-            var eventDispatcherService = Substitute.For<EventDispatcherService>();
-            var gameRepository = Substitute.For<GameRepository>();
-            var gameService = Substitute.For<GameService>();
+            var eventDispatcherService = Substitute.For<IEventDispatcherService>();
+            var gameRepository = Substitute.For<IGameRepository>();
+            var gameService = Substitute.For<IGameService>();
             gameService.GetSolution().Returns(info =>
                 new Tuple<Word, Token>
                 (
@@ -161,9 +161,9 @@ namespace Domain.UseCases.Tests
         [Test]
         public void WhenCallToCheck_UpdateGameRepo()
         {
-            var eventDispatcherService = Substitute.For<EventDispatcherService>();
-            var gameRepository = Substitute.For<GameRepository>();
-            var gameService = Substitute.For<GameService>();
+            var eventDispatcherService = Substitute.For<IEventDispatcherService>();
+            var gameRepository = Substitute.For<IGameRepository>();
+            var gameService = Substitute.For<IGameService>();
             var expectedWord = WordFactory.GetWord.WithValue("word");
             var expectedToken = TokenFactory.GetToken.WithValue("token");
 

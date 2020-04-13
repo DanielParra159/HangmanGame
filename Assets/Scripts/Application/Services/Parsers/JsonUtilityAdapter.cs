@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Application.Services.Parsers
 {
-    public class JsonUtilityAdapter : JsonParser
+    public class JsonUtilityAdapter : IJsonParser
     {
         public string ToJson<T>(T data)
         {

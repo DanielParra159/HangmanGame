@@ -6,9 +6,9 @@ namespace InterfaceAdapters.Controllers
     public class StartGameController
     {
         private readonly MainMenuViewModel _mainMenuViewModel;
-        private readonly StartGame _startGame;
+        private readonly IStartGame _startGame;
 
-        public StartGameController(MainMenuViewModel mainMenuViewModel, StartGame startGame)
+        public StartGameController(MainMenuViewModel mainMenuViewModel, IStartGame startGame)
         {
             _mainMenuViewModel = mainMenuViewModel;
             _startGame = startGame;
