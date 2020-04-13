@@ -2,14 +2,6 @@
 
 namespace Domain.Services.Web
 {
-    public class Request
-    {
-    }
-
-    public class Response
-    {
-    }
-
     public interface IRestClient
     {
         Task<TResponse> Post<TRequest, TResponse>(string url, TRequest request)
