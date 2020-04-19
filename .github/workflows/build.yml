@@ -21,6 +21,9 @@ jobs:
           - StandaloneWindows64
           - Android
     steps:
+      - name: Create artifact dir
+        run: |
+          mkdir -p artifacts
       - uses: actions/checkout@v2
         with:
           lfs: true
